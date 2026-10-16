@@ -1,0 +1,99 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { PageHero } from "@/components/ui/PageHero";
+import { Reveal } from "@/components/ui/Reveal";
+import { PillButton } from "@/components/ui/PillButton";
+import { getTrack, tracks } from "@/content/tracks";
+import { site } from "@/content/site";
+
+export const dynamicParams = false;
+export const generateStaticParams = () => tracks.map((t) => ({ slug: t.slug }));
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const t = getTrack((await params).slug);
+  return t ? { title: `${t.short}: ${t.title}`, description: t.description.slice(0, 160) } : {};
+}
+
+export default async function TrackPage({ params }: { params: Promise<{ slug: string }> }) {
+  const t = getTrack((await params).slug);
+  if (!t) notFound();
+  const idx = tracks.indexOf(t);
+  const prev = tracks[(idx + tracks.length - 1) % tracks.length];
+  const next = tracks[(idx + 1) % tracks.length];
+
+  return (
+    <>
+      <PageHero
+        title={t.title}
+        emphasis={t.emphasis}
+        crumbs={[{ label: "Thematic Tracks", href: "/thematic-tracks/" }, { label: t.short }]}
+        intro={t.department}
+      />
+
+      <section className="wrap grid items-start gap-[clamp(32px,5vw,96px)] pb-[clamp(64px,8vw,130px)] lg:grid-cols-[1fr_0.85fr]">
+        <Reveal className="space-y-8">
+          <p className="fade-up text-[clamp(18px,1.4vw,25px)] leading-[1.55] text-navy/85">{t.description}</p>
+          <div className="fade-up">
+            <PillButton href={site.portals.submission} variant="signal">Submit to this track</PillButton>
+          </div>
+        </Reveal>
+        <Reveal className="lg:sticky lg:top-[calc(var(--header-h)+24px)]">
+          <div className="fade-up relative aspect-square overflow-hidden rounded-[var(--radius-l)] bg-navy">
+            <Image src={t.poster} alt={`${t.short} track poster`} fill priority sizes="(min-width:1024px) 40vw, 92vw" className="object-cover" />
+          </div>
+        </Reveal>
+      </section>
+
+      <section data-header="dark" className="glow-bottom relative overflow-hidden bg-navy py-[clamp(72px,9vw,150px)] text-white">
+        <div className="wrap">
+          <Reveal><h2 className="t-h2 fade-up mb-[clamp(32px,4vw,64px)]">Sub-<span className="em text-signal">tracks</span></h2></Reveal>
+          <ol className="grid gap-3 lg:grid-cols-3">
+            {t.subTracks.map((s) => (
+              <Reveal as="li" key={s.number} className="rounded-[var(--radius-l)] bg-white/[0.06] p-[clamp(24px,2.4vw,40px)] ring-1 ring-white/10">
+                <div className="fade-up flex h-full flex-col justify-between gap-12">
+                  <span className="text-[clamp(56px,6vw,96px)] leading-none font-semibold tracking-[-0.05em] text-signal">{String(s.number).padStart(2, "0")}</span>
+                  <h3 className="t-h3">{s.title}</h3>
+                </div>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="wrap py-[clamp(64px,8vw,130px)]">
+        <Reveal><h2 className="t-h2 fade-up mb-10">Topics of <span className="em">interest</span></h2></Reveal>
+        <div className="space-y-10">
+          {t.topics.map((g, gi) => (
+            <Reveal key={gi}>
+              {g.heading && <h3 className="fade-up mb-4 text-lg font-medium text-muted">{g.heading}</h3>}
+              <ul className="fade-up flex flex-wrap gap-2">
+                {g.items.map((it) => (
+                  <li key={it} className="rounded-full bg-white px-4 py-2.5 text-[15px] ring-1 ring-navy/10 transition hover:bg-signal hover:ring-signal">
+                    {it}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <nav aria-label="Other tracks" className="wrap grid gap-3 pb-[clamp(64px,8vw,130px)] sm:grid-cols-2">
+        {[{ t: prev, dir: "Previous" }, { t: next, dir: "Next" }].map(({ t: o, dir }) => (
+          <Link key={dir} href={`/thematic-tracks/${o.slug}/`} className={`group flex items-center gap-5 rounded-[var(--radius-m)] bg-white p-6 ring-1 ring-navy/5 transition hover:ring-signal ${dir === "Next" ? "sm:flex-row-reverse sm:text-right" : ""}`}>
+            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-gray transition group-hover:bg-signal">
+              {dir === "Next" ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
+            </span>
+            <span>
+              <span className="block text-sm text-muted">{dir} track</span>
+              <span className="block font-medium">{o.short}: {o.title}</span>
+            </span>
+          </Link>
+        ))}
+      </nav>
+    </>
+  );
+}

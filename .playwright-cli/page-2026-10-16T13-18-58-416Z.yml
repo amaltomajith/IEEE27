@@ -1,0 +1,168 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "IIC 2027 home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e7]:
+          - generic [ref=e9]: IIC
+          - generic [ref=e11]: "2027"
+      - generic [ref=e12]:
+        - link "Submit paper" [ref=e13] [cursor=pointer]:
+          - /url: https://script.google.com/macros/s/AKfycbxjsTYQNHrErSHJ5JqY_GcHQhBabrb_rNQDgtYk62odB-LdBNJBXdmaMbXuCEyKyWWE/exec
+          - generic [ref=e14]:
+            - generic [ref=e15]: Submit paper
+            - generic [aria-hidden] [ref=e16]: Submit paper
+        - button "Open menu" [ref=e20]:
+          - generic [aria-hidden] [ref=e21]:
+            - generic [ref=e22]: Menu
+            - generic [ref=e23]: Menu
+  - main [ref=e27]:
+    - generic [ref=e29]:
+      - navigation "Breadcrumb" [ref=e30]:
+        - list [ref=e31]:
+          - listitem [ref=e32]:
+            - link "Home" [ref=e33] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e34]:
+            - generic [aria-hidden] [ref=e35]: /
+            - generic [ref=e36]: About
+      - heading "Asking what AI does to us" [level=1] [ref=e37]
+      - generic [ref=e40]: We have asked what AI can do. It is time to ask what AI does to us, and what we, in turn, must do differently.
+    - generic [ref=e41]:
+      - heading "Conference vision" [level=2] [ref=e43]
+      - generic [ref=e44]:
+        - paragraph [ref=e45]: The world today is rapidly making space for Artificial intelligence across different sectors. Yet the most pertinent questions about AI are not purely computational but human based. How do individuals, organisations, communities adapt to the intelligent systems? What psychological, ethical, structural, and institutional challenges arise when machines begin to reason, recommend, and act alongside us?
+        - paragraph [ref=e46]: This conference envisions a structured, multi-disciplinary inquiry into the human dimensions of AI across nine academic departments spanning from engineering and design to psychology, business, and the humanities. Rather than treating AI as a domain owned by any single discipline, this event is designed so that every participating department anchors a distinct track, curates its own scholarly community, and contributes original research to a shared intellectual discussion.
+    - generic [ref=e48]:
+      - heading "Why it is built this way" [level=2] [ref=e50]
+      - generic [ref=e51]:
+        - generic [ref=e53]:
+          - heading "Interdisciplinary legitimacy" [level=3] [ref=e55]
+          - paragraph [ref=e56]: AI's societal impact cannot be understood through a single lens; this conference models the collaborative approach that would give a well-rounded understanding.
+        - generic [ref=e58]:
+          - heading "Departmental ownership" [level=3] [ref=e60]
+          - paragraph [ref=e61]: "Each department manages its track end-to-end: call for papers, peer review, keynote curation, and publication, building institutional research capacity."
+        - generic [ref=e63]:
+          - heading "Publication output" [level=3] [ref=e65]
+          - paragraph [ref=e66]: Tracks are designed to produce independently publishable special issues, edited volumes, or indexed proceedings/ISBN, giving every department a concrete research deliverable.
+        - generic [ref=e68]:
+          - heading "Community building" [level=3] [ref=e70]
+          - paragraph [ref=e71]: Structured networking, cross-track panels, and shared plenaries generate durable inter-departmental research collaborations.
+    - generic [ref=e72]:
+      - heading "Jointly organized by three schools" [level=2] [ref=e74]
+      - generic [ref=e75]:
+        - link [ref=e76] [cursor=pointer]:
+          - /url: https://bkc.christuniversity.in/schools/school-of-business-and-management
+          - img "School of Business & Management building, Kengeri Campus" [ref=e78]
+          - paragraph [ref=e79]: School of Business & Management
+        - link [ref=e80] [cursor=pointer]:
+          - /url: https://christuniversity.in/schools/school-of-psychological-sciences,-education-and-social-work
+          - img "School of Psychological Sciences, Education and Social Work building, Kengeri Campus" [ref=e82]
+          - paragraph [ref=e83]: School of Psychological Sciences, Education and Social Work
+        - link [ref=e84] [cursor=pointer]:
+          - /url: https://christuniversity.in/schools/school-of-engineering-and-technology
+          - img "School of Engineering and Technology building, Kengeri Campus" [ref=e86]
+          - paragraph [ref=e87]: School of Engineering and Technology
+      - generic [ref=e88]:
+        - img "CHRIST (Deemed to be University)" [ref=e89]
+        - link "Visit christuniversity.in" [ref=e90] [cursor=pointer]:
+          - /url: https://christuniversity.in/
+          - generic [ref=e91]:
+            - generic [ref=e92]: Visit christuniversity.in
+            - generic [aria-hidden] [ref=e93]: Visit christuniversity.in
+  - contentinfo [ref=e97]:
+    - generic [ref=e98]:
+      - paragraph [ref=e99]:
+        - generic [ref=e100]:
+          - generic [ref=e102]: IIC
+          - generic [ref=e104]: "2027"
+      - generic [ref=e105]:
+        - navigation "Footer" [ref=e106]:
+          - list [ref=e107]:
+            - listitem [ref=e108]:
+              - link "Home" [ref=e109] [cursor=pointer]:
+                - /url: /
+                - generic [ref=e110]:
+                  - generic [ref=e111]: Home
+                  - generic [aria-hidden] [ref=e112]: Home
+            - listitem [ref=e113]:
+              - link "About" [ref=e114] [cursor=pointer]:
+                - /url: /about/
+                - generic [ref=e115]:
+                  - generic [ref=e116]: About
+                  - generic [aria-hidden] [ref=e117]: About
+            - listitem [ref=e118]:
+              - link "Committee" [ref=e119] [cursor=pointer]:
+                - /url: /committee/
+                - generic [ref=e120]:
+                  - generic [ref=e121]: Committee
+                  - generic [aria-hidden] [ref=e122]: Committee
+            - listitem [ref=e123]:
+              - link "Thematic Tracks" [ref=e124] [cursor=pointer]:
+                - /url: /thematic-tracks/
+                - generic [ref=e125]:
+                  - generic [ref=e126]: Thematic Tracks
+                  - generic [aria-hidden] [ref=e127]: Thematic Tracks
+            - listitem [ref=e128]:
+              - link "Important Dates" [ref=e129] [cursor=pointer]:
+                - /url: /important-dates/
+                - generic [ref=e130]:
+                  - generic [ref=e131]: Important Dates
+                  - generic [aria-hidden] [ref=e132]: Important Dates
+            - listitem [ref=e133]:
+              - link "Submission" [ref=e134] [cursor=pointer]:
+                - /url: /submission/
+                - generic [ref=e135]:
+                  - generic [ref=e136]: Submission
+                  - generic [aria-hidden] [ref=e137]: Submission
+            - listitem [ref=e138]:
+              - link "Registration" [ref=e139] [cursor=pointer]:
+                - /url: /registration/
+                - generic [ref=e140]:
+                  - generic [ref=e141]: Registration
+                  - generic [aria-hidden] [ref=e142]: Registration
+            - listitem [ref=e143]:
+              - link "Publication" [ref=e144] [cursor=pointer]:
+                - /url: /publication/
+                - generic [ref=e145]:
+                  - generic [ref=e146]: Publication
+                  - generic [aria-hidden] [ref=e147]: Publication
+            - listitem [ref=e148]:
+              - link "Venue" [ref=e149] [cursor=pointer]:
+                - /url: /venue/
+                - generic [ref=e150]:
+                  - generic [ref=e151]: Venue
+                  - generic [aria-hidden] [ref=e152]: Venue
+            - listitem [ref=e153]:
+              - link "Contact" [ref=e154] [cursor=pointer]:
+                - /url: /contact/
+                - generic [ref=e155]:
+                  - generic [ref=e156]: Contact
+                  - generic [aria-hidden] [ref=e157]: Contact
+        - link "Conference email iic2027@conference.christuniversity.in" [ref=e158] [cursor=pointer]:
+          - /url: mailto:iic2027@conference.christuniversity.in
+          - generic [ref=e159]:
+            - generic [ref=e160]: Conference email
+            - generic [ref=e161]: iic2027@conference.christuniversity.in
+        - link "Campus 080 6268 9800" [ref=e164] [cursor=pointer]:
+          - /url: tel:+918062689800
+          - generic [ref=e165]:
+            - generic [ref=e166]: Campus
+            - generic [ref=e167]: 080 6268 9800
+        - generic [ref=e174]:
+          - generic [ref=e175]: Next deadline
+          - generic [ref=e177]:
+            - generic [ref=e178]: Extended Abstract
+            - generic [ref=e179]: in 5 days, 20 October 2026
+        - link "Venue CHRIST (Deemed to be University) Bangalore Kengeri Campus Mysore Rd, Kanmanike, Kengeri, Kumbalgodu, Bengaluru, Karnataka 560074" [ref=e180] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/TAcuRVJwh8jpgt8WA
+          - generic [ref=e181]:
+            - generic [ref=e182]: Venue
+            - generic [ref=e183]: CHRIST (Deemed to be University) Bangalore Kengeri Campus
+            - generic [ref=e184]: Mysore Rd, Kanmanike, Kengeri, Kumbalgodu, Bengaluru, Karnataka 560074
+      - generic [ref=e187]:
+        - paragraph [ref=e188]: © IIC 2027. All rights reserved. CHRIST (Deemed to be University), Bangalore Kengeri Campus
+        - button [ref=e189]
+  - alert [ref=e193]

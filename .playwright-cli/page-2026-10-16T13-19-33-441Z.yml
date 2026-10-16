@@ -1,0 +1,150 @@
+- generic [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "IIC 2027 home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e7]:
+          - generic [ref=e9]: IIC
+          - generic [ref=e11]: "2027"
+      - generic [ref=e12]:
+        - link "Submit paper" [ref=e13] [cursor=pointer]:
+          - /url: https://script.google.com/macros/s/AKfycbxjsTYQNHrErSHJ5JqY_GcHQhBabrb_rNQDgtYk62odB-LdBNJBXdmaMbXuCEyKyWWE/exec
+          - generic [ref=e14]:
+            - generic [ref=e15]: Submit paper
+            - generic [aria-hidden] [ref=e16]: Submit paper
+        - button "Open menu" [ref=e20]:
+          - generic [aria-hidden] [ref=e21]:
+            - generic [ref=e22]: Menu
+            - generic [ref=e23]: Menu
+  - main [ref=e27]:
+    - generic [ref=e195]:
+      - navigation "Breadcrumb" [ref=e196]:
+        - list [ref=e197]:
+          - listitem [ref=e198]:
+            - link "Home" [ref=e199] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e200]:
+            - generic [aria-hidden] [ref=e201]: /
+            - generic [ref=e202]: Venue
+      - heading "Kengeri Campus, Bengaluru" [level=1] [ref=e203]
+      - generic [ref=e206]: CHRIST (Deemed to be University) Bangalore Kengeri Campus
+      - link "Directions on Google Maps" [ref=e208] [cursor=pointer]:
+        - /url: https://maps.app.goo.gl/TAcuRVJwh8jpgt8WA
+        - generic [ref=e209]:
+          - generic [ref=e210]: Directions on Google Maps
+          - generic [aria-hidden] [ref=e211]: Directions on Google Maps
+    - generic [ref=e215]:
+      - figure "School of Architecture" [ref=e217]:
+        - img "School of Architecture, CHRIST Kengeri Campus" [ref=e219]
+      - figure "School of Engineering and Technology" [ref=e222]:
+        - img "School of Engineering and Technology, CHRIST Kengeri Campus" [ref=e224]
+      - figure "School of Business & Management" [ref=e227]:
+        - img "School of Business & Management, CHRIST Kengeri Campus" [ref=e229]
+      - figure "School of Psychological Sciences, Education and Social Work" [ref=e232]:
+        - img "School of Psychological Sciences, Education and Social Work, CHRIST Kengeri Campus" [ref=e234]
+    - generic [ref=e236]:
+      - generic [ref=e237]:
+        - generic [ref=e238]:
+          - paragraph [ref=e241]: CHRIST (Deemed to be University) Bangalore Kengeri Campus
+          - generic [ref=e242]:
+            - generic [ref=e243]: Mysore Rd, Kanmanike, Kengeri, Kumbalgodu
+            - generic [ref=e244]: Bengaluru, Karnataka 560074
+        - link "080 6268 9800" [ref=e245] [cursor=pointer]:
+          - /url: tel:+918062689800
+      - iframe [ref=e249]
+  - contentinfo [ref=e97]:
+    - generic [ref=e98]:
+      - paragraph [ref=e99]:
+        - generic [ref=e100]:
+          - generic [ref=e102]: IIC
+          - generic [ref=e104]: "2027"
+      - generic [ref=e105]:
+        - navigation "Footer" [ref=e106]:
+          - list [ref=e107]:
+            - listitem [ref=e108]:
+              - link "Home" [ref=e109] [cursor=pointer]:
+                - /url: /
+                - generic [ref=e110]:
+                  - generic [ref=e111]: Home
+                  - generic [aria-hidden] [ref=e112]: Home
+            - listitem [ref=e113]:
+              - link "About" [ref=e114] [cursor=pointer]:
+                - /url: /about/
+                - generic [ref=e115]:
+                  - generic [ref=e116]: About
+                  - generic [aria-hidden] [ref=e117]: About
+            - listitem [ref=e118]:
+              - link "Committee" [ref=e119] [cursor=pointer]:
+                - /url: /committee/
+                - generic [ref=e120]:
+                  - generic [ref=e121]: Committee
+                  - generic [aria-hidden] [ref=e122]: Committee
+            - listitem [ref=e123]:
+              - link "Thematic Tracks" [ref=e124] [cursor=pointer]:
+                - /url: /thematic-tracks/
+                - generic [ref=e125]:
+                  - generic [ref=e126]: Thematic Tracks
+                  - generic [aria-hidden] [ref=e127]: Thematic Tracks
+            - listitem [ref=e128]:
+              - link "Important Dates" [ref=e129] [cursor=pointer]:
+                - /url: /important-dates/
+                - generic [ref=e130]:
+                  - generic [ref=e131]: Important Dates
+                  - generic [aria-hidden] [ref=e132]: Important Dates
+            - listitem [ref=e133]:
+              - link "Submission" [ref=e134] [cursor=pointer]:
+                - /url: /submission/
+                - generic [ref=e135]:
+                  - generic [ref=e136]: Submission
+                  - generic [aria-hidden] [ref=e137]: Submission
+            - listitem [ref=e138]:
+              - link "Registration" [ref=e139] [cursor=pointer]:
+                - /url: /registration/
+                - generic [ref=e140]:
+                  - generic [ref=e141]: Registration
+                  - generic [aria-hidden] [ref=e142]: Registration
+            - listitem [ref=e143]:
+              - link "Publication" [ref=e144] [cursor=pointer]:
+                - /url: /publication/
+                - generic [ref=e145]:
+                  - generic [ref=e146]: Publication
+                  - generic [aria-hidden] [ref=e147]: Publication
+            - listitem [ref=e148]:
+              - link "Venue" [active] [ref=e149] [cursor=pointer]:
+                - /url: /venue/
+                - generic [ref=e150]:
+                  - generic [ref=e151]: Venue
+                  - generic [aria-hidden] [ref=e152]: Venue
+            - listitem [ref=e153]:
+              - link "Contact" [ref=e154] [cursor=pointer]:
+                - /url: /contact/
+                - generic [ref=e155]:
+                  - generic [ref=e156]: Contact
+                  - generic [aria-hidden] [ref=e157]: Contact
+        - link "Conference email iic2027@conference.christuniversity.in" [ref=e158] [cursor=pointer]:
+          - /url: mailto:iic2027@conference.christuniversity.in
+          - generic [ref=e159]:
+            - generic [ref=e160]: Conference email
+            - generic [ref=e161]: iic2027@conference.christuniversity.in
+        - link "Campus 080 6268 9800" [ref=e164] [cursor=pointer]:
+          - /url: tel:+918062689800
+          - generic [ref=e165]:
+            - generic [ref=e166]: Campus
+            - generic [ref=e167]: 080 6268 9800
+        - generic [ref=e174]:
+          - generic [ref=e175]: Next deadline
+          - generic [ref=e177]:
+            - generic [ref=e178]: Extended Abstract
+            - generic [ref=e179]: in 5 days, 20 October 2026
+        - link "Venue CHRIST (Deemed to be University) Bangalore Kengeri Campus Mysore Rd, Kanmanike, Kengeri, Kumbalgodu, Bengaluru, Karnataka 560074" [ref=e180] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/TAcuRVJwh8jpgt8WA
+          - generic [ref=e181]:
+            - generic [ref=e182]: Venue
+            - generic [ref=e183]: CHRIST (Deemed to be University) Bangalore Kengeri Campus
+            - generic [ref=e184]: Mysore Rd, Kanmanike, Kengeri, Kumbalgodu, Bengaluru, Karnataka 560074
+      - generic [ref=e187]:
+        - paragraph [ref=e188]: © IIC 2027. All rights reserved. CHRIST (Deemed to be University), Bangalore Kengeri Campus
+        - button [ref=e189]
+  - alert [ref=e193]: Venue | IIC 2027

@@ -1,0 +1,184 @@
+- generic [ref=f2e1]:
+  - link "Skip to content" [ref=f2e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f2e3]:
+    - generic [ref=f2e4]:
+      - link "IIC 2027 home" [ref=f2e6] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f2e7]:
+          - generic [ref=f2e9]: IIC
+          - generic [ref=f2e11]: "2027"
+      - generic [ref=f2e12]:
+        - link "Submit paper" [ref=f2e13] [cursor=pointer]:
+          - /url: https://script.google.com/macros/s/AKfycbxjsTYQNHrErSHJ5JqY_GcHQhBabrb_rNQDgtYk62odB-LdBNJBXdmaMbXuCEyKyWWE/exec
+          - generic [ref=f2e14]:
+            - generic [ref=f2e15]: Submit paper
+            - generic [aria-hidden] [ref=f2e16]: Submit paper
+        - button "Open menu" [active] [ref=f2e783]:
+          - generic [aria-hidden] [ref=f2e21]:
+            - generic [ref=f2e22]: Menu
+            - generic [ref=f2e23]: Menu
+  - main [ref=f2e27]:
+    - generic [ref=f2e785]:
+      - navigation "Breadcrumb" [ref=f2e786]:
+        - list [ref=f2e787]:
+          - listitem [ref=f2e788]:
+            - link "Home" [ref=f2e789] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=f2e790]:
+            - generic [aria-hidden] [ref=f2e791]: /
+            - link "Thematic Tracks" [ref=f2e792] [cursor=pointer]:
+              - /url: /thematic-tracks/
+          - listitem [ref=f2e793]:
+            - generic [aria-hidden] [ref=f2e794]: /
+            - generic [ref=f2e795]: BBA
+      - 'heading "Business Reimagined: Human-AI Collaboration" [level=1] [ref=f2e796]'
+      - generic [ref=f2e799]: Bachelor of Business Administration (BBA)
+    - generic [ref=f2e800]:
+      - generic [ref=f2e801]:
+        - paragraph [ref=f2e802]: As artificial intelligence reshapes industries and organizations, the future of business lies in meaningful collaboration between human intelligence and AI. This conference explores innovative research, emerging business practices, and interdisciplinary perspectives that foster responsible, sustainable, and technology-enabled transformation across management disciplines.
+        - link "Submit to this track" [ref=f2e804] [cursor=pointer]:
+          - /url: https://script.google.com/macros/s/AKfycbxjsTYQNHrErSHJ5JqY_GcHQhBabrb_rNQDgtYk62odB-LdBNJBXdmaMbXuCEyKyWWE/exec
+          - generic [ref=f2e805]:
+            - generic [ref=f2e806]: Submit to this track
+            - generic [aria-hidden] [ref=f2e807]: Submit to this track
+      - img "BBA track poster" [ref=f2e813]
+    - generic [ref=f2e815]:
+      - heading "Sub-tracks" [level=2] [ref=f2e817]
+      - list [ref=f2e818]:
+        - listitem [ref=f2e819]:
+          - generic [ref=f2e820]:
+            - generic [ref=f2e821]: "07"
+            - 'heading "Human Resource Management: People, AI, and the Future of Work" [level=3] [ref=f2e822]'
+        - listitem [ref=f2e823]:
+          - generic [ref=f2e824]:
+            - generic [ref=f2e825]: "08"
+            - 'heading "Marketing: Consumer Intelligence and Digital Transformation" [level=3] [ref=f2e826]'
+        - listitem [ref=f2e827]:
+          - generic [ref=f2e828]:
+            - generic [ref=f2e829]: "09"
+            - 'heading "Finance: Decision-Making and Risk Intelligence" [level=3] [ref=f2e830]'
+    - generic [ref=f2e831]:
+      - heading "Topics of interest" [level=2] [ref=f2e833]
+      - list [ref=f2e836]:
+        - listitem [ref=f2e837]: "AI in Talent Acquisition: Reducing Bias, Preserving Human Judgment"
+        - listitem [ref=f2e838]: "The Future of Work: Human-AI Collaboration and Cognitive Load"
+        - listitem [ref=f2e839]: AI-Driven Employee Wellbeing and Mental Health Analytics
+        - listitem [ref=f2e840]: "Reskilling the Human Mind: Learning and Development in the AI Era"
+        - listitem [ref=f2e841]: Trust, Transparency, and Emotional Intelligence in AI-Mediated Workplaces
+        - listitem [ref=f2e842]: "Gig Economy: The Future Workforce Opportunities and Challenges Ahead"
+        - listitem [ref=f2e843]: Sustainable and Ethical Marketing in the Age of AI
+        - listitem [ref=f2e844]: Consumer Behavior, Psychology, and Customer Experience
+        - listitem [ref=f2e845]: Brand Communication, Storytelling, and Content Ecosystems
+        - listitem [ref=f2e846]: Commerce, Omnichannel Strategies, and Emerging Business Models
+        - listitem [ref=f2e847]: AI-Powered, Data-Driven, and Intelligent Marketing Decision-Making
+        - listitem [ref=f2e848]: Emergence of Intelligent markets and Financial Decision systems
+        - listitem [ref=f2e849]: "Redefining Digital Banking structure: Fintech managing Risk Resilience"
+        - listitem [ref=f2e850]: Responsible AI in Governance and Ethical Finance
+        - listitem [ref=f2e851]: AI in Green Finance, ESG, and Sustainable Value Creation
+        - listitem [ref=f2e852]: AI-Driven Transformation in Reporting, Regulation, and Business Models
+    - navigation "Other tracks" [ref=f2e853]:
+      - 'link "Previous track EEE & ME: Human-Centric AI for Smart Energy, Intelligent Systems and Sustainable Industrial Automation" [ref=f2e854] [cursor=pointer]':
+        - /url: /thematic-tracks/eee-me/
+        - generic [ref=f2e858]:
+          - generic [ref=f2e859]: Previous track
+          - generic [ref=f2e860]: "EEE & ME: Human-Centric AI for Smart Energy, Intelligent Systems and Sustainable Industrial Automation"
+      - 'link "Next track Psychology: AI and Human Well-Being" [ref=f2e861] [cursor=pointer]':
+        - /url: /thematic-tracks/psychology/
+        - generic [ref=f2e865]:
+          - generic [ref=f2e866]: Next track
+          - generic [ref=f2e867]: "Psychology: AI and Human Well-Being"
+  - contentinfo [ref=f2e507]:
+    - generic [ref=f2e508]:
+      - paragraph [ref=f2e509]:
+        - generic [ref=f2e510]:
+          - generic [ref=f2e512]: IIC
+          - generic [ref=f2e514]: "2027"
+      - generic [ref=f2e515]:
+        - navigation "Footer" [ref=f2e516]:
+          - list [ref=f2e517]:
+            - listitem [ref=f2e518]:
+              - link "Home" [ref=f2e519] [cursor=pointer]:
+                - /url: /
+                - generic [ref=f2e520]:
+                  - generic [ref=f2e521]: Home
+                  - generic [aria-hidden] [ref=f2e522]: Home
+            - listitem [ref=f2e523]:
+              - link "About" [ref=f2e524] [cursor=pointer]:
+                - /url: /about/
+                - generic [ref=f2e525]:
+                  - generic [ref=f2e526]: About
+                  - generic [aria-hidden] [ref=f2e527]: About
+            - listitem [ref=f2e528]:
+              - link "Committee" [ref=f2e529] [cursor=pointer]:
+                - /url: /committee/
+                - generic [ref=f2e530]:
+                  - generic [ref=f2e531]: Committee
+                  - generic [aria-hidden] [ref=f2e532]: Committee
+            - listitem [ref=f2e533]:
+              - link "Thematic Tracks" [ref=f2e534] [cursor=pointer]:
+                - /url: /thematic-tracks/
+                - generic [ref=f2e535]:
+                  - generic [ref=f2e536]: Thematic Tracks
+                  - generic [aria-hidden] [ref=f2e537]: Thematic Tracks
+            - listitem [ref=f2e538]:
+              - link "Important Dates" [ref=f2e539] [cursor=pointer]:
+                - /url: /important-dates/
+                - generic [ref=f2e540]:
+                  - generic [ref=f2e541]: Important Dates
+                  - generic [aria-hidden] [ref=f2e542]: Important Dates
+            - listitem [ref=f2e543]:
+              - link "Submission" [ref=f2e544] [cursor=pointer]:
+                - /url: /submission/
+                - generic [ref=f2e545]:
+                  - generic [ref=f2e546]: Submission
+                  - generic [aria-hidden] [ref=f2e547]: Submission
+            - listitem [ref=f2e548]:
+              - link "Registration" [ref=f2e549] [cursor=pointer]:
+                - /url: /registration/
+                - generic [ref=f2e550]:
+                  - generic [ref=f2e551]: Registration
+                  - generic [aria-hidden] [ref=f2e552]: Registration
+            - listitem [ref=f2e553]:
+              - link "Publication" [ref=f2e554] [cursor=pointer]:
+                - /url: /publication/
+                - generic [ref=f2e555]:
+                  - generic [ref=f2e556]: Publication
+                  - generic [aria-hidden] [ref=f2e557]: Publication
+            - listitem [ref=f2e558]:
+              - link "Venue" [ref=f2e559] [cursor=pointer]:
+                - /url: /venue/
+                - generic [ref=f2e560]:
+                  - generic [ref=f2e561]: Venue
+                  - generic [aria-hidden] [ref=f2e562]: Venue
+            - listitem [ref=f2e563]:
+              - link "Contact" [ref=f2e564] [cursor=pointer]:
+                - /url: /contact/
+                - generic [ref=f2e565]:
+                  - generic [ref=f2e566]: Contact
+                  - generic [aria-hidden] [ref=f2e567]: Contact
+        - link "Conference email iic2027@conference.christuniversity.in" [ref=f2e568] [cursor=pointer]:
+          - /url: mailto:iic2027@conference.christuniversity.in
+          - generic [ref=f2e569]:
+            - generic [ref=f2e570]: Conference email
+            - generic [ref=f2e571]: iic2027@conference.christuniversity.in
+        - link "Campus 080 6268 9800" [ref=f2e574] [cursor=pointer]:
+          - /url: tel:+918062689800
+          - generic [ref=f2e575]:
+            - generic [ref=f2e576]: Campus
+            - generic [ref=f2e577]: 080 6268 9800
+        - generic [ref=f2e584]:
+          - generic [ref=f2e585]: Next deadline
+          - generic [ref=f2e587]:
+            - generic [ref=f2e612]: Extended Abstract
+            - generic [ref=f2e613]: in 5 days, 20 October 2026
+        - link "Venue CHRIST (Deemed to be University) Bangalore Kengeri Campus Mysore Rd, Kanmanike, Kengeri, Kumbalgodu, Bengaluru, Karnataka 560074" [ref=f2e588] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/TAcuRVJwh8jpgt8WA
+          - generic [ref=f2e589]:
+            - generic [ref=f2e590]: Venue
+            - generic [ref=f2e591]: CHRIST (Deemed to be University) Bangalore Kengeri Campus
+            - generic [ref=f2e592]: Mysore Rd, Kanmanike, Kengeri, Kumbalgodu, Bengaluru, Karnataka 560074
+      - generic [ref=f2e595]:
+        - paragraph [ref=f2e596]: © IIC 2027. All rights reserved. CHRIST (Deemed to be University), Bangalore Kengeri Campus
+        - button [ref=f2e597]
+  - alert [ref=f2e601]: "BBA: Business Reimagined: Human-AI Collaboration | IIC 2027"

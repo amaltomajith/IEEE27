@@ -1,0 +1,186 @@
+- generic [active] [ref=f6e1]:
+  - link "Skip to content" [ref=f6e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f6e3]:
+    - generic [ref=f6e4]:
+      - link "IIC 2027 home" [ref=f6e6] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f6e7]:
+          - generic [ref=f6e8]: IIC
+          - generic [ref=f6e10]: "2027"
+      - generic [ref=f6e11]:
+        - link "Submit paper" [ref=f6e12] [cursor=pointer]:
+          - /url: https://script.google.com/macros/s/AKfycbxjsTYQNHrErSHJ5JqY_GcHQhBabrb_rNQDgtYk62odB-LdBNJBXdmaMbXuCEyKyWWE/exec
+        - button "Open menu" [ref=f6e21]:
+          - generic [aria-hidden] [ref=f6e22]:
+            - generic [ref=f6e23]: Menu
+            - generic [ref=f6e24]: Menu
+  - main [ref=f6e28]:
+    - generic [ref=f6e30]:
+      - navigation "Breadcrumb" [ref=f6e31]:
+        - list [ref=f6e32]:
+          - listitem [ref=f6e33]:
+            - link "Home" [ref=f6e34] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=f6e35]:
+            - generic [aria-hidden] [ref=f6e36]: /
+            - generic [ref=f6e37]: Submission
+      - heading "Two ways to submit" [level=1] [ref=f6e38]
+      - generic [ref=f6e41]: Send an extended abstract by October 20, 2026, or a full manuscript by December 1, 2026.
+      - generic [ref=f6e43]:
+        - link "Paper submission portal" [ref=f6e44] [cursor=pointer]:
+          - /url: https://script.google.com/macros/s/AKfycbxjsTYQNHrErSHJ5JqY_GcHQhBabrb_rNQDgtYk62odB-LdBNJBXdmaMbXuCEyKyWWE/exec
+        - link "Reviewer portal" [ref=f6e53] [cursor=pointer]:
+          - /url: https://script.google.com/macros/s/AKfycbxjsTYQNHrErSHJ5JqY_GcHQhBabrb_rNQDgtYk62odB-LdBNJBXdmaMbXuCEyKyWWE/exec
+    - generic [ref=f6e63]:
+      - tablist "Submission options" [ref=f6e64]:
+        - 'tab "Option 1: Extended abstract" [selected] [ref=f6e65]'
+        - 'tab "Option 2: Full manuscript" [ref=f6e68]'
+      - paragraph [ref=f6e70]: "Deadline: October 20, 2026"
+      - 'tabpanel "Option 1: Extended abstract" [ref=f6e71]':
+        - generic [ref=f6e72]:
+          - generic [ref=f6e73]:
+            - generic [ref=f6e74]:
+              - heading "Word limit" [level=3] [ref=f6e75]
+              - paragraph [ref=f6e76]: The extended abstract should be limited to 1,500 words, excluding the title, author details, keywords, and references.
+            - generic [ref=f6e77]:
+              - heading "Formatting" [level=3] [ref=f6e78]
+              - paragraph [ref=f6e79]: The document should use Times New Roman 12pt or Calibri 11pt, with 1.5 line spacing and 1-inch margins in a single-column layout. Authors may include a maximum of one to two tables or figures, and only where essential to the argument. The final file should be submitted as a Word (.docx) and should include references formatted in APA style, which are not counted toward the word limit.
+          - generic [ref=f6e80]:
+            - heading "How the 1,500 words break down" [level=3] [ref=f6e81]
+            - generic [ref=f6e82]:
+              - img "Word budget totalling 1500 words" [ref=f6e83]:
+                - generic [ref=f6e84]: "400"
+                - generic [ref=f6e86]: "100"
+                - generic [ref=f6e88]: "300"
+                - generic [ref=f6e90]: "350"
+                - generic [ref=f6e92]: "250"
+                - generic [ref=f6e94]: "100"
+              - list [ref=f6e96]:
+                - listitem [ref=f6e97]:
+                  - generic [ref=f6e99]:
+                    - paragraph [ref=f6e100]:
+                      - generic [ref=f6e101]: Introduction and Literature Review
+                      - generic [ref=f6e102]: about 400 words
+                    - paragraph [ref=f6e103]: Sets up the problem context, briefly surveys relevant prior work, and identifies the gap the study addresses.
+                - listitem [ref=f6e104]:
+                  - generic [ref=f6e106]:
+                    - paragraph [ref=f6e107]:
+                      - generic [ref=f6e108]: Objective or Research Question
+                      - generic [ref=f6e109]: about 100 words
+                    - paragraph [ref=f6e110]: Clearly states the aim of the study in direct relation to that gap.
+                - listitem [ref=f6e111]:
+                  - generic [ref=f6e113]:
+                    - paragraph [ref=f6e114]:
+                      - generic [ref=f6e115]: Methodology
+                      - generic [ref=f6e116]: about 300 words
+                    - paragraph [ref=f6e117]: Describes the research design, data source or sample, and the analytical technique or model used. Kept brief, since fuller detail will appear in the final paper.
+                - listitem [ref=f6e118]:
+                  - generic [ref=f6e120]:
+                    - paragraph [ref=f6e121]:
+                      - generic [ref=f6e122]: Key Findings or Expected Results
+                      - generic [ref=f6e123]: about 350 words
+                    - paragraph [ref=f6e124]: Presents the main results (or anticipated results, if the work is still in progress) and highlights what is novel about them.
+                - listitem [ref=f6e125]:
+                  - generic [ref=f6e127]:
+                    - paragraph [ref=f6e128]:
+                      - generic [ref=f6e129]: Implications and Conclusion
+                      - generic [ref=f6e130]: about 250 words
+                    - paragraph [ref=f6e131]: Addresses the theoretical and practical implications of the work, particularly for human-AI collaboration, and offers a brief concluding statement.
+                - listitem [ref=f6e132]:
+                  - generic [ref=f6e134]:
+                    - paragraph [ref=f6e135]:
+                      - generic [ref=f6e136]: Transitions and framing
+                      - generic [ref=f6e137]: about 100 words
+                    - paragraph [ref=f6e138]: A buffer for transitions and framing between sections, bringing the total to 1,500 words.
+  - contentinfo [ref=f6e139]:
+    - generic [ref=f6e154]:
+      - generic [ref=f6e155]:
+        - paragraph [ref=f6e156]:
+          - generic [ref=f6e157]:
+            - generic [ref=f6e158]: IIC
+            - generic [ref=f6e159]: "2027"
+        - paragraph [ref=f6e160]: "Mind and Machine: reimagining human-AI collaboration across sectors."
+      - generic [ref=f6e161]:
+        - navigation "Footer" [ref=f6e162]:
+          - list [ref=f6e163]:
+            - listitem [ref=f6e164]:
+              - link "Home" [ref=f6e165] [cursor=pointer]:
+                - /url: /
+                - generic [ref=f6e166]:
+                  - generic [ref=f6e167]: Home
+                  - generic [aria-hidden] [ref=f6e168]: Home
+            - listitem [ref=f6e169]:
+              - link "About" [ref=f6e170] [cursor=pointer]:
+                - /url: /about/
+                - generic [ref=f6e171]:
+                  - generic [ref=f6e172]: About
+                  - generic [aria-hidden] [ref=f6e173]: About
+            - listitem [ref=f6e174]:
+              - link "Committee" [ref=f6e175] [cursor=pointer]:
+                - /url: /committee/
+                - generic [ref=f6e176]:
+                  - generic [ref=f6e177]: Committee
+                  - generic [aria-hidden] [ref=f6e178]: Committee
+            - listitem [ref=f6e179]:
+              - link "Thematic Tracks" [ref=f6e180] [cursor=pointer]:
+                - /url: /thematic-tracks/
+                - generic [ref=f6e181]:
+                  - generic [ref=f6e182]: Thematic Tracks
+                  - generic [aria-hidden] [ref=f6e183]: Thematic Tracks
+            - listitem [ref=f6e184]:
+              - link "Important Dates" [ref=f6e185] [cursor=pointer]:
+                - /url: /important-dates/
+                - generic [ref=f6e186]:
+                  - generic [ref=f6e187]: Important Dates
+                  - generic [aria-hidden] [ref=f6e188]: Important Dates
+            - listitem [ref=f6e189]:
+              - link "Submission" [ref=f6e190] [cursor=pointer]:
+                - /url: /submission/
+                - generic [ref=f6e191]:
+                  - generic [ref=f6e192]: Submission
+                  - generic [aria-hidden] [ref=f6e193]: Submission
+            - listitem [ref=f6e194]:
+              - link "Registration" [ref=f6e195] [cursor=pointer]:
+                - /url: /registration/
+                - generic [ref=f6e196]:
+                  - generic [ref=f6e197]: Registration
+                  - generic [aria-hidden] [ref=f6e198]: Registration
+            - listitem [ref=f6e199]:
+              - link "Publication" [ref=f6e200] [cursor=pointer]:
+                - /url: /publication/
+                - generic [ref=f6e201]:
+                  - generic [ref=f6e202]: Publication
+                  - generic [aria-hidden] [ref=f6e203]: Publication
+            - listitem [ref=f6e204]:
+              - link "Venue" [ref=f6e205] [cursor=pointer]:
+                - /url: /venue/
+                - generic [ref=f6e206]:
+                  - generic [ref=f6e207]: Venue
+                  - generic [aria-hidden] [ref=f6e208]: Venue
+            - listitem [ref=f6e209]:
+              - link "Contact" [ref=f6e210] [cursor=pointer]:
+                - /url: /contact/
+                - generic [ref=f6e211]:
+                  - generic [ref=f6e212]: Contact
+                  - generic [aria-hidden] [ref=f6e213]: Contact
+        - link "Conference email iic2027@conference.christuniversity.in" [ref=f6e214] [cursor=pointer]:
+          - /url: mailto:iic2027@conference.christuniversity.in
+          - generic [ref=f6e215]:
+            - generic [ref=f6e216]: Conference email
+            - generic [ref=f6e217]: iic2027@conference.christuniversity.in
+        - link "Campus 080 6268 9800" [ref=f6e220] [cursor=pointer]:
+          - /url: tel:+918062689800
+          - generic [ref=f6e221]:
+            - generic [ref=f6e222]: Campus
+            - generic [ref=f6e223]: 080 6268 9800
+        - generic [ref=f6e226]: Next deadline
+        - link "Venue CHRIST (Deemed to be University) Bangalore Kengeri Campus Mysore Rd, Kanmanike, Kengeri, Kumbalgodu, Bengaluru, Karnataka 560074" [ref=f6e234] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/TAcuRVJwh8jpgt8WA
+          - generic [ref=f6e235]:
+            - generic [ref=f6e236]: Venue
+            - generic [ref=f6e237]: CHRIST (Deemed to be University) Bangalore Kengeri Campus
+            - generic [ref=f6e238]: Mysore Rd, Kanmanike, Kengeri, Kumbalgodu, Bengaluru, Karnataka 560074
+      - generic [ref=f6e241]:
+        - paragraph [ref=f6e242]: © IIC 2027. All rights reserved. CHRIST (Deemed to be University), Bangalore Kengeri Campus
+        - button [ref=f6e243]
