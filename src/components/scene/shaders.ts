@@ -46,14 +46,14 @@ void main(){
 
 export const NODE_FRAG = `
 precision highp float;
-uniform vec3 uColA, uColB;
+uniform vec3 uColA, uColB, uSpark;
 varying float vMix, vSpark;
 void main(){
   vec2 c = gl_PointCoord - 0.5;
   float core = smoothstep(0.5, 0.0, length(c));
-  float a = core * core * (0.8 + min(vSpark, 1.5));
-  vec3 col = mix(mix(uColA, uColB, vMix), vec3(1.), clamp(vSpark, 0., 1.));
-  gl_FragColor = vec4(col * a, a);
+  float a = min(1., core * core * (0.85 + min(vSpark, 1.5) * 0.5));
+  vec3 col = mix(mix(uColA, uColB, vMix), uSpark, clamp(vSpark, 0., 1.));
+  gl_FragColor = vec4(col, a);
 }`;
 
 export const EDGE_VERT = `
@@ -76,7 +76,7 @@ export const EDGE_FRAG = `
 precision highp float;
 ${COMMON}
 uniform float uLayer;
-uniform vec3 uColA, uColB;
+uniform vec3 uColA, uColB, uSpark;
 varying float vT, vEdge;
 varying vec3 vPos;
 void main(){
@@ -87,9 +87,9 @@ void main(){
   float ph = fract(uTime * speed * 0.5 + vEdge * 11.);
   float dash = smoothstep(0.08, 0., abs(pos - ph)) * step(0.7, fract(vEdge * 13.7));
   float sp = spark(vPos);
-  float a = ((uLayer > 0.5 ? 0.07 : 0.085) + dash * 0.75 + sp * 0.85) * vis;
-  vec3 col = mix(mix(uColA, uColB, uMix), vec3(0.93, 1., 0.98), clamp(dash * 0.6 + sp, 0., 1.));
-  gl_FragColor = vec4(col * a, a);
+  float a = min(1., ((uLayer > 0.5 ? 0.11 : 0.13) + dash * 0.6 + sp * 0.75) * vis);
+  vec3 col = mix(mix(uColA, uColB, uMix), uSpark, clamp(dash * 0.8 + sp, 0., 1.));
+  gl_FragColor = vec4(col, a);
 }`;
 
 export const BG_VERT = `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.999, 1.); }`;
@@ -97,15 +97,16 @@ export const BG_VERT = `varying vec2 vUv; void main(){ vUv = uv; gl_Position = v
 export const BG_FRAG = `
 precision highp float;
 varying vec2 vUv;
-uniform vec3 uNavy, uTeal, uSignal;
+uniform vec3 uBase, uTint, uGlow;
 uniform float uMix;
+// Light card: paper base, a mint wash bottom-right and a whiter top-left.
 void main(){
   vec2 p = vUv;
-  float g1 = smoothstep(0.85, 0.0, distance(p, vec2(0.78, -0.08)));
-  float g2 = smoothstep(0.7, 0.0, distance(p, vec2(0.12, 1.05)));
-  vec3 col = uNavy;
-  col = mix(col, uTeal, g1 * 0.5);
-  col = mix(col, uSignal, g1 * g1 * 0.16 * (1.0 - uMix * 0.5));
-  col = mix(col, uTeal * 0.7, g2 * 0.3);
+  float g1 = smoothstep(0.9, 0.0, distance(p, vec2(0.8, -0.05)));
+  float g2 = smoothstep(0.75, 0.0, distance(p, vec2(0.1, 1.05)));
+  vec3 col = uBase;
+  col = mix(col, uTint, g1 * 0.85);
+  col = mix(col, uGlow, g1 * g1 * 0.5 * (1.0 - uMix * 0.4));
+  col = mix(col, vec3(1.), g2 * 0.6);
   gl_FragColor = vec4(col, 1.);
 }`;

@@ -61,7 +61,7 @@ export function Takeover({ from, hostRef, onClose, onPointer, onHold, onPoke }: 
       role="dialog"
       aria-modal="true"
       aria-labelledby="takeover-title"
-      className="fixed inset-0 z-[70] overflow-hidden bg-navy text-white"
+      className="fixed inset-0 z-[70] overflow-hidden bg-paper text-navy"
       initial={{ clipPath: inset(from) }}
       animate={{ clipPath: inset({ top: 0, left: 0, width: innerWidth, height: innerHeight, radius: 0 }) }}
       exit={{ clipPath: inset(from), transition: spring }}
@@ -77,34 +77,34 @@ export function Takeover({ from, hostRef, onClose, onPointer, onHold, onPoke }: 
       onPointerLeave={() => onHold(false)}
     >
       <div ref={hostRef} className="absolute inset-0 [&>canvas]:size-full" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgb(10_33_41/0.85),rgb(10_33_41/0.35)_45%,transparent_70%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgb(245_249_248/0.92),rgb(245_249_248/0.55)_45%,transparent_70%)]" />
       <div className="wrap relative flex h-full flex-col justify-center gap-8 py-24">
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={stagger(0)} className="text-muted-dark">
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={stagger(0)} className="text-muted">
           The theme of {site.short}
         </motion.p>
         <h2 id="takeover-title" className="t-h1 max-w-[12ch]">
           <span className="line-mask is-in"><motion.span initial={{ y: "110%" }} animate={{ y: 0 }} transition={stagger(1)}>Mind and</motion.span></span>
-          <span className="line-mask is-in"><motion.span initial={{ y: "110%" }} animate={{ y: 0 }} transition={stagger(2)} className="em text-signal">Machine</motion.span></span>
+          <span className="line-mask is-in"><motion.span initial={{ y: "110%" }} animate={{ y: 0 }} transition={stagger(2)} className="em text-signal-ink">Machine</motion.span></span>
         </h2>
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={stagger(3)} className="t-h5 max-w-[34ch] text-white/85">
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={stagger(3)} className="t-h5 max-w-[34ch] text-navy/80">
           Reimagining human-AI collaboration across sectors.
         </motion.p>
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={stagger(4)} className="max-w-[54ch] text-white/65 max-md:hidden">
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={stagger(4)} className="max-w-[54ch] text-muted max-md:hidden">
           {about.vision[0]}
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={stagger(5)} className="flex flex-wrap gap-3" onPointerDown={(e) => e.stopPropagation()}>
           <PillButton href="/thematic-tracks/" variant="signal" onClick={onClose}>Explore tracks</PillButton>
-          <PillButton href="/about/" variant="ghost-dark" onClick={onClose}>Read the vision</PillButton>
+          <PillButton href="/about/" variant="ghost" onClick={onClose}>Read the vision</PillButton>
         </motion.div>
       </div>
-      <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={stagger(7)} className="absolute bottom-6 left-[var(--gutter)] text-sm text-white/55 max-md:hidden">
+      <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={stagger(7)} className="absolute bottom-6 left-[var(--gutter)] text-sm text-muted max-md:hidden">
         Move to spark a thought. Press and hold to watch the machine think.
       </motion.p>
       <button
         type="button"
         onClick={onClose}
         onPointerDown={(e) => e.stopPropagation()}
-        className="btn btn--light absolute top-[calc((var(--header-h)-48px)/2)] right-[var(--gutter)]"
+        className="btn absolute top-[calc((var(--header-h)-48px)/2)] right-[var(--gutter)]"
       >
         <span>Close</span>
         <span className="btn-tile" aria-hidden>

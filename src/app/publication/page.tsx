@@ -15,12 +15,12 @@ export default function PublicationPage() {
         <Reveal>
           <p className="fade-up text-[clamp(18px,1.4vw,25px)] leading-[1.55] text-navy/85">{publication.body}</p>
         </Reveal>
-        <Reveal className="glow-bottom relative self-start overflow-hidden rounded-[var(--radius-l)] bg-navy p-[clamp(24px,3vw,48px)] text-white">
+        <Reveal className="glow-bottom relative self-start overflow-hidden rounded-[var(--radius-l)] bg-signal-soft p-[clamp(24px,3vw,48px)] text-navy">
           <div className="fade-up">
-            <p className="text-muted-dark">Article Processing Charge</p>
-            <p className="mt-3 text-[clamp(56px,5.4vw,92px)] leading-none font-semibold tracking-[-0.04em] text-signal">{publication.apc}</p>
-            <p className="mt-2 text-white/70">per paper</p>
-            <ul className="mt-8 space-y-3 text-white/80">
+            <p className="text-muted">Article Processing Charge</p>
+            <p className="mt-3 text-[clamp(56px,5.4vw,92px)] leading-none font-semibold tracking-[-0.04em] text-signal-ink">{publication.apc}</p>
+            <p className="mt-2 text-navy/70">per paper</p>
+            <ul className="mt-8 space-y-3 text-navy/75">
               {publication.apcNotes.map((n) => <li key={n}>{n}</li>)}
             </ul>
           </div>

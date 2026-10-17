@@ -40,7 +40,7 @@ export class ThinkingSystem {
     this.frozen = !!opts.frozen;
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
     this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
-    this.renderer.setClearColor(0x0a2129, 1);
+    this.renderer.setClearColor(0xf5f9f8, 1);
     this.canvas = this.renderer.domElement;
     this.canvas.setAttribute("aria-hidden", "true");
     this.camera.position.set(0, 0, 5.2);
@@ -52,8 +52,9 @@ export class ThinkingSystem {
       uSparks: { value: this.sparks },
       uSize: { value: 3 },
       uDpr: { value: 1 },
-      uColA: { value: C("#22d8c8") },
-      uColB: { value: C("#dcefff") },
+      uColA: { value: C("#1f6f73") },
+      uColB: { value: C("#0a2129") },
+      uSpark: { value: C("#0fc2b2") },
     };
 
     // Nodes
@@ -67,7 +68,7 @@ export class ThinkingSystem {
       uniforms: this.uniforms,
       transparent: true,
       depthWrite: false,
-      blending: THREE.AdditiveBlending,
+      blending: THREE.NormalBlending,
     });
     const nodes = new THREE.Points(ng, this.nodeMat);
     nodes.frustumCulled = false;
@@ -99,7 +100,7 @@ export class ThinkingSystem {
         uniforms: { ...this.uniforms, uLayer: { value: layer } },
         transparent: true,
         depthWrite: false,
-        blending: THREE.AdditiveBlending,
+        blending: THREE.NormalBlending,
       });
       const lines = new THREE.LineSegments(g, mat);
       lines.frustumCulled = false;
@@ -113,7 +114,7 @@ export class ThinkingSystem {
       fragmentShader: BG_FRAG,
       depthWrite: false,
       depthTest: false,
-      uniforms: { uNavy: { value: C("#0a2129") }, uTeal: { value: C("#147a86") }, uSignal: { value: C("#22d8c8") }, uMix: this.uniforms.uMix },
+      uniforms: { uBase: { value: C("#f3f8f7") }, uTint: { value: C("#e2f6f3") }, uGlow: { value: C("#c4efe8") }, uMix: this.uniforms.uMix },
     });
     const bg = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), this.bgMat);
     bg.frustumCulled = false;

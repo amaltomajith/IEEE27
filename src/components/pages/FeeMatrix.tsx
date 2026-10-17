@@ -9,8 +9,8 @@ function Segmented<T extends string>({ value, options, onChange, label, id }: { 
     <div role="radiogroup" aria-label={label} className="inline-flex gap-1 rounded-full bg-white p-1 ring-1 ring-navy/5">
       {options.map((o) => (
         <button key={o.v} type="button" role="radio" aria-checked={value === o.v} onClick={() => onChange(o.v)} className="relative rounded-full px-5 py-2.5 text-sm font-medium">
-          {value === o.v && <motion.span layoutId={`seg-${id}`} className="absolute inset-0 rounded-full bg-navy" transition={{ type: "spring", bounce: 0, duration: 0.4 }} />}
-          <span className={`relative ${value === o.v ? "text-white" : "text-navy/70"}`}>{o.label}</span>
+          {value === o.v && <motion.span layoutId={`seg-${id}`} className="absolute inset-0 rounded-full bg-signal" transition={{ type: "spring", bounce: 0, duration: 0.4 }} />}
+          <span className={`relative ${value === o.v ? "text-navy" : "text-navy/70"}`}>{o.label}</span>
         </button>
       ))}
     </div>
@@ -44,8 +44,8 @@ export function FeeMatrix() {
       </p>
       <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {fees.map((f, i) => (
-          <li key={f.category} className={`flex min-h-[220px] flex-col justify-between rounded-[var(--radius-m)] p-[clamp(20px,2vw,32px)] ${i === 1 ? "bg-navy text-white" : "bg-white ring-1 ring-navy/5"}`}>
-            <p className={`font-medium ${i === 1 ? "text-white/80" : "text-navy/75"}`}>{f.category}</p>
+          <li key={f.category} className={`flex min-h-[220px] flex-col justify-between rounded-[var(--radius-m)] p-[clamp(20px,2vw,32px)] ${i === 1 ? "bg-signal-soft ring-1 ring-signal/30" : "bg-white ring-1 ring-navy/5"}`}>
+            <p className={`font-medium text-navy/75`}>{f.category}</p>
             <div className="relative h-[clamp(52px,4.6vw,76px)] overflow-hidden">
               <AnimatePresence mode="popLayout" initial={false}>
                 <motion.p
@@ -54,7 +54,7 @@ export function FeeMatrix() {
                   animate={{ y: 0, opacity: 1 }}
                   exit={reduce ? undefined : { y: "-100%", opacity: 0 }}
                   transition={{ type: "spring", bounce: 0, duration: 0.5 }}
-                  className={`text-[clamp(44px,4vw,66px)] leading-none font-semibold tracking-[-0.04em] tabular-nums ${i === 1 ? "text-signal" : ""}`}
+                  className={`text-[clamp(44px,4vw,66px)] leading-none font-semibold tracking-[-0.04em] tabular-nums ${i === 1 ? "text-signal-deep" : ""}`}
                 >
                   {formatFee(f[region][tier], region)}
                 </motion.p>

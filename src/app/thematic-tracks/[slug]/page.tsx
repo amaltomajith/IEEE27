@@ -41,20 +41,20 @@ export default async function TrackPage({ params }: { params: Promise<{ slug: st
           </div>
         </Reveal>
         <Reveal className="lg:sticky lg:top-[calc(var(--header-h)+24px)]">
-          <div className="fade-up relative aspect-square overflow-hidden rounded-[var(--radius-l)] bg-navy">
+          <div className="fade-up relative aspect-square overflow-hidden rounded-[var(--radius-l)] bg-gray">
             <Image src={t.poster} alt={`${t.short} track poster`} fill priority sizes="(min-width:1024px) 40vw, 92vw" className="object-cover" />
           </div>
         </Reveal>
       </section>
 
-      <section data-header="dark" className="glow-bottom relative overflow-hidden bg-navy py-[clamp(72px,9vw,150px)] text-white">
+      <section className="glow-bottom relative overflow-hidden bg-white py-[clamp(72px,9vw,150px)] text-navy">
         <div className="wrap">
-          <Reveal><h2 className="t-h2 fade-up mb-[clamp(32px,4vw,64px)]">Sub-<span className="em text-signal">tracks</span></h2></Reveal>
+          <Reveal><h2 className="t-h2 fade-up mb-[clamp(32px,4vw,64px)]">Sub-<span className="em text-signal-ink">tracks</span></h2></Reveal>
           <ol className="grid gap-3 lg:grid-cols-3">
             {t.subTracks.map((s) => (
-              <Reveal as="li" key={s.number} className="rounded-[var(--radius-l)] bg-white/[0.06] p-[clamp(24px,2.4vw,40px)] ring-1 ring-white/10">
+              <Reveal as="li" key={s.number} className="rounded-[var(--radius-l)] bg-paper p-[clamp(24px,2.4vw,40px)] ring-1 ring-navy/[0.06]">
                 <div className="fade-up flex h-full flex-col justify-between gap-12">
-                  <span className="text-[clamp(56px,6vw,96px)] leading-none font-semibold tracking-[-0.05em] text-signal">{String(s.number).padStart(2, "0")}</span>
+                  <span className="text-[clamp(56px,6vw,96px)] leading-none font-semibold tracking-[-0.05em] text-signal-ink">{String(s.number).padStart(2, "0")}</span>
                   <h3 className="t-h3">{s.title}</h3>
                 </div>
               </Reveal>

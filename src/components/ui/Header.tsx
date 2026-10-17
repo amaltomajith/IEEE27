@@ -63,7 +63,7 @@ export function Header() {
         }`}
       >
         <div className="wrap flex h-[var(--header-h)] items-center justify-between gap-4">
-          <div className={`transition-colors duration-500 ${open || onDark ? "text-white" : "text-navy"}`}>
+          <div className={`transition-colors duration-500 ${onDark ? "text-white" : "text-navy"}`}>
             <Logo />
           </div>
           <div className="flex items-center gap-2">
@@ -78,7 +78,7 @@ export function Header() {
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((v) => !v)}
               data-dark={onDark || undefined}
-              className={`menu-trigger group inline-flex items-center gap-3 pl-2 text-[15px] font-medium transition-colors ${open || onDark ? "text-white" : "text-navy"}`}
+              className={`menu-trigger group inline-flex items-center gap-3 pl-2 text-[15px] font-medium transition-colors ${onDark ? "text-white" : "text-navy"}`}
             >
               <span className="roll max-sm:hidden" aria-hidden>
                 <span>{open ? "Close" : "Menu"}</span>

@@ -25,7 +25,7 @@ export default function TracksPage() {
           {tracks.map((t, i) => (
             <Reveal as="li" key={t.slug} className={i % 2 ? "md:mt-[clamp(40px,8vw,140px)]" : ""}>
               <Link href={`/thematic-tracks/${t.slug}/`} className="group fade-up block">
-                <div className="relative aspect-square overflow-hidden rounded-[var(--radius-l)] bg-navy">
+                <div className="relative aspect-square overflow-hidden rounded-[var(--radius-l)] bg-gray">
                   <Image
                     src={t.poster}
                     alt={`${t.short} track poster: ${t.title}`}

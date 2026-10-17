@@ -30,25 +30,25 @@ export default function AboutPage() {
         </Reveal>
       </section>
 
-      <section data-header="dark" className="glow-bottom relative overflow-hidden bg-navy py-[clamp(72px,9vw,150px)] text-white">
+      <section className="glow-bottom relative overflow-hidden bg-white py-[clamp(72px,9vw,150px)] text-navy">
         <div className="wrap">
           <Reveal>
             <h2 className="t-h2 fade-up mb-[clamp(36px,5vw,72px)] max-w-[18ch]">
-              Why it is built <span className="em text-signal">this way</span>
+              Why it is built <span className="em text-signal-ink">this way</span>
             </h2>
           </Reveal>
           <div className="grid gap-3 md:grid-cols-12">
             {about.rationale.map((r, i) => (
               <Reveal
                 key={r.title}
-                className={`rounded-[var(--radius-l)] bg-white/[0.06] p-[clamp(24px,2.6vw,44px)] ring-1 ring-white/10 ${
+                className={`rounded-[var(--radius-l)] bg-paper p-[clamp(24px,2.6vw,44px)] ring-1 ring-navy/[0.06] ${
                   ["md:col-span-7", "md:col-span-5", "md:col-span-5", "md:col-span-7"][i]
                 }`}
               >
                 <div className="fade-up">
                   <span aria-hidden className="node mb-8 block text-[14px]" />
                   <h3 className="t-h3 mb-3">{r.title}</h3>
-                  <p className="max-w-[52ch] text-white/70">{r.body}</p>
+                  <p className="max-w-[52ch] text-navy/70">{r.body}</p>
                 </div>
               </Reveal>
             ))}

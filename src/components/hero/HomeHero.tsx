@@ -286,7 +286,7 @@ export function HomeHero() {
             <div ref={slot} id="slot" className="relative mx-auto aspect-video max-h-[78vh] w-full max-w-[1400px] rounded-[2.2vh]">
               <div
                 ref={sceneHost}
-                className={`absolute inset-0 touch-pan-y overflow-hidden rounded-[inherit] bg-navy transition-opacity duration-500 [&>canvas]:block [&>canvas]:size-full ${showCard ? "opacity-100" : "pointer-events-none opacity-0"}`}
+                className={`absolute inset-0 touch-pan-y overflow-hidden rounded-[inherit] bg-paper transition-opacity duration-500 [&>canvas]:block [&>canvas]:size-full ${showCard ? "opacity-100" : "pointer-events-none opacity-0"}`}
                 {...hold}
                 onPointerMove={(e) => {
                   pointer(e, sceneHost.current);
@@ -304,15 +304,15 @@ export function HomeHero() {
               />
               <div
                 aria-hidden={!showCard || !!take}
-                className={`pointer-events-none absolute inset-0 flex flex-col justify-between p-[clamp(20px,3vw,48px)] text-white transition-opacity duration-700 ${showCard && !take ? "opacity-100" : "opacity-0"}`}
+                className={`pointer-events-none absolute inset-0 flex flex-col justify-between rounded-[inherit] p-[clamp(20px,3vw,48px)] text-navy ring-1 ring-navy/[0.07] ring-inset transition-opacity duration-700 ${showCard && !take ? "opacity-100" : "opacity-0"}`}
               >
-                <p className="text-sm text-white/65 max-sm:hidden">Move to spark a thought. Hold to watch the machine think.</p>
+                <p className="text-sm text-muted max-sm:hidden">Move to spark a thought. Hold to watch the machine think.</p>
                 <div className="flex items-end justify-between gap-6">
                   <p className="t-h2 font-medium max-sm:invisible">
-                    Mind and <span className="em text-signal">Machine</span>
+                    Mind and <span className="em text-signal-ink">Machine</span>
                   </p>
                   <div className={showCard && !take ? "pointer-events-auto" : "pointer-events-none"}>
-                    <PillButton onClick={enter} variant="light" tabIndex={showCard && !take ? 0 : -1} icon={<ArrowsOutSimple size={17} weight="bold" />}>
+                    <PillButton onClick={enter} variant="dark" tabIndex={showCard && !take ? 0 : -1} icon={<ArrowsOutSimple size={17} weight="bold" />}>
                       Enter
                     </PillButton>
                   </div>

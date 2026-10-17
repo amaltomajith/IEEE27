@@ -28,13 +28,13 @@ export default function RegistrationPage() {
             </ul>
           </div>
         </Reveal>
-        <Reveal className="glow-bottom relative overflow-hidden rounded-[var(--radius-l)] bg-navy p-[clamp(24px,3vw,48px)] text-white">
+        <Reveal className="glow-bottom relative overflow-hidden rounded-[var(--radius-l)] bg-signal-soft p-[clamp(24px,3vw,48px)] text-navy">
           <div className="fade-up">
-            <Bed size={28} className="mb-6 text-signal" />
+            <Bed size={28} className="mb-6 text-signal-ink" />
             <h2 className="t-h3 mb-5">Accommodation</h2>
-            <p className="text-white/80">{accommodation}</p>
+            <p className="text-navy/75">{accommodation}</p>
             <div className="mt-8">
-              <PillButton href="/contact/" variant="ghost-dark">Ask about rooms</PillButton>
+              <PillButton href="/contact/" variant="ghost">Ask about rooms</PillButton>
             </div>
           </div>
         </Reveal>

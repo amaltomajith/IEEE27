@@ -25,7 +25,7 @@ export function CommitteeNav() {
                 href={t.href}
                 aria-current={active ? "page" : undefined}
                 className={`block rounded-full px-5 py-2.5 text-sm font-medium whitespace-nowrap transition-colors ${
-                  active ? "bg-navy text-white" : "text-navy/70 hover:bg-gray hover:text-navy"
+                  active ? "bg-signal text-navy" : "text-navy/70 hover:bg-gray hover:text-navy"
                 }`}
               >
                 {t.label}

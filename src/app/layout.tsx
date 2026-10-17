@@ -29,7 +29,8 @@ export const metadata: Metadata = {
   icons: { icon: "/icon.svg" },
 };
 
-export const viewport: Viewport = { themeColor: "#22d8c8" };
+// White-first site: opt out of browser/OS auto-dark (Chrome Android, Samsung Internet).
+export const viewport: Viewport = { themeColor: "#f5f9f8", colorScheme: "only light" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

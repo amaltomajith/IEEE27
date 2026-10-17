@@ -22,7 +22,7 @@ function MemberCard({ m }: { m: Member }) {
       {...(m.url ? { href: m.url, target: "_blank", rel: "noopener noreferrer" } : {})}
       className="group flex h-full gap-4 rounded-[var(--radius-m)] bg-white p-5 shadow-[0_1px_0_rgb(10_33_41/0.04)] ring-1 ring-navy/5 transition-[box-shadow,transform] duration-500 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-22px_rgb(10_33_41/0.35)]"
     >
-      <span aria-hidden className="grid size-12 shrink-0 place-items-center rounded-full bg-navy text-sm font-semibold tracking-wide text-signal">
+      <span aria-hidden className="grid size-12 shrink-0 place-items-center rounded-full bg-signal-soft text-sm font-semibold tracking-wide text-signal-deep">
         {initials(m.name)}
       </span>
       <span className="min-w-0 flex-1">
@@ -84,7 +84,7 @@ export function MemberDirectory({ groups }: { groups: Group[] }) {
               aria-pressed={scope === s}
               onClick={() => setScope(s)}
               className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                scope === s ? "bg-navy text-white" : "bg-white text-navy/75 ring-1 ring-navy/10 hover:text-navy"
+                scope === s ? "bg-signal text-navy" : "bg-white text-navy/75 ring-1 ring-navy/10 hover:text-navy"
               }`}
             >
               {s}

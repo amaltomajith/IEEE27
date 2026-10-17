@@ -31,7 +31,7 @@ export function Counter() {
     });
   return (
     <div className="flex items-center gap-4 text-[clamp(16px,1.25vw,22px)]">
-      <span className="mono grid h-[clamp(52px,3.8vw,68px)] w-[clamp(64px,4.8vw,86px)] shrink-0 place-items-center rounded-[14px] bg-navy text-[clamp(18px,1.4vw,24px)] text-signal">
+      <span className="mono grid h-[clamp(52px,3.8vw,68px)] w-[clamp(64px,4.8vw,86px)] shrink-0 place-items-center rounded-[14px] bg-signal-soft text-[clamp(18px,1.4vw,24px)] text-signal-deep ring-1 ring-signal/30">
         <span className="relative block h-[1.3em] w-full overflow-hidden leading-[1.3em]">{roll("n", true)}</span>
       </span>
       <span className="relative block h-[1.3em] min-w-[11em] overflow-hidden leading-[1.3em] [&>b]:font-normal">{roll("label")}</span>

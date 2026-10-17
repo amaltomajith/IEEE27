@@ -27,11 +27,11 @@ export default function VenuePage() {
         ))}
       </section>
       <section className="wrap grid gap-3 pb-[clamp(64px,8vw,130px)] lg:grid-cols-[0.8fr_1.2fr]">
-        <div className="glow-bottom relative flex flex-col justify-between gap-10 overflow-hidden rounded-[var(--radius-l)] bg-navy p-[clamp(24px,3vw,48px)] text-white">
+        <div className="glow-bottom relative flex flex-col justify-between gap-10 overflow-hidden rounded-[var(--radius-l)] bg-signal-soft p-[clamp(24px,3vw,48px)] text-navy">
           <div>
-            <MapPin size={30} className="mb-6 text-signal" />
+            <MapPin size={30} className="mb-6 text-signal-ink" />
             <p className="t-h3">{venue.name}</p>
-            <address className="mt-4 text-lg not-italic text-white/75">
+            <address className="mt-4 text-lg not-italic text-navy/70">
               {venue.address.map((l) => <span key={l} className="block">{l}</span>)}
             </address>
           </div>

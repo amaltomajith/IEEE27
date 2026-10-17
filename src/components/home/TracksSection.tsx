@@ -41,12 +41,12 @@ function Cards() {
         </h2>
         <div className="mt-16">
           <p className="max-w-[28ch] text-navy/75">Every department runs its own call for papers, peer review and publication route.</p>
-          <span className="mt-6 inline-grid size-20 place-items-center rounded-full bg-navy text-2xl font-semibold text-signal">12</span>
+          <span className="mt-6 inline-grid size-20 place-items-center rounded-full bg-signal-soft text-2xl font-semibold text-signal-deep ring-1 ring-signal/30">12</span>
         </div>
       </li>
       {tracks.map((t) => (
         <li key={t.slug} className="w-[min(84vw,520px)] shrink-0 snap-start md:h-[min(74vh,700px)] md:w-[min(40vw,520px)]">
-          <Link href={`/thematic-tracks/${t.slug}/`} className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-l)] bg-navy text-white">
+          <Link href={`/thematic-tracks/${t.slug}/`} className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-l)] bg-white text-navy ring-1 ring-navy/[0.06] transition-shadow duration-500 hover:shadow-[0_24px_60px_-30px_rgb(10_33_41/0.3)]">
             <div className="relative aspect-[16/10] shrink-0 overflow-hidden md:aspect-auto md:flex-1">
               <Image src={t.poster} alt={`${t.short} track poster`} fill sizes="(min-width:768px) 40vw, 84vw" className="object-cover object-top transition duration-[1.2s] [transition-timing-function:var(--ease-out)] group-hover:scale-105" />
               <span className="absolute top-4 right-4 grid size-12 place-items-center rounded-full bg-signal text-navy shadow-lg transition-transform duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-45">
@@ -54,12 +54,12 @@ function Cards() {
               </span>
             </div>
             <div className="p-[clamp(20px,2vw,32px)]">
-              <p className="text-sm text-muted-dark">{t.short}</p>
+              <p className="text-sm text-muted">{t.short}</p>
               <h3 className="mt-1 text-[clamp(19px,1.45vw,24px)] leading-snug font-medium tracking-[-0.01em]">{t.title}</h3>
-              <ul className="mt-4 flex flex-col gap-1 text-[14px] text-white/70">
+              <ul className="mt-4 flex flex-col gap-1 text-[14px] text-navy/70">
                 {t.subTracks.map((s) => (
                   <li key={s.number} className="flex gap-3">
-                    <span className="w-5 shrink-0 text-signal tabular-nums">{String(s.number).padStart(2, "0")}</span>
+                    <span className="mono w-6 shrink-0 text-signal-ink">{String(s.number).padStart(2, "0")}</span>
                     {s.title}
                   </li>
                 ))}

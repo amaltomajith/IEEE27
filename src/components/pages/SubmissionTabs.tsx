@@ -84,7 +84,7 @@ function Manuscript() {
       </div>
       <div className="grid gap-3 md:grid-cols-2">
         <div className="rounded-[var(--radius-m)] bg-white p-6 ring-1 ring-navy/5"><h3 className="mb-2 font-medium">References</h3><p className="text-navy/75">{manuscriptOption.references}</p></div>
-        <div className="rounded-[var(--radius-m)] bg-navy p-6 text-white"><h3 className="mb-2 font-medium text-signal">Plagiarism policy</h3><p className="text-white/80">{manuscriptOption.plagiarism}</p></div>
+        <div className="rounded-[var(--radius-m)] bg-signal-soft p-6 ring-1 ring-signal/25"><h3 className="mb-2 font-medium text-signal-deep">Plagiarism policy</h3><p className="text-navy/80">{manuscriptOption.plagiarism}</p></div>
       </div>
     </div>
   );
@@ -104,8 +104,8 @@ export function SubmissionTabs() {
       <div role="tablist" aria-label="Submission options" className="mb-12 inline-flex gap-1 rounded-full bg-white p-1 ring-1 ring-navy/5">
         {TABS.map((t, i) => (
           <button key={t.id} role="tab" id={`tab-${t.id}`} aria-selected={tab === t.id} aria-controls={`panel-${t.id}`} onClick={() => setTab(t.id)} className="relative rounded-full px-5 py-3 text-sm font-medium md:px-7">
-            {tab === t.id && <motion.span layoutId="sub-tab" className="absolute inset-0 rounded-full bg-navy" transition={{ type: "spring", bounce: 0, duration: 0.45 }} />}
-            <span className={`relative ${tab === t.id ? "text-white" : "text-navy/70"}`}>Option {i + 1}: {t.label}</span>
+            {tab === t.id && <motion.span layoutId="sub-tab" className="absolute inset-0 rounded-full bg-signal" transition={{ type: "spring", bounce: 0, duration: 0.45 }} />}
+            <span className={`relative ${tab === t.id ? "text-navy" : "text-navy/70"}`}>Option {i + 1}: {t.label}</span>
           </button>
         ))}
       </div>
