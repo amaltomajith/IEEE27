@@ -98,9 +98,9 @@ export function ReachSection() {
               </p>
               <div ref={lineB} className="col-start-1 row-start-1 self-end" style={final ? undefined : { opacity: 0 }}>
                 <p className="t-h1 max-w-[19ch]">
-                  It is time to ask what AI <span className="bg-[linear-gradient(90deg,var(--color-wine),var(--color-clay))] bg-clip-text text-transparent">does to us</span>.
+                  It is time to ask what AI <span className="bg-[linear-gradient(90deg,var(--color-brand),var(--color-royal))] bg-clip-text pr-[0.06em] italic text-transparent">does to us</span>.
                 </p>
-                <p className="mt-5 text-[clamp(15px,1.1vw,18px)] text-cocoa/70">The question at the centre of IIC 2027.</p>
+                <p className="mt-5 text-[clamp(15px,1.1vw,18px)] text-ink/70">The question at the centre of IIC 2027.</p>
               </div>
             </div>
           </div>

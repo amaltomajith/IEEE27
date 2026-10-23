@@ -33,7 +33,7 @@ export default function TracksPage() {
                     sizes="(min-width:768px) 45vw, 92vw"
                     className="object-cover transition-transform duration-[1.2s] [transition-timing-function:var(--ease-out)] group-hover:scale-[1.04]"
                   />
-                  <span className="absolute top-5 right-5 grid size-14 place-items-center rounded-full bg-white text-cocoa transition-transform duration-500 [transition-timing-function:var(--ease-spring)] group-hover:scale-110 group-hover:rotate-45">
+                  <span className="absolute top-5 right-5 grid size-14 place-items-center rounded-full bg-white text-ink transition-transform duration-500 [transition-timing-function:var(--ease-spring)] group-hover:scale-110 group-hover:rotate-45">
                     <ArrowUpRight size={22} weight="bold" />
                   </span>
                 </div>
@@ -42,7 +42,7 @@ export default function TracksPage() {
                     <p className="text-muted">
                       {t.short} &middot; Tracks {t.subTracks[0].number}-{t.subTracks[2].number}
                     </p>
-                    <h2 className="t-h3 mt-2 max-w-[24ch] transition-colors group-hover:text-wine-ink">{t.title}</h2>
+                    <h2 className="t-h3 mt-2 max-w-[24ch] transition-colors group-hover:text-brand-ink">{t.title}</h2>
                   </div>
                 </div>
               </Link>

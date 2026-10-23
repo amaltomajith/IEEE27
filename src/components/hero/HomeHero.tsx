@@ -248,12 +248,13 @@ export function HomeHero() {
             {mode === "static" && (
               <span
                 aria-hidden
-                className="absolute top-[38svh] left-[74vw] h-[30svh] w-[15.6vw] -translate-x-1/2 -translate-y-1/2 -skew-x-[22deg] rounded-[1.2svh] bg-wine md:top-[50svh] md:left-[57vw] md:h-[66svh] md:w-[14svh]"
+                className="absolute top-[38svh] left-[74vw] h-[30svh] w-[15.6vw] -translate-x-1/2 -translate-y-1/2 -skew-x-[22deg] rounded-[1.2svh] bg-brand md:top-[50svh] md:left-[57vw] md:h-[66svh] md:w-[14svh]"
               />
             )}
-            {/* Poster lockup: conference line, title, wine theme band. */}
+            {/* Lockup: conference label, title, theme line. */}
             <div className="relative my-auto">
-              <p className="fade-up mb-[clamp(10px,1.6vh,22px)] font-display text-[clamp(18px,1.7vw,28px)] leading-none font-medium tracking-[0.02em] text-cocoa/75 uppercase max-md:max-w-[56vw]">
+              <p className="fade-up mb-[clamp(12px,2vh,26px)] flex items-center gap-3 text-[clamp(12px,0.95vw,15px)] leading-snug font-semibold tracking-[0.2em] text-gold uppercase max-md:max-w-[60vw]">
+                <span aria-hidden className="h-[1.2em] w-[2px] shrink-0 bg-gold" />
                 International Interdisciplinary Conference
               </p>
               <h1 className="t-xl relative pb-[0.06em] font-semibold">
@@ -267,8 +268,8 @@ export function HomeHero() {
                   <span>Machine</span>
                 </span>
               </h1>
-              <p className="fade-up mt-[clamp(14px,2.2vh,28px)] flex max-w-[34ch] items-start gap-4 text-[clamp(18px,1.55vw,26px)] leading-[1.35] text-cocoa/85 max-md:max-w-[47vw] max-md:text-[17px]">
-                <span aria-hidden className="mt-[0.12em] inline-block h-[1.15em] w-[0.32em] shrink-0 -skew-x-[22deg] rounded-[3px] bg-[linear-gradient(180deg,var(--color-wine),var(--color-clay))]" />
+              <p className="fade-up mt-[clamp(14px,2.2vh,28px)] flex max-w-[34ch] items-start gap-4 text-[clamp(18px,1.55vw,26px)] leading-[1.35] text-ink/85 max-md:max-w-[47vw] max-md:text-[17px]">
+                <span aria-hidden className="mt-[0.12em] inline-block h-[1.15em] w-[0.32em] shrink-0 -skew-x-[22deg] rounded-[3px] bg-[linear-gradient(180deg,var(--color-brand),var(--color-royal))]" />
                 <span>Reimagining human-AI collaboration across sectors.</span>
               </p>
             </div>
@@ -276,7 +277,7 @@ export function HomeHero() {
               <div className="flex flex-wrap items-start gap-x-8 gap-y-5">
                 <Countdown />
                 <div className="flex items-center gap-3">
-                  <span className="grid size-[clamp(44px,3.4vw,56px)] shrink-0 place-items-center rounded-[14px] bg-clay text-paper">
+                  <span className="grid size-[clamp(44px,3.4vw,56px)] shrink-0 place-items-center rounded-[14px] bg-amber text-navy">
                     <Monitor size={24} weight="duotone" />
                   </span>
                   <p className="leading-tight">
@@ -285,12 +286,12 @@ export function HomeHero() {
                   </p>
                 </div>
               </div>
-              <PillButton href="/thematic-tracks/" variant="wine">View tracks</PillButton>
+              <PillButton href="/thematic-tracks/" variant="brand">View tracks</PillButton>
             </div>
           </div>
 
           <div ref={introBlock} className="wrap pt-[clamp(90px,16vh,200px)] pb-[clamp(40px,8vh,100px)]">
-            <p ref={introText} className="max-w-[34em] text-[clamp(20px,1.6vw,28px)] leading-[1.5] text-cocoa/90 max-md:pr-[20vw] md:max-w-[30em]">
+            <p ref={introText} className="max-w-[34em] text-[clamp(20px,1.6vw,28px)] leading-[1.5] text-ink/90 max-md:pr-[20vw] md:max-w-[30em]">
               {site.short} brings engineering, business and psychology into one room to study the human side of intelligent systems.
             </p>
             <div className="mt-8">
@@ -320,7 +321,7 @@ export function HomeHero() {
               />
               <div
                 aria-hidden={!showCard || !!take}
-                className={`pointer-events-none absolute inset-0 flex flex-col justify-between rounded-[inherit] p-[clamp(20px,3vw,48px)] text-cocoa ring-1 ring-cocoa/[0.07] ring-inset transition-opacity duration-700 ${showCard && !take ? "opacity-100" : "opacity-0"}`}
+                className={`pointer-events-none absolute inset-0 flex flex-col justify-between rounded-[inherit] p-[clamp(20px,3vw,48px)] text-ink ring-1 ring-ink/[0.07] ring-inset transition-opacity duration-700 ${showCard && !take ? "opacity-100" : "opacity-0"}`}
               >
                 <p className="text-sm text-muted max-sm:hidden">Click a neuron to send a thought. Hold to watch the machine think.</p>
                 <div className="flex items-end justify-between gap-6">

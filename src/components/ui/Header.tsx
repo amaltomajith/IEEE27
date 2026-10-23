@@ -60,16 +60,16 @@ export function Header() {
             : !scrolled
             ? ""
             : onDark
-              ? "bg-cocoa/60 shadow-[0_1px_0_rgb(255_255_255/0.06)] backdrop-blur-xl backdrop-saturate-150"
-              : "bg-paper/70 shadow-[0_1px_0_rgb(87_52_32/0.06)] backdrop-blur-xl backdrop-saturate-150"
+              ? "bg-ink/60 shadow-[0_1px_0_rgb(255_255_255/0.06)] backdrop-blur-xl backdrop-saturate-150"
+              : "bg-paper/70 shadow-[0_1px_0_rgb(10_26_64/0.06)] backdrop-blur-xl backdrop-saturate-150"
         }`}
       >
         <div className="wrap flex h-[var(--header-h)] items-center justify-between gap-4">
-          <div className={`transition-colors duration-500 ${onDark ? "text-white" : "text-cocoa"}`}>
+          <div className={`transition-colors duration-500 ${onDark ? "text-white" : "text-ink"}`}>
             <Logo />
           </div>
           <div className="flex items-center gap-2">
-            <PillButton href={site.portals.submission} variant={onDark ? "wine" : "light"} className="hidden md:inline-flex">
+            <PillButton href={site.portals.submission} variant={onDark ? "brand" : "light"} className="hidden md:inline-flex">
               Submit paper
             </PillButton>
             <button
@@ -80,7 +80,7 @@ export function Header() {
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((v) => !v)}
               data-dark={onDark || undefined}
-              className={`menu-trigger group inline-flex items-center gap-3 pl-2 text-[15px] font-medium transition-colors ${onDark ? "text-white" : "text-cocoa"}`}
+              className={`menu-trigger group inline-flex items-center gap-3 pl-2 text-[15px] font-medium transition-colors ${onDark ? "text-white" : "text-ink"}`}
             >
               <span className="roll max-sm:hidden" aria-hidden>
                 <span>{open ? "Close" : "Menu"}</span>

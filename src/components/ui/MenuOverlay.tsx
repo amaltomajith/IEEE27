@@ -80,7 +80,7 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
           role="dialog"
           aria-modal="true"
           aria-label="Site menu"
-          className="glow-bottom fixed inset-0 z-40 overflow-y-auto bg-paper text-cocoa"
+          className="glow-bottom fixed inset-0 z-40 overflow-y-auto bg-paper text-ink"
           initial={reduce ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }}
           animate={reduce ? { opacity: 1 } : { clipPath: "inset(0 0 0% 0)" }}
           exit={reduce ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }}
@@ -88,25 +88,25 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
         >
           <div className="wrap grid min-h-full gap-12 pt-[calc(var(--header-h)+3vh)] pb-12 lg:grid-cols-[1.4fr_1fr]">
             <nav aria-label="Primary">
-              <ol className="grid border-t border-cocoa/10">
+              <ol className="grid border-t border-ink/10">
                 {nav.map((item, i) => (
                   <motion.li
                     key={item.href}
                     initial={reduce ? false : { y: 24, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.22 + i * 0.035, duration: 0.8, ease }}
-                    className="border-b border-cocoa/10"
+                    className="border-b border-ink/10"
                   >
                     <Link
                       href={item.href}
                       onClick={go(item.href)}
                       aria-busy={pending === item.href || undefined}
-                      className={`group flex items-baseline gap-5 transition-opacity duration-300 ${pending && pending !== item.href ? "opacity-35" : ""}  py-[clamp(6px,1.1vh,12px)] font-display text-[clamp(32px,min(4.2vw,6vh),60px)] leading-[1] font-medium uppercase ${pending === item.href ? "text-wine-ink" : "text-cocoa"} hover:text-wine-ink`}
+                      className={`group flex items-baseline gap-5 transition-opacity duration-300 ${pending && pending !== item.href ? "opacity-35" : ""}  py-[clamp(6px,1.1vh,12px)] font-display text-[clamp(30px,min(3.8vw,5.6vh),56px)] leading-[1.05] font-semibold ${pending === item.href ? "text-brand-ink" : "text-ink"} hover:text-brand-ink`}
                     >
-                      <span className="mono relative w-8 shrink-0 text-[16px] text-muted transition-colors group-hover:text-wine-ink">
+                      <span className="mono relative w-8 shrink-0 text-[16px] text-muted transition-colors group-hover:text-brand-ink">
                         {pending === item.href ? (
-                          <span aria-hidden className="absolute top-1/2 left-0 block h-[2px] w-6 -translate-y-1/2 overflow-hidden rounded-full bg-cocoa/10">
-                            <span className="block h-full w-1/2 animate-[navload_0.9s_ease-in-out_infinite] rounded-full bg-wine" />
+                          <span aria-hidden className="absolute top-1/2 left-0 block h-[2px] w-6 -translate-y-1/2 overflow-hidden rounded-full bg-ink/10">
+                            <span className="block h-full w-1/2 animate-[navload_0.9s_ease-in-out_infinite] rounded-full bg-brand" />
                           </span>
                         ) : (
                           String(i + 1).padStart(2, "0")
@@ -134,21 +134,21 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
                 <ul className="flex flex-wrap gap-2">
                   {tracks.children!.map((c) => (
                     <li key={c.href}>
-                      <Link href={c.href} onClick={go(c.href)} className={`inline-flex rounded-full px-4 py-2 ring-1 transition hover:bg-wine hover:text-paper hover:ring-wine ${pending === c.href ? "bg-wine text-paper ring-wine" : "ring-cocoa/15"}`}>
+                      <Link href={c.href} onClick={go(c.href)} className={`inline-flex rounded-full px-4 py-2 ring-1 transition hover:bg-brand hover:text-paper hover:ring-brand ${pending === c.href ? "bg-brand text-paper ring-brand" : "ring-ink/15"}`}>
                         {c.label}
                       </Link>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="space-y-1 text-cocoa/75">
+              <div className="space-y-1 text-ink/75">
                 <p className="text-sm text-muted">Write to us</p>
-                <a href={`mailto:${site.email}`} className="block text-lg [overflow-wrap:anywhere] text-cocoa hover:text-wine-ink">
+                <a href={`mailto:${site.email}`} className="block text-lg [overflow-wrap:anywhere] text-ink hover:text-brand-ink">
                   {site.email}
                 </a>
                 <p className="pt-2">{site.dates}, {site.mode}</p>
               </div>
-              <PillButton href={site.portals.submission} variant="wine" className="self-start">Submit paper</PillButton>
+              <PillButton href={site.portals.submission} variant="brand" className="self-start">Submit paper</PillButton>
             </motion.div>
           </div>
         </motion.div>

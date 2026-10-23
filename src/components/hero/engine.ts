@@ -105,8 +105,8 @@ export class HeroEngine {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([10, 33, 41, 255]));
-    // Accent wine, #773d43 (poster).
-    gl.uniform3f(this.u("uCol"), 119 / 255, 61 / 255, 67 / 255);
+    // Accent brand, CHRIST navy-blue #13347a.
+    gl.uniform3f(this.u("uCol"), 19 / 255, 52 / 255, 122 / 255);
     this.mx = innerWidth * 0.6;
     this.my = innerHeight * 0.5;
   }

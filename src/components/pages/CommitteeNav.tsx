@@ -16,7 +16,7 @@ export function CommitteeNav() {
   const norm = (p: string) => (p.endsWith("/") ? p : p + "/");
   return (
     <nav aria-label="Committee sections" className="no-scrollbar -mx-[var(--gutter)] overflow-x-auto px-[var(--gutter)]">
-      <ul className="inline-flex gap-1 rounded-full bg-white p-1 shadow-[0_10px_30px_-14px_rgb(87_52_32/0.25)]">
+      <ul className="inline-flex gap-1 rounded-full bg-white p-1 shadow-[0_10px_30px_-14px_rgb(10_26_64/0.25)]">
         {tabs.map((t) => {
           const active = norm(path) === t.href;
           return (
@@ -25,7 +25,7 @@ export function CommitteeNav() {
                 href={t.href}
                 aria-current={active ? "page" : undefined}
                 className={`block rounded-full px-5 py-2.5 text-sm font-medium whitespace-nowrap transition-colors ${
-                  active ? "bg-wine text-paper" : "text-cocoa/70 hover:bg-gray hover:text-cocoa"
+                  active ? "bg-brand text-paper" : "text-ink/70 hover:bg-gray hover:text-ink"
                 }`}
               >
                 {t.label}

@@ -11,10 +11,10 @@ export function DatesSection() {
           <h2 className="t-h2 fade-up max-w-[12ch]">
             From abstract to <span className="em">Bengaluru</span>
           </h2>
-          <div className="fade-up mt-8 inline-flex items-start gap-3 rounded-[var(--radius-m)] bg-white px-5 py-4 ring-1 ring-cocoa/5">
+          <div className="fade-up mt-8 inline-flex items-start gap-3 rounded-[var(--radius-m)] bg-white px-5 py-4 ring-1 ring-ink/5">
             <span className="relative mt-2 flex size-2.5 shrink-0">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-wine opacity-60" />
-              <span className="relative inline-flex size-2.5 rounded-full bg-wine" />
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-60" />
+              <span className="relative inline-flex size-2.5 rounded-full bg-brand" />
             </span>
             <NextDeadline />
           </div>

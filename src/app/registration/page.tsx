@@ -17,22 +17,22 @@ export default function RegistrationPage() {
         <FeeMatrix />
       </section>
       <section className="wrap grid gap-3 pb-[clamp(64px,8vw,130px)] lg:grid-cols-[1.1fr_1fr]">
-        <Reveal className="rounded-[var(--radius-l)] bg-white p-[clamp(24px,3vw,48px)] ring-1 ring-cocoa/5">
+        <Reveal className="rounded-[var(--radius-l)] bg-white p-[clamp(24px,3vw,48px)] ring-1 ring-ink/5">
           <div className="fade-up">
-            <Info size={28} className="mb-6 text-wine-ink" />
+            <Info size={28} className="mb-6 text-brand-ink" />
             <h2 className="t-h3 mb-5">What the fee covers</h2>
-            <ul className="space-y-3 text-cocoa/80">
+            <ul className="space-y-3 text-ink/80">
               {feeNotes.map((n) => (
                 <li key={n} className="flex gap-3"><span aria-hidden className="node mt-[0.55em] text-[9px]" />{n}</li>
               ))}
             </ul>
           </div>
         </Reveal>
-        <Reveal className="glow-bottom relative overflow-hidden rounded-[var(--radius-l)] bg-wine-soft p-[clamp(24px,3vw,48px)] text-cocoa">
+        <Reveal className="glow-bottom relative overflow-hidden rounded-[var(--radius-l)] bg-brand-soft p-[clamp(24px,3vw,48px)] text-ink">
           <div className="fade-up">
-            <Bed size={28} className="mb-6 text-wine-ink" />
+            <Bed size={28} className="mb-6 text-brand-ink" />
             <h2 className="t-h3 mb-5">Accommodation</h2>
-            <p className="text-cocoa/75">{accommodation}</p>
+            <p className="text-ink/75">{accommodation}</p>
             <div className="mt-8">
               <PillButton href="/contact/" variant="ghost">Ask about rooms</PillButton>
             </div>
@@ -40,7 +40,7 @@ export default function RegistrationPage() {
         </Reveal>
       </section>
       <section className="wrap pb-[clamp(64px,8vw,130px)]">
-        <p className="text-muted">Questions about registration? Write to <a className="text-cocoa underline decoration-wine decoration-2 underline-offset-4" href={`mailto:${site.email}`}>{site.email}</a>.</p>
+        <p className="text-muted">Questions about registration? Write to <a className="text-ink underline decoration-brand decoration-2 underline-offset-4" href={`mailto:${site.email}`}>{site.email}</a>.</p>
       </section>
     </>
   );

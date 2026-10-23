@@ -11,7 +11,7 @@ export default function SubmissionPage() {
     <>
       <PageHero title="Two ways to submit" emphasis="submit" crumbs={[{ label: "Submission" }]} intro="Send an extended abstract by October 20, 2026, or a full manuscript by December 1, 2026.">
         <div className="flex flex-wrap gap-3">
-          <PillButton href={site.portals.submission} variant="wine">Paper submission portal</PillButton>
+          <PillButton href={site.portals.submission} variant="brand">Paper submission portal</PillButton>
           <PillButton href={site.portals.submission} variant="ghost">Reviewer portal</PillButton>
         </div>
       </PageHero>

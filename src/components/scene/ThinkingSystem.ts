@@ -50,7 +50,7 @@ export class ThinkingSystem {
     this.frozen = !!opts.frozen;
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
     this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
-    this.renderer.setClearColor(0xfaf7ee, 1);
+    this.renderer.setClearColor(0xf3f5f9, 1);
     this.canvas = this.renderer.domElement;
     this.canvas.setAttribute("aria-hidden", "true");
     this.camera.position.set(0, 0, 5.2);
@@ -68,10 +68,10 @@ export class ThinkingSystem {
       uInstant: { value: this.frozen ? 1 : 0 },
       uSize: { value: 3 },
       uDpr: { value: 1 },
-      uColA: { value: C("#8c5a3c") },
-      uColB: { value: C("#573420") },
-      uSpark: { value: C("#a8474f") },
-      uHot: { value: C("#d0893c") },
+      uColA: { value: C("#3d5d9e") },
+      uColB: { value: C("#081c38") },
+      uSpark: { value: C("#d88400") },
+      uHot: { value: C("#f0b428") },
     };
 
     // Nodes
@@ -148,7 +148,7 @@ export class ThinkingSystem {
       fragmentShader: BG_FRAG,
       depthWrite: false,
       depthTest: false,
-      uniforms: { uBase: { value: C("#faf7ee") }, uTint: { value: C("#f6e3d6") }, uGlow: { value: C("#efc9ae") }, uMix: this.uniforms.uMix },
+      uniforms: { uBase: { value: C("#f3f5f9") }, uTint: { value: C("#e6ecf7") }, uGlow: { value: C("#f3e3c6") }, uMix: this.uniforms.uMix },
     });
     const bg = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), this.bgMat);
     bg.frustumCulled = false;

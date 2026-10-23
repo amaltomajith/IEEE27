@@ -73,7 +73,7 @@ void main(){
   float heat = clamp(max(vSpark, vHit * 1.2), 0., 1.);
   float a = min(1., core * core * (0.85 + min(vSpark, 1.5) * 0.5 + vHit * 0.6));
   vec3 col = mix(mix(uColA, uColB, vMix), uSpark, heat);
-  // Fresh arrivals burn gold, then cool to wine.
+  // Fresh arrivals burn gold, then cool to brand.
   col = mix(col, uHot, smoothstep(0.45, 0.9, vHit));
   float ring = 0.;
   if (vRing >= 0.) ring = smoothstep(0.07, 0., abs(d - 0.9)) * (1. - vRing) * 0.9;
@@ -177,7 +177,7 @@ precision highp float;
 varying vec2 vUv;
 uniform vec3 uBase, uTint, uGlow;
 uniform float uMix;
-// Light card: ivory base, a warm clay/peach wash bottom-right and a lighter top-left.
+// Light card: ivory base, a warm amber/peach wash bottom-right and a lighter top-left.
 void main(){
   vec2 p = vUv;
   float g1 = smoothstep(0.9, 0.0, distance(p, vec2(0.8, -0.05)));

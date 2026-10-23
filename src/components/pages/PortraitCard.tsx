@@ -17,7 +17,7 @@ export function PortraitCard({ m, priority = false }: { m: Member; priority?: bo
         )}
         <span aria-hidden className="node absolute bottom-4 left-4 text-[12px] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
-      <p className="mt-4 text-lg leading-snug font-medium">{m.name}</p>
+      <p className="mt-4 font-display font-semibold text-[22px] leading-snug">{m.name}</p>
       {m.role && <p className="mt-1 text-[15px] leading-snug text-muted">{m.role}{m.org ? `, ${m.org}` : ""}</p>}
     </>
   );

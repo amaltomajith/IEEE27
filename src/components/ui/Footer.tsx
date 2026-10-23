@@ -7,7 +7,7 @@ import { FooterSlash } from "./FooterSlash";
 import { NextDeadline } from "./NextDeadline";
 import { BackToTop } from "./BackToTop";
 
-const card = "min-w-0 rounded-[clamp(16px,1.6vw,24px)] bg-white p-[clamp(20px,2vw,32px)] shadow-[0_1px_0_rgb(87_52_32/0.04)]";
+const card = "min-w-0 rounded-[clamp(16px,1.6vw,24px)] bg-white p-[clamp(20px,2vw,32px)] shadow-[0_1px_0_rgb(10_26_64/0.04)]";
 
 export function Footer() {
   return (
@@ -19,10 +19,10 @@ export function Footer() {
         </p>
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[1.3fr_1fr_1fr]">
           <nav aria-label="Footer" className={`${card} xl:row-span-2`}>
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-2 text-[clamp(17px,1.3vw,22px)]">
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-2 font-display font-semibold text-[clamp(20px,1.55vw,26px)]">
               {nav.map((n) => (
                 <li key={n.href}>
-                  <Link href={n.href} className="inline-flex text-cocoa/80 transition-colors hover:text-wine-ink">
+                  <Link href={n.href} className="inline-flex text-ink/80 transition-colors hover:text-brand-ink">
                     <span className="roll">
                       <span>{n.label}</span>
                       <span aria-hidden>{n.label}</span>
@@ -35,24 +35,24 @@ export function Footer() {
           <a href={`mailto:${site.email}`} className={`${card} group flex items-center justify-between gap-4`}>
             <span className="min-w-0">
               <span className="block text-sm text-muted">Conference email</span>
-              <span className="block text-[clamp(16px,1.15vw,20px)] font-medium [overflow-wrap:anywhere]">
+              <span className="block font-display font-semibold text-[clamp(19px,1.4vw,24px)] leading-snug [font-variant-numeric:lining-nums] [overflow-wrap:anywhere]">
                 {site.email.split("@")[0]}
                 <wbr />@{site.email.split("@")[1]}
               </span>
             </span>
-            <EnvelopeSimple size={26} className="shrink-0 text-wine-ink transition-transform group-hover:-rotate-12" />
+            <EnvelopeSimple size={26} className="shrink-0 text-brand-ink transition-transform group-hover:-rotate-12" />
           </a>
           <a href={venue.phoneHref} className={`${card} group flex items-center justify-between gap-4`}>
             <span>
               <span className="block text-sm text-muted">Campus</span>
-              <span className="block text-[clamp(16px,1.15vw,20px)] font-medium">{venue.phone}</span>
+              <span className="block font-display font-semibold text-[clamp(19px,1.4vw,24px)] [font-variant-numeric:lining-nums]">{venue.phone}</span>
             </span>
-            <Phone size={26} className="shrink-0 text-wine-ink transition-transform group-hover:-rotate-12" />
+            <Phone size={26} className="shrink-0 text-brand-ink transition-transform group-hover:-rotate-12" />
           </a>
           <div className={`${card} flex items-start gap-4`}>
             <span className="relative mt-1.5 flex size-2.5 shrink-0">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-wine opacity-60" />
-              <span className="relative inline-flex size-2.5 rounded-full bg-wine" />
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-60" />
+              <span className="relative inline-flex size-2.5 rounded-full bg-brand" />
             </span>
             <span>
               <span className="block text-sm text-muted">Next deadline</span>
@@ -68,10 +68,10 @@ export function Footer() {
             <span className="flex items-start justify-between gap-4 px-[clamp(10px,1.2vw,22px)] pb-[clamp(10px,1.2vw,22px)]">
               <span>
                 <span className="block text-sm text-muted">Venue</span>
-                <span className="block font-medium">{venue.name}</span>
+                <span className="block font-display font-semibold text-[19px] leading-snug">{venue.name}</span>
                 <span className="block text-muted">{venue.address.join(", ")}</span>
               </span>
-              <MapPin size={26} className="shrink-0 text-clay transition-transform group-hover:-translate-y-1" />
+              <MapPin size={26} className="shrink-0 text-amber transition-transform group-hover:-translate-y-1" />
             </span>
           </a>
         </div>

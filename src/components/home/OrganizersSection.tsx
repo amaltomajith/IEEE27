@@ -2,21 +2,23 @@ import Image from "next/image";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { organizers, site } from "@/content/site";
 import { Reveal } from "@/components/ui/Reveal";
+import { Ribbon } from "@/components/ui/Ribbon";
 
 const FACTS = ["Hybrid mode", "Scopus-indexed Open Access journal", "APC USD 100, on acceptance only", "Proceedings with DOI"];
 
 export function OrganizersSection() {
   return (
-    <section className="warm-a relative overflow-hidden py-[clamp(80px,10vw,170px)] text-cocoa">
-      <div className="wrap">
+    <section className="tint-a relative overflow-hidden py-[clamp(80px,10vw,170px)] text-ink">
+      <Ribbon shape="s" className="top-[-7%] right-[-5%] h-[38%] max-md:top-[-2%] max-md:right-[-16%] max-md:h-[20%]" />
+      <div className="wrap relative z-[1]">
         <Reveal>
           <h2 className="t-h2 fade-up mb-[clamp(40px,5vw,80px)] max-w-[16ch]">
-            Three schools, one <span className="em text-wine-ink">question</span>
+            Three schools, one <span className="em text-brand-ink">question</span>
           </h2>
         </Reveal>
-        <ul className="border-t border-cocoa/10">
+        <ul className="border-t border-ink/10">
           {organizers.map((o) => (
-            <li key={o.name} className="border-b border-cocoa/10">
+            <li key={o.name} className="border-b border-ink/10">
               <a
                 href={o.url}
                 target="_blank"
@@ -27,13 +29,13 @@ export function OrganizersSection() {
                   <Image src={o.image} alt="" fill sizes="160px" className="object-cover" />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[clamp(28px,4.6vw,80px)] leading-[1.02] font-medium tracking-[-0.035em] text-cocoa/90 transition-colors group-hover:text-cocoa">
+                  <span className="block font-display text-[clamp(32px,5vw,88px)] leading-[1.02] font-semibold tracking-[-0.01em] text-ink/90 transition-colors group-hover:text-ink">
                     {o.short}
                   </span>
                   <span className="mt-1 block text-muted md:hidden">{o.name}</span>
                 </span>
-                <span className="hidden max-w-[22ch] text-right text-muted transition-colors group-hover:text-cocoa/80 lg:block">{o.name}</span>
-                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-cocoa/[0.05] text-wine-ink transition duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-45 group-hover:bg-wine group-hover:text-paper">
+                <span className="hidden max-w-[22ch] text-right text-muted transition-colors group-hover:text-ink/80 lg:block">{o.name}</span>
+                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-ink/[0.05] text-brand-ink transition duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-45 group-hover:bg-brand group-hover:text-paper">
                   <ArrowUpRight size={20} weight="bold" />
                 </span>
               </a>
@@ -42,9 +44,9 @@ export function OrganizersSection() {
         </ul>
         <ul className="mt-[clamp(40px,5vw,72px)] flex flex-wrap gap-2">
           {FACTS.map((f) => (
-            <li key={f} className="rounded-full bg-paper px-5 py-3 text-cocoa/80 ring-1 ring-cocoa/[0.06]">{f}</li>
+            <li key={f} className="rounded-full bg-paper px-5 py-3 text-ink/80 ring-1 ring-ink/[0.06]">{f}</li>
           ))}
-          <li className="rounded-full bg-wine px-5 py-3 font-medium text-paper">{site.dates}</li>
+          <li className="rounded-full bg-brand px-5 py-3 font-medium text-paper">{site.dates}</li>
         </ul>
       </div>
     </section>

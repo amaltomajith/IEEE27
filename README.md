@@ -2,13 +2,11 @@
 
 TypeScript rebuild of the International Interdisciplinary Conference 2027 site
 (CHRIST (Deemed to be University), Bangalore Kengeri Campus). Content comes from the
-original Google Sites export. Look: taken from the official IIC 2027 poster. Ivory paper
-(`paper`), cocoa ink (`cocoa`), a wine accent (`wine`) and a sand glow (`sand`), set in Teko
-(display) and Poppins (text), warmed by two supporting tones from the poster: `clay`
-(the campus brick) and `gold` (the CHRIST seal), used in glows, section tints
-(`.warm-a`, `.warm-b`), wine-to-clay gradients and the pulse heads in the 3D scenes.
-The site is light-only (`color-scheme: only light`). The menu panel carries the
-countdown too (`src/components/home/Countdown.tsx`).
+original Google Sites export. Look: colours and fonts from christuniversity.in. Light
+paper (`paper` #f3f5f9), navy ink (`ink`), CHRIST blue accent (`brand` #13347a), deep
+`navy` for dark controls, `amber` (#d88400) and `gold` highlights, `royal` blue italic
+emphasis. Headings and titles in Cormorant Garamond, text in Poppins. The site is light-only
+(`color-scheme: only light`).
 The landing hero counts down to 2 March 2027, 00:00 IST (`src/components/home/Countdown.tsx`,
 date read from `src/content/dates.ts`).
 Hero motion: a skewed slash bar with a gooey cursor bulge. On scroll it bends into a

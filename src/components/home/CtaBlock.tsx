@@ -16,14 +16,14 @@ export function CtaBlock() {
 
   return (
     <section className="pb-[clamp(80px,10vw,170px)]">
-      <motion.div ref={ref} suppressHydrationWarning style={reduce ? undefined : { clipPath: clip }} className="warm-a relative mx-[clamp(8px,1.4vw,24px)] overflow-hidden rounded-[var(--radius-l)] ring-1 ring-clay/20 py-[clamp(80px,12vw,200px)] text-cocoa">
+      <motion.div ref={ref} suppressHydrationWarning style={reduce ? undefined : { clipPath: clip }} className="tint-a relative mx-[clamp(8px,1.4vw,24px)] overflow-hidden rounded-[var(--radius-l)] ring-1 ring-amber/20 py-[clamp(80px,12vw,200px)] text-ink">
         <div className="wrap relative">
           <h2 className="t-xl max-w-[9ch] font-medium">
-            Questions? Say <span className="em text-wine-ink">hello.</span>
+            Questions? Say <span className="em text-brand-ink">hello.</span>
           </h2>
           <div className="mt-12 flex flex-wrap items-center gap-6">
             <PillButton href="/contact/" variant="dark">Contact the team</PillButton>
-            <a href={`mailto:${site.email}`} className="text-lg break-all text-cocoa/75 underline decoration-wine decoration-2 underline-offset-[6px] hover:text-wine-deep">
+            <a href={`mailto:${site.email}`} className="text-lg break-all text-ink/75 underline decoration-brand decoration-2 underline-offset-[6px] hover:text-brand-deep">
               {site.email}
             </a>
           </div>

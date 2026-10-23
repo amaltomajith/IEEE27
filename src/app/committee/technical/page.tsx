@@ -18,7 +18,7 @@ export default function TechnicalPage() {
         intro={`${tpcIntro}.`}
       >
         <div className="flex flex-col items-start gap-8">
-          <PillButton href={site.portals.tpc} variant="wine">Join the TPC</PillButton>
+          <PillButton href={site.portals.tpc} variant="brand">Join the TPC</PillButton>
           <CommitteeNav />
         </div>
       </PageHero>

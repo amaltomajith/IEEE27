@@ -18,22 +18,22 @@ export default function ContactPage() {
           </div>
         </Reveal>
         <div className="min-w-0 space-y-3">
-          <a href={`mailto:${conferenceEmail}`} className="glow-bottom group relative block overflow-hidden rounded-[var(--radius-l)] bg-wine-soft p-[clamp(24px,3vw,48px)] text-cocoa">
+          <a href={`mailto:${conferenceEmail}`} className="glow-bottom group relative block overflow-hidden rounded-[var(--radius-l)] bg-brand-soft p-[clamp(24px,3vw,48px)] text-ink">
             <p className="text-muted">Conference email</p>
-            <p className="mt-3 text-[clamp(22px,2.4vw,40px)] font-medium tracking-[-0.02em] [overflow-wrap:anywhere] group-hover:text-wine-deep">
+            <p className="mt-3 font-display font-semibold text-[clamp(26px,2.7vw,44px)] leading-tight [font-variant-numeric:lining-nums] [overflow-wrap:anywhere] group-hover:text-brand-deep">
               {conferenceEmail.split("@")[0]}
               <wbr />@{conferenceEmail.split("@")[1]}
             </p>
-            <p className="mt-6 max-w-[52ch] text-cocoa/70">For {generalTopics.slice(0, -1).join(", ").toLowerCase()} and {generalTopics.at(-1)!.toLowerCase()}.</p>
-            <ArrowUpRight size={28} className="absolute top-8 right-8 text-wine-ink transition-transform group-hover:rotate-45" />
+            <p className="mt-6 max-w-[52ch] text-ink/70">For {generalTopics.slice(0, -1).join(", ").toLowerCase()} and {generalTopics.at(-1)!.toLowerCase()}.</p>
+            <ArrowUpRight size={28} className="absolute top-8 right-8 text-brand-ink transition-transform group-hover:rotate-45" />
           </a>
           <div className="grid gap-3 md:grid-cols-3">
             {contacts.map((c) => (
-              <a key={c.topic} href={`mailto:${c.email}`} className="group flex flex-col justify-between gap-8 rounded-[var(--radius-m)] bg-white p-6 ring-1 ring-cocoa/5 transition hover:ring-wine">
+              <a key={c.topic} href={`mailto:${c.email}`} className="group flex flex-col justify-between gap-8 rounded-[var(--radius-m)] bg-white p-6 ring-1 ring-ink/5 transition hover:ring-brand">
                 <p className="text-sm text-muted">{c.topic}</p>
                 <div>
                   <p className="font-medium">{c.name}</p>
-                  <p className="text-[15px] [overflow-wrap:anywhere] text-cocoa/70 group-hover:text-wine-ink">
+                  <p className="text-[15px] [overflow-wrap:anywhere] text-ink/70 group-hover:text-brand-ink">
                     {c.email.split("@")[0]}
                     <wbr />@{c.email.split("@")[1]}
                   </p>

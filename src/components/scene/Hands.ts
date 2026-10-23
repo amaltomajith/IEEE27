@@ -54,7 +54,7 @@ export class Hands {
     this.frozen = !!opts.frozen;
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
     this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
-    this.renderer.setClearColor(0xfaf7ee, 1);
+    this.renderer.setClearColor(0xf3f5f9, 1);
     this.canvas = this.renderer.domElement;
     this.canvas.setAttribute("aria-hidden", "true");
     this.camera.position.set(0, 0, 7);
@@ -70,11 +70,11 @@ export class Hands {
       uHover: { value: -1 },
       uInstant: { value: this.frozen ? 1 : 0 },
       uWrist: { value: 1 },
-      uSpark: { value: C("#a8474f") },
-      uHot: { value: C("#d0893c") },
+      uSpark: { value: C("#d88400") },
+      uHot: { value: C("#f0b428") },
     };
-    this.robot = this.build(robotHand(), { col: "#573420", baseA: 0.5, dash: 0, wob: 0, size: 1.15 });
-    this.human = this.build(humanHand(opts.dense ? 1500 : 850), { col: "#a65a3a", baseA: 0.14, dash: 0.7, wob: 0.6, size: 1.45 });
+    this.robot = this.build(robotHand(), { col: "#13347a", baseA: 0.5, dash: 0, wob: 0, size: 1.15 });
+    this.human = this.build(humanHand(opts.dense ? 1500 : 850), { col: "#b8742a", baseA: 0.14, dash: 0.7, wob: 0.6, size: 1.45 });
 
     const N = 18, t = new Float32Array(N * 2), p = new Float32Array(N * 6);
     for (let i = 0; i < N; i++) { t[i * 2] = i / N; t[i * 2 + 1] = (i + 1) / N; }

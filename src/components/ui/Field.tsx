@@ -7,7 +7,7 @@ const GAP = 26;
 
 /**
  * Magnetic dot field: a grid of dots that bends away from the cursor like iron
- * filings around a magnet, brightening to wine near the pointer. 2D canvas,
+ * filings around a magnet, brightening to brand near the pointer. 2D canvas,
  * runs on the shared frame loop, sleeps when settled or off screen.
  */
 export function Field({ className = "" }: { className?: string }) {
@@ -86,7 +86,7 @@ export function Field({ className = "" }: { className?: string }) {
           const fade = Math.min(1, Math.max(0, 1.15 - y / H));
           const a = (0.16 + near * 0.6) * fade;
           if (a < 0.02) continue;
-          ctx.fillStyle = near > 0.05 ? `rgba(119,61,67,${a})` : `rgba(87,52,32,${a * 0.7})`;
+          ctx.fillStyle = near > 0.05 ? `rgba(216,132,0,${a})` : `rgba(10,26,64,${a * 0.6})`;
           const s = 1.3 + near * 1.6;
           ctx.fillRect(x - s / 2, y - s / 2, s, s);
         }

@@ -12,7 +12,7 @@ export default function VenuePage() {
   return (
     <>
       <PageHero title="Kengeri Campus, Bengaluru" emphasis="Bengaluru" crumbs={[{ label: "Venue" }]} intro={venue.name}>
-        <PillButton href={venue.maps} variant="wine">Directions on Google Maps</PillButton>
+        <PillButton href={venue.maps} variant="brand">Directions on Google Maps</PillButton>
       </PageHero>
       <section className="wrap grid gap-3 pb-[clamp(56px,7vw,110px)] md:grid-cols-12">
         {venue.photos.map((p, i) => (
@@ -27,15 +27,15 @@ export default function VenuePage() {
         ))}
       </section>
       <section className="wrap grid gap-3 pb-[clamp(64px,8vw,130px)] lg:grid-cols-[0.8fr_1.2fr]">
-        <div className="glow-bottom relative flex flex-col justify-between gap-10 overflow-hidden rounded-[var(--radius-l)] bg-wine-soft p-[clamp(24px,3vw,48px)] text-cocoa">
+        <div className="glow-bottom relative flex flex-col justify-between gap-10 overflow-hidden rounded-[var(--radius-l)] bg-brand-soft p-[clamp(24px,3vw,48px)] text-ink">
           <div>
-            <MapPin size={30} className="mb-6 text-wine-ink" />
+            <MapPin size={30} className="mb-6 text-brand-ink" />
             <p className="t-h3">{venue.name}</p>
-            <address className="mt-4 text-lg not-italic text-cocoa/70">
+            <address className="mt-4 text-lg not-italic text-ink/70">
               {venue.address.map((l) => <span key={l} className="block">{l}</span>)}
             </address>
           </div>
-          <a href={venue.phoneHref} className="inline-flex items-center gap-3 text-lg hover:text-wine">
+          <a href={venue.phoneHref} className="inline-flex items-center gap-3 text-lg hover:text-brand">
             <Phone size={22} /> {venue.phone}
           </a>
         </div>

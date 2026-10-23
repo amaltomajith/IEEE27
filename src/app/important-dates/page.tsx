@@ -11,13 +11,13 @@ export default function DatesPage() {
     <>
       <PageHero title="Important dates" emphasis="dates" crumbs={[{ label: "Important Dates" }]} intro="Abstracts open the process in October 2026. The conference runs March 2-3, 2027.">
         <div className="flex flex-wrap gap-3">
-          <PillButton href={site.portals.submission} variant="wine">Submit extended abstract</PillButton>
+          <PillButton href={site.portals.submission} variant="brand">Submit extended abstract</PillButton>
           <PillButton href={site.portals.submission} variant="ghost">Submit full manuscript</PillButton>
         </div>
       </PageHero>
       <section className="wrap grid gap-12 pb-[clamp(64px,8vw,130px)] lg:grid-cols-[0.6fr_1fr]">
         <div className="text-muted lg:pt-4">
-          <p className="max-w-[34ch]">All dates are in Indian Standard Time. For more details, see the <a className="text-cocoa underline decoration-wine decoration-2 underline-offset-4" href="/submission/">submission guidelines</a> or <a className="text-cocoa underline decoration-wine decoration-2 underline-offset-4" href="/contact/">contact the organisers</a>.</p>
+          <p className="max-w-[34ch]">All dates are in Indian Standard Time. For more details, see the <a className="text-ink underline decoration-brand decoration-2 underline-offset-4" href="/submission/">submission guidelines</a> or <a className="text-ink underline decoration-brand decoration-2 underline-offset-4" href="/contact/">contact the organisers</a>.</p>
         </div>
         <DatesTimeline />
       </section>

@@ -61,7 +61,7 @@ export function Takeover({ from, hostRef, onClose, onPointer, onHold, onPoke }: 
       role="dialog"
       aria-modal="true"
       aria-labelledby="takeover-title"
-      className="fixed inset-0 z-[70] overflow-hidden bg-paper text-cocoa"
+      className="fixed inset-0 z-[70] overflow-hidden bg-paper text-ink"
       initial={{ clipPath: inset(from) }}
       animate={{ clipPath: inset({ top: 0, left: 0, width: innerWidth, height: innerHeight, radius: 0 }) }}
       exit={{ clipPath: inset(from), transition: spring }}
@@ -77,7 +77,7 @@ export function Takeover({ from, hostRef, onClose, onPointer, onHold, onPoke }: 
       onPointerLeave={() => onHold(false)}
     >
       <div ref={hostRef} className="absolute inset-0 [&>canvas]:size-full" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgb(250_247_238/0.92),rgb(250_247_238/0.55)_45%,transparent_70%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgb(243_245_249/0.92),rgb(243_245_249/0.55)_45%,transparent_70%)]" />
       <div className="wrap relative flex h-full flex-col justify-center gap-8 py-24">
         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={stagger(0)} className="text-muted">
           The theme of {site.short}
@@ -86,14 +86,14 @@ export function Takeover({ from, hostRef, onClose, onPointer, onHold, onPoke }: 
           <span className="line-mask is-in"><motion.span initial={{ y: "110%" }} animate={{ y: 0 }} transition={stagger(1)}>Mind <span className="em">and</span></motion.span></span>
           <span className="line-mask is-in"><motion.span initial={{ y: "110%" }} animate={{ y: 0 }} transition={stagger(2)}>Machine</motion.span></span>
         </h2>
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={stagger(3)} className="t-h5 max-w-[34ch] text-cocoa/80">
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={stagger(3)} className="t-h5 max-w-[34ch] text-ink/80">
           Reimagining human-AI collaboration across sectors.
         </motion.p>
         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={stagger(4)} className="max-w-[54ch] text-muted max-md:hidden">
           {about.vision[0]}
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={stagger(5)} className="flex flex-wrap gap-3" onPointerDown={(e) => e.stopPropagation()}>
-          <PillButton href="/thematic-tracks/" variant="wine" onClick={onClose}>Explore tracks</PillButton>
+          <PillButton href="/thematic-tracks/" variant="brand" onClick={onClose}>Explore tracks</PillButton>
           <PillButton href="/about/" variant="ghost" onClick={onClose}>Read the vision</PillButton>
         </motion.div>
       </div>

@@ -4,6 +4,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { PillButton } from "@/components/ui/PillButton";
 import { about, organizers, site } from "@/content/site";
+import { Ribbon } from "@/components/ui/Ribbon";
 
 export const metadata: Metadata = { title: "About", description: about.vision[0] };
 
@@ -23,32 +24,33 @@ export default function AboutPage() {
             Conference <span className="em">vision</span>
           </h2>
         </Reveal>
-        <Reveal className="space-y-6 text-[clamp(18px,1.35vw,24px)] leading-[1.55] text-cocoa/85">
+        <Reveal className="space-y-6 text-[clamp(18px,1.35vw,24px)] leading-[1.55] text-ink/85">
           {about.vision.map((p) => (
             <p key={p.slice(0, 20)} className="fade-up">{p}</p>
           ))}
         </Reveal>
       </section>
 
-      <section className="warm-a relative overflow-hidden py-[clamp(72px,9vw,150px)] text-cocoa">
-        <div className="wrap">
+      <section className="tint-a relative overflow-hidden py-[clamp(72px,9vw,150px)] text-ink">
+        <Ribbon shape="s" flip className="top-[-8%] right-[-4%] h-[50%] max-md:hidden" />
+        <div className="wrap relative z-[1]">
           <Reveal>
             <h2 className="t-h2 fade-up mb-[clamp(36px,5vw,72px)] max-w-[18ch]">
-              Why it is built <span className="em text-wine-ink">this way</span>
+              Why it is built <span className="em text-brand-ink">this way</span>
             </h2>
           </Reveal>
           <div className="grid gap-3 md:grid-cols-12">
             {about.rationale.map((r, i) => (
               <Reveal
                 key={r.title}
-                className={`rounded-[var(--radius-l)] bg-paper p-[clamp(24px,2.6vw,44px)] ring-1 ring-cocoa/[0.06] ${
+                className={`rounded-[var(--radius-l)] bg-paper p-[clamp(24px,2.6vw,44px)] ring-1 ring-ink/[0.06] ${
                   ["md:col-span-7", "md:col-span-5", "md:col-span-5", "md:col-span-7"][i]
                 }`}
               >
                 <div className="fade-up">
                   <span aria-hidden className="node mb-8 block text-[14px]" />
                   <h3 className="t-h3 mb-3">{r.title}</h3>
-                  <p className="max-w-[52ch] text-cocoa/70">{r.body}</p>
+                  <p className="max-w-[52ch] text-ink/70">{r.body}</p>
                 </div>
               </Reveal>
             ))}
@@ -68,12 +70,12 @@ export default function AboutPage() {
               <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-m)] bg-gray">
                 <Image src={o.image} alt={`${o.name} building, Kengeri Campus`} fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
-              <p className="mt-4 text-lg font-medium group-hover:text-wine-ink">{o.name}</p>
+              <p className="mt-4 font-display font-semibold text-[22px] leading-snug group-hover:text-brand-ink">{o.name}</p>
             </a>
           ))}
         </div>
         <div className="mt-12 flex flex-wrap items-center gap-6">
-          <span className="inline-flex rounded-[var(--radius-m)] bg-white px-6 py-4 ring-1 ring-cocoa/5">
+          <span className="inline-flex rounded-[var(--radius-m)] bg-white px-6 py-4 ring-1 ring-ink/5">
             <Image src="/images/brand/christ-logo.webp" alt="CHRIST (Deemed to be University)" width={1280} height={434} className="h-auto w-[240px]" />
           </span>
           <PillButton href={site.universityUrl} variant="ghost">Visit christuniversity.in</PillButton>

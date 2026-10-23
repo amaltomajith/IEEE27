@@ -85,18 +85,18 @@ export function Loader({ ready, onComplete, phase }: Props) {
       <div className={`absolute inset-0 transition-opacity duration-500 ${out ? "opacity-0" : ""}`}>
         <Field />
       </div>
-      <div className="relative flex items-baseline text-[clamp(72px,15vw,250px)] leading-none tracking-[-0.05em] text-cocoa">
+      <div className="relative flex items-baseline text-[clamp(72px,15vw,250px)] leading-none tracking-[-0.05em] text-ink">
         <span
           ref={slash}
-          className={`relative mr-[0.12em] inline-block h-[0.74em] w-[0.17em] overflow-hidden rounded-[0.025em] bg-wine/20 transition-opacity duration-500 ${shown ? "opacity-100" : "opacity-0"} ${out ? "invisible delay-[250ms]" : ""}`}
+          className={`relative mr-[0.12em] inline-block h-[0.74em] w-[0.17em] overflow-hidden rounded-[0.025em] bg-brand/20 transition-opacity duration-500 ${shown ? "opacity-100" : "opacity-0"} ${out ? "invisible delay-[250ms]" : ""}`}
           style={{ transform: `skewX(-${LOADER_SKEW}deg)` }}
         >
           <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 size-full">
-            <path ref={wave} className="fill-wine" d="M0 100 L100 100 Z" />
+            <path ref={wave} className="fill-brand" d="M0 100 L100 100 Z" />
           </svg>
         </span>
         <span
-          className="flex items-baseline font-display"
+          className="flex items-baseline font-display [font-variant-numeric:lining-nums]"
           style={{
             clipPath: out ? "inset(0 0 0 100%)" : "inset(-20% -5% -20% 0)",
             transform: out ? "translateX(28px)" : "none",
@@ -108,7 +108,7 @@ export function Loader({ ready, onComplete, phase }: Props) {
           {LETTERS.map((l, i) => (
             <span key={i} className="inline-block overflow-hidden pb-[0.06em]">
               <span
-                className={`inline-block ${i < 3 ? "font-semibold" : "font-medium"} ${l === "." ? "text-wine" : ""}`}
+                className={`inline-block ${i < 3 ? "font-bold" : "font-semibold"} ${l === "." ? "text-brand" : ""}`}
                 style={{
                   transform: shown ? "none" : "translateY(112%) rotate(6deg)",
                   transition: `transform .9s cubic-bezier(.16,1,.3,1) ${i * 55}ms`,
@@ -124,15 +124,15 @@ export function Loader({ ready, onComplete, phase }: Props) {
         className={`absolute right-[4vw] bottom-[5vh] grid aspect-square w-[clamp(110px,12vw,190px)] place-items-center transition-[opacity,transform] duration-500 ${out ? "scale-90 opacity-0" : ""}`}
       >
         <svg viewBox="0 0 120 120" className="absolute inset-0 size-full -rotate-90">
-          <circle cx="60" cy="60" r="54" fill="none" stroke="rgb(119 61 67 / 0.12)" strokeWidth="5" />
-          <circle ref={ring} cx="60" cy="60" r="54" fill="none" stroke="#773d43" strokeWidth="8" strokeLinecap="round" pathLength={100} strokeDasharray="100" strokeDashoffset="100" />
+          <circle cx="60" cy="60" r="54" fill="none" stroke="rgb(19 52 122 / 0.12)" strokeWidth="5" />
+          <circle ref={ring} cx="60" cy="60" r="54" fill="none" stroke="#13347a" strokeWidth="8" strokeLinecap="round" pathLength={100} strokeDasharray="100" strokeDashoffset="100" />
         </svg>
-        <span className="mono flex items-start text-[clamp(28px,2.7vw,44px)] text-cocoa">
+        <span className="mono flex items-start text-[clamp(28px,2.7vw,44px)] text-ink">
           <b ref={num} className="font-normal">0</b>
           <small className="mt-[0.15em] text-[0.42em] opacity-55">%</small>
         </span>
       </div>
-      <p className={`mono absolute bottom-[6vh] left-[4vw] text-[16px] tracking-[0.1em] text-cocoa/70 uppercase transition-opacity duration-300 ${out ? "opacity-0" : ""}`}>
+      <p className={`absolute bottom-[6vh] left-[4vw] text-[12px] font-semibold tracking-[0.2em] text-gold uppercase transition-opacity duration-300 ${out ? "opacity-0" : ""}`}>
         March 2-3, 2027 &middot; Hybrid
       </p>
     </div>
