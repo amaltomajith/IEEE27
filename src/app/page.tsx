@@ -1,4 +1,5 @@
 import { HomeHero } from "@/components/hero/HomeHero";
+import { ReachSection } from "@/components/home/ReachSection";
 import { TracksSection } from "@/components/home/TracksSection";
 import { OrganizersSection } from "@/components/home/OrganizersSection";
 import { DatesSection } from "@/components/home/DatesSection";
@@ -11,6 +12,7 @@ export default function Home() {
   return (
     <>
       <HomeHero />
+      <ReachSection />
       <TracksSection />
       <OrganizersSection />
       <DatesSection />

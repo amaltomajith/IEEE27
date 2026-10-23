@@ -13,7 +13,7 @@ export function Faq() {
           </h2>
           <p className="fade-up mt-6 max-w-[34ch] text-muted">
             Not covered here? Write to
-            <a href={`mailto:${site.email}`} className="mt-1 block w-fit text-navy underline decoration-signal decoration-2 underline-offset-4">
+            <a href={`mailto:${site.email}`} className="mt-1 block w-fit text-cocoa underline decoration-wine decoration-2 underline-offset-4">
               {site.email}
             </a>
           </p>
@@ -21,14 +21,14 @@ export function Faq() {
       </div>
       <div className="space-y-2">
         {faq.map((f) => (
-          <details key={f.q} className="group rounded-[var(--radius-m)] bg-white ring-1 ring-navy/5 open:ring-signal/60">
+          <details key={f.q} className="group rounded-[var(--radius-m)] bg-white ring-1 ring-cocoa/5 open:ring-wine/60">
             <summary className="flex items-center justify-between gap-6 p-[clamp(18px,1.8vw,28px)] text-[clamp(18px,1.35vw,23px)] font-medium tracking-[-0.01em]">
               {f.q}
-              <span className="faq-icon grid size-10 shrink-0 place-items-center rounded-full bg-gray transition-transform duration-500 [transition-timing-function:var(--ease-spring)] group-open:bg-signal">
+              <span className="faq-icon grid size-10 shrink-0 place-items-center rounded-full bg-gray transition-transform duration-500 [transition-timing-function:var(--ease-spring)] group-open:bg-wine group-open:text-paper">
                 <Plus size={18} weight="bold" />
               </span>
             </summary>
-            <p className="max-w-[60ch] px-[clamp(18px,1.8vw,28px)] pb-[clamp(18px,1.8vw,28px)] text-navy/75">{f.a}</p>
+            <p className="max-w-[60ch] px-[clamp(18px,1.8vw,28px)] pb-[clamp(18px,1.8vw,28px)] text-cocoa/75">{f.a}</p>
           </details>
         ))}
       </div>

@@ -35,9 +35,9 @@ export default async function TrackPage({ params }: { params: Promise<{ slug: st
 
       <section className="wrap grid items-start gap-[clamp(32px,5vw,96px)] pb-[clamp(64px,8vw,130px)] lg:grid-cols-[1fr_0.85fr]">
         <Reveal className="space-y-8">
-          <p className="fade-up text-[clamp(18px,1.4vw,25px)] leading-[1.55] text-navy/85">{t.description}</p>
+          <p className="fade-up text-[clamp(18px,1.4vw,25px)] leading-[1.55] text-cocoa/85">{t.description}</p>
           <div className="fade-up">
-            <PillButton href={site.portals.submission} variant="signal">Submit to this track</PillButton>
+            <PillButton href={site.portals.submission} variant="wine">Submit to this track</PillButton>
           </div>
         </Reveal>
         <Reveal className="lg:sticky lg:top-[calc(var(--header-h)+24px)]">
@@ -47,14 +47,14 @@ export default async function TrackPage({ params }: { params: Promise<{ slug: st
         </Reveal>
       </section>
 
-      <section className="glow-bottom relative overflow-hidden bg-white py-[clamp(72px,9vw,150px)] text-navy">
+      <section className="warm-b relative overflow-hidden py-[clamp(72px,9vw,150px)] text-cocoa">
         <div className="wrap">
-          <Reveal><h2 className="t-h2 fade-up mb-[clamp(32px,4vw,64px)]">Sub-<span className="em text-signal-ink">tracks</span></h2></Reveal>
+          <Reveal><h2 className="t-h2 fade-up mb-[clamp(32px,4vw,64px)]">Sub-<span className="em text-wine-ink">tracks</span></h2></Reveal>
           <ol className="grid gap-3 lg:grid-cols-3">
             {t.subTracks.map((s) => (
-              <Reveal as="li" key={s.number} className="rounded-[var(--radius-l)] bg-paper p-[clamp(24px,2.4vw,40px)] ring-1 ring-navy/[0.06]">
+              <Reveal as="li" key={s.number} className="rounded-[var(--radius-l)] bg-paper p-[clamp(24px,2.4vw,40px)] ring-1 ring-cocoa/[0.06]">
                 <div className="fade-up flex h-full flex-col justify-between gap-12">
-                  <span className="text-[clamp(56px,6vw,96px)] leading-none font-semibold tracking-[-0.05em] text-signal-ink">{String(s.number).padStart(2, "0")}</span>
+                  <span className="text-[clamp(56px,6vw,96px)] leading-none font-semibold tracking-[-0.05em] text-wine-ink">{String(s.number).padStart(2, "0")}</span>
                   <h3 className="t-h3">{s.title}</h3>
                 </div>
               </Reveal>
@@ -71,7 +71,7 @@ export default async function TrackPage({ params }: { params: Promise<{ slug: st
               {g.heading && <h3 className="fade-up mb-4 text-lg font-medium text-muted">{g.heading}</h3>}
               <ul className="fade-up flex flex-wrap gap-2">
                 {g.items.map((it) => (
-                  <li key={it} className="rounded-full bg-white px-4 py-2.5 text-[15px] ring-1 ring-navy/10 transition hover:bg-signal hover:ring-signal">
+                  <li key={it} className="rounded-full bg-white px-4 py-2.5 text-[15px] ring-1 ring-cocoa/10 transition hover:bg-wine hover:text-paper hover:ring-wine">
                     {it}
                   </li>
                 ))}
@@ -83,8 +83,8 @@ export default async function TrackPage({ params }: { params: Promise<{ slug: st
 
       <nav aria-label="Other tracks" className="wrap grid gap-3 pb-[clamp(64px,8vw,130px)] sm:grid-cols-2">
         {[{ t: prev, dir: "Previous" }, { t: next, dir: "Next" }].map(({ t: o, dir }) => (
-          <Link key={dir} href={`/thematic-tracks/${o.slug}/`} className={`group flex items-center gap-5 rounded-[var(--radius-m)] bg-white p-6 ring-1 ring-navy/5 transition hover:ring-signal ${dir === "Next" ? "sm:flex-row-reverse sm:text-right" : ""}`}>
-            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-gray transition group-hover:bg-signal">
+          <Link key={dir} href={`/thematic-tracks/${o.slug}/`} className={`group flex items-center gap-5 rounded-[var(--radius-m)] bg-white p-6 ring-1 ring-cocoa/5 transition hover:ring-wine ${dir === "Next" ? "sm:flex-row-reverse sm:text-right" : ""}`}>
+            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-gray transition group-hover:bg-wine group-hover:text-paper">
               {dir === "Next" ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
             </span>
             <span>

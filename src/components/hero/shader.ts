@@ -34,7 +34,7 @@ void main(){
   d=smin(d+uK2*.12*uSc,dB,(.08*(1.-uE2)+.008)*uSc);
   float db=smin(smin(blob(p,uB0),blob(p,uB1),.05),smin(blob(p,uB2),blob(p,uB3),.04),.05);
   d=smin(d,db,.07);
-  vec3 col=mix(uCol,uCol*.86,clamp(.5-(q.y/uSlash.w)*.5,0.,1.)*.55*uRest);
+  vec3 col=mix(uCol,vec3(.722,.376,.247),clamp(.5-(q.y/uSlash.w)*.5,0.,1.)*.8*uRest);
   col=mix(col,uCol*.8,smoothstep(.22,.0,length(p-mp))*uHov*.38);
   if(uTexOn>.5){
     vec2 v=(p-uBox.xy)/uBox.zw*.5+.5; v.y=1.-v.y;

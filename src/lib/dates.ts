@@ -23,3 +23,9 @@ export const nextMilestone = (now: number): Milestone | undefined =>
   milestones.find((m) => now <= dayEnd(m.end ?? m.date));
 
 export const daysUntil = (iso: string, now: number) => Math.max(0, Math.ceil((dayEnd(iso) - now) / 86_400_000));
+
+/** Conference start (00:00 IST, day 1) and end (23:59:59 IST, last day). The source gives no start time. */
+export const conferenceWindow = () => {
+  const m = milestones.find((x) => x.end)!;
+  return { start: dayStart(m.date), end: dayEnd(m.end!), display: m.display };
+};

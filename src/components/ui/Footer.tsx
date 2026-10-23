@@ -7,11 +7,11 @@ import { FooterSlash } from "./FooterSlash";
 import { NextDeadline } from "./NextDeadline";
 import { BackToTop } from "./BackToTop";
 
-const card = "rounded-[clamp(16px,1.6vw,24px)] bg-white p-[clamp(20px,2vw,32px)] shadow-[0_1px_0_rgb(10_33_41/0.04)]";
+const card = "min-w-0 rounded-[clamp(16px,1.6vw,24px)] bg-white p-[clamp(20px,2vw,32px)] shadow-[0_1px_0_rgb(87_52_32/0.04)]";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-gray pt-[clamp(80px,10vw,150px)] pb-6">
+    <footer className="footer-bg relative overflow-hidden pt-[clamp(80px,10vw,150px)] pb-6">
       <FooterSlash />
       <div className="wrap relative">
         <p className="t-xl mb-[clamp(40px,5vw,80px)] text-[clamp(64px,17vw,300px)]">
@@ -22,7 +22,7 @@ export function Footer() {
             <ul className="grid grid-cols-2 gap-x-6 gap-y-2 text-[clamp(17px,1.3vw,22px)]">
               {nav.map((n) => (
                 <li key={n.href}>
-                  <Link href={n.href} className="inline-flex text-navy/80 transition-colors hover:text-signal-ink">
+                  <Link href={n.href} className="inline-flex text-cocoa/80 transition-colors hover:text-wine-ink">
                     <span className="roll">
                       <span>{n.label}</span>
                       <span aria-hidden>{n.label}</span>
@@ -35,34 +35,44 @@ export function Footer() {
           <a href={`mailto:${site.email}`} className={`${card} group flex items-center justify-between gap-4`}>
             <span className="min-w-0">
               <span className="block text-sm text-muted">Conference email</span>
-              <span className="block truncate text-[clamp(16px,1.15vw,20px)] font-medium">{site.email}</span>
+              <span className="block text-[clamp(16px,1.15vw,20px)] font-medium [overflow-wrap:anywhere]">
+                {site.email.split("@")[0]}
+                <wbr />@{site.email.split("@")[1]}
+              </span>
             </span>
-            <EnvelopeSimple size={26} className="shrink-0 text-signal-ink transition-transform group-hover:-rotate-12" />
+            <EnvelopeSimple size={26} className="shrink-0 text-wine-ink transition-transform group-hover:-rotate-12" />
           </a>
           <a href={venue.phoneHref} className={`${card} group flex items-center justify-between gap-4`}>
             <span>
               <span className="block text-sm text-muted">Campus</span>
               <span className="block text-[clamp(16px,1.15vw,20px)] font-medium">{venue.phone}</span>
             </span>
-            <Phone size={26} className="shrink-0 text-signal-ink transition-transform group-hover:-rotate-12" />
+            <Phone size={26} className="shrink-0 text-wine-ink transition-transform group-hover:-rotate-12" />
           </a>
           <div className={`${card} flex items-start gap-4`}>
             <span className="relative mt-1.5 flex size-2.5 shrink-0">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-signal opacity-60" />
-              <span className="relative inline-flex size-2.5 rounded-full bg-signal" />
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-wine opacity-60" />
+              <span className="relative inline-flex size-2.5 rounded-full bg-wine" />
             </span>
             <span>
               <span className="block text-sm text-muted">Next deadline</span>
               <span className="block font-medium"><NextDeadline /></span>
             </span>
           </div>
-          <a href={venue.maps} target="_blank" rel="noopener noreferrer" className={`${card} group flex items-start justify-between gap-4`}>
-            <span>
-              <span className="block text-sm text-muted">Venue</span>
-              <span className="block font-medium">{venue.name}</span>
-              <span className="block text-muted">{venue.address.join(", ")}</span>
+          <a href={venue.maps} target="_blank" rel="noopener noreferrer" className={`${card} group flex flex-col gap-4 !p-2.5`}>
+            {/* The poster ends on the Kengeri campus; the footer's venue card shows it. */}
+            <span className="relative block aspect-[960/300] overflow-hidden rounded-[clamp(10px,1.1vw,16px)]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/venue/campus-poster.webp" alt="CHRIST University Kengeri Campus building" width={960} height={260} loading="lazy" decoding="async" className="size-full object-cover object-[50%_65%] transition-transform duration-[1.2s] [transition-timing-function:var(--ease-out)] group-hover:scale-105" />
             </span>
-            <MapPin size={26} className="shrink-0 text-signal-ink transition-transform group-hover:-translate-y-1" />
+            <span className="flex items-start justify-between gap-4 px-[clamp(10px,1.2vw,22px)] pb-[clamp(10px,1.2vw,22px)]">
+              <span>
+                <span className="block text-sm text-muted">Venue</span>
+                <span className="block font-medium">{venue.name}</span>
+                <span className="block text-muted">{venue.address.join(", ")}</span>
+              </span>
+              <MapPin size={26} className="shrink-0 text-clay transition-transform group-hover:-translate-y-1" />
+            </span>
           </a>
         </div>
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-sm text-muted">

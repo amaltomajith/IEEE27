@@ -55,19 +55,21 @@ export function Header() {
       <div ref={sentinel} aria-hidden className="pointer-events-none absolute top-0 h-[60px] w-px" />
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,box-shadow] duration-500 ${
-          !scrolled || open
+          open
+            ? "bg-paper/85 backdrop-blur-xl"
+            : !scrolled
             ? ""
             : onDark
-              ? "bg-navy/60 shadow-[0_1px_0_rgb(255_255_255/0.06)] backdrop-blur-xl backdrop-saturate-150"
-              : "bg-paper/70 shadow-[0_1px_0_rgb(10_33_41/0.06)] backdrop-blur-xl backdrop-saturate-150"
+              ? "bg-cocoa/60 shadow-[0_1px_0_rgb(255_255_255/0.06)] backdrop-blur-xl backdrop-saturate-150"
+              : "bg-paper/70 shadow-[0_1px_0_rgb(87_52_32/0.06)] backdrop-blur-xl backdrop-saturate-150"
         }`}
       >
         <div className="wrap flex h-[var(--header-h)] items-center justify-between gap-4">
-          <div className={`transition-colors duration-500 ${onDark ? "text-white" : "text-navy"}`}>
+          <div className={`transition-colors duration-500 ${onDark ? "text-white" : "text-cocoa"}`}>
             <Logo />
           </div>
           <div className="flex items-center gap-2">
-            <PillButton href={site.portals.submission} variant={onDark ? "signal" : "light"} className="hidden md:inline-flex">
+            <PillButton href={site.portals.submission} variant={onDark ? "wine" : "light"} className="hidden md:inline-flex">
               Submit paper
             </PillButton>
             <button
@@ -78,7 +80,7 @@ export function Header() {
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((v) => !v)}
               data-dark={onDark || undefined}
-              className={`menu-trigger group inline-flex items-center gap-3 pl-2 text-[15px] font-medium transition-colors ${onDark ? "text-white" : "text-navy"}`}
+              className={`menu-trigger group inline-flex items-center gap-3 pl-2 text-[15px] font-medium transition-colors ${onDark ? "text-white" : "text-cocoa"}`}
             >
               <span className="roll max-sm:hidden" aria-hidden>
                 <span>{open ? "Close" : "Menu"}</span>

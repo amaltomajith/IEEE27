@@ -37,7 +37,7 @@ export function FooterSlash() {
     <div
       ref={ref}
       aria-hidden
-      className="pointer-events-none absolute -top-[18%] right-[12%] h-[136%] w-[clamp(60px,7vw,120px)] -skew-x-[22deg] rounded-[clamp(10px,1.2vw,22px)] bg-signal"
+      className="pointer-events-none absolute -top-[18%] right-[12%] h-[136%] w-[clamp(60px,7vw,120px)] -skew-x-[22deg] rounded-[clamp(10px,1.2vw,22px)] bg-[linear-gradient(180deg,var(--color-wine),var(--color-clay))]"
     />
   );
 }

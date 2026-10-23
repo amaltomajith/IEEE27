@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Sans, Geist_Mono } from "next/font/google";
+import { Poppins, Teko } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
@@ -7,14 +7,9 @@ import { SmoothScroll } from "@/components/ui/SmoothScroll";
 import { NavProgress } from "@/components/ui/NavProgress";
 import { site } from "@/content/site";
 
-const instrument = Instrument_Sans({
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["wdth"],
-  variable: "--font-instrument",
-  display: "swap",
-});
-const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
+// Poster type: Teko for display lettering ("IIC 2027", "MIND AND MACHINE"), Poppins for text.
+const teko = Teko({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-teko", display: "swap" });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-poppins", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -30,15 +25,15 @@ export const metadata: Metadata = {
 };
 
 // White-first site: opt out of browser/OS auto-dark (Chrome Android, Samsung Internet).
-export const viewport: Viewport = { themeColor: "#f5f9f8", colorScheme: "only light" };
+export const viewport: Viewport = { themeColor: "#faf7ee", colorScheme: "only light" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${instrument.variable} ${mono.variable}`}>
+    <html lang="en" className={`${teko.variable} ${poppins.variable}`}>
       <body>
         <a
           href="#main"
-          className="fixed top-[-60px] left-4 z-[100] rounded-full bg-navy px-4 py-2.5 text-white transition-[top] focus:top-4"
+          className="fixed top-[-60px] left-4 z-[100] rounded-full bg-cocoa px-4 py-2.5 text-white transition-[top] focus:top-4"
         >
           Skip to content
         </a>

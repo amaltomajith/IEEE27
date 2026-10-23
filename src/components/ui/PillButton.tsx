@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { useMagnetic } from "./Magnetic";
 
-type Variant = "dark" | "light" | "signal" | "ghost" | "ghost-dark";
+type Variant = "dark" | "light" | "wine" | "ghost" | "ghost-dark";
 
 type Props = {
   href?: string;
@@ -21,7 +21,7 @@ type Props = {
 const cls: Record<Variant, string> = {
   dark: "btn",
   light: "btn btn--light",
-  signal: "btn btn--signal",
+  wine: "btn btn--wine",
   ghost: "btn btn--ghost",
   "ghost-dark": "btn btn--ghost-dark",
 };

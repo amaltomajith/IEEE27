@@ -105,8 +105,8 @@ export class HeroEngine {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([10, 33, 41, 255]));
-    // Accent "signal" aqua, #22d8c8.
-    gl.uniform3f(this.u("uCol"), 34 / 255, 216 / 255, 200 / 255);
+    // Accent wine, #773d43 (poster).
+    gl.uniform3f(this.u("uCol"), 119 / 255, 61 / 255, 67 / 255);
     this.mx = innerWidth * 0.6;
     this.my = innerHeight * 0.5;
   }
@@ -122,7 +122,7 @@ export class HeroEngine {
     const W = canvas.clientWidth || innerWidth, H = innerHeight, mob = W / H < 1, sy = scrollY;
     const top = root.getBoundingClientRect().top + sy;
     const hx = mob ? W * 0.078 : 0.07 * H, hy = (mob ? 0.15 : 0.33) * H;
-    this.S = { cx: mob ? W * 0.62 : W / 2 + 0.07 * W, cy: top + (mob ? H * 0.38 : H / 2), hx, hy };
+    this.S = { cx: mob ? W * 0.74 : W / 2 + 0.07 * W, cy: top + (mob ? H * 0.38 : H / 2), hx, hy };
     const S = this.S;
     const B0: Pt = [S.cx + HSK * hy, S.cy - hy], A0: Pt = [S.cx - HSK * hy, S.cy + hy];
     const dl = Math.hypot(A0[0] - B0[0], A0[1] - B0[1]);

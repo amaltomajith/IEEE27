@@ -32,34 +32,45 @@ function Marquee() {
   );
 }
 
+// Each track carries one of the poster's warm tones, so the four read as a family, not clones.
+const TONES = [
+  { chip: "bg-wine text-paper", num: "text-wine-ink", band: "bg-wine" },
+  { chip: "bg-clay text-paper", num: "text-clay", band: "bg-clay" },
+  { chip: "bg-gold text-cocoa", num: "text-[#9a7128]", band: "bg-gold" },
+  { chip: "bg-cocoa text-paper", num: "text-cocoa", band: "bg-cocoa" },
+];
+
 function Cards() {
   return (
     <>
-      <li className="flex w-[min(78vw,420px)] shrink-0 snap-start flex-col justify-between rounded-[var(--radius-l)] bg-gray p-[clamp(24px,2.6vw,44px)] md:h-[min(74vh,700px)]">
+      <li className="flex w-[min(78vw,420px)] shrink-0 snap-start flex-col justify-between rounded-[var(--radius-l)] warm-b p-[clamp(24px,2.6vw,44px)] ring-1 ring-gold/25 md:h-[min(74vh,700px)]">
         <h2 className="t-h2">
           Pick your <span className="em">track</span>
         </h2>
         <div className="mt-16">
-          <p className="max-w-[28ch] text-navy/75">Every department runs its own call for papers, peer review and publication route.</p>
-          <span className="mt-6 inline-grid size-20 place-items-center rounded-full bg-signal-soft text-2xl font-semibold text-signal-deep ring-1 ring-signal/30">12</span>
+          <p className="max-w-[28ch] text-cocoa/75">Every department runs its own call for papers, peer review and publication route.</p>
+          <span className="mt-6 inline-grid size-20 place-items-center rounded-full bg-gold-soft font-display text-4xl font-semibold text-cocoa ring-1 ring-gold/50">12</span>
         </div>
       </li>
-      {tracks.map((t) => (
+      {tracks.map((t, i) => {
+        const tone = TONES[i % TONES.length];
+        return (
         <li key={t.slug} className="w-[min(84vw,520px)] shrink-0 snap-start md:h-[min(74vh,700px)] md:w-[min(40vw,520px)]">
-          <Link href={`/thematic-tracks/${t.slug}/`} className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-l)] bg-white text-navy ring-1 ring-navy/[0.06] transition-shadow duration-500 hover:shadow-[0_24px_60px_-30px_rgb(10_33_41/0.3)]">
+          <Link href={`/thematic-tracks/${t.slug}/`} className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-l)] bg-white text-cocoa ring-1 ring-cocoa/[0.06] transition-shadow duration-500 hover:shadow-[0_24px_60px_-30px_rgb(87_52_32/0.3)]">
             <div className="relative aspect-[16/10] shrink-0 overflow-hidden md:aspect-auto md:flex-1">
               <Image src={t.poster} alt={`${t.short} track poster`} fill sizes="(min-width:768px) 40vw, 84vw" className="object-cover object-top transition duration-[1.2s] [transition-timing-function:var(--ease-out)] group-hover:scale-105" />
-              <span className="absolute top-4 right-4 grid size-12 place-items-center rounded-full bg-signal text-navy shadow-lg transition-transform duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-45">
+              <span className={`absolute top-4 right-4 grid size-12 place-items-center rounded-full shadow-lg ${tone.chip} transition-transform duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-45`}>
                 <ArrowUpRight size={20} weight="bold" />
               </span>
             </div>
+            <span aria-hidden className={`block h-1.5 w-full ${tone.band}`} />
             <div className="p-[clamp(20px,2vw,32px)]">
-              <p className="text-sm text-muted">{t.short}</p>
+              <p className="inline-flex text-sm font-medium text-cocoa/70">{t.short}</p>
               <h3 className="mt-1 text-[clamp(19px,1.45vw,24px)] leading-snug font-medium tracking-[-0.01em]">{t.title}</h3>
-              <ul className="mt-4 flex flex-col gap-1 text-[14px] text-navy/70">
+              <ul className="mt-4 flex flex-col gap-1 text-[14px] text-cocoa/70">
                 {t.subTracks.map((s) => (
                   <li key={s.number} className="flex gap-3">
-                    <span className="mono w-6 shrink-0 text-signal-ink">{String(s.number).padStart(2, "0")}</span>
+                    <span className={`mono w-6 shrink-0 text-[1.1em] leading-[1.35] ${tone.num}`}>{String(s.number).padStart(2, "0")}</span>
                     {s.title}
                   </li>
                 ))}
@@ -67,13 +78,14 @@ function Cards() {
             </div>
           </Link>
         </li>
-      ))}
+        );
+      })}
       <li className="w-[min(78vw,380px)] shrink-0 snap-start md:h-[min(74vh,700px)]">
-        <Link href="/thematic-tracks/" className="group flex h-full min-h-[300px] flex-col justify-between rounded-[var(--radius-l)] bg-signal p-[clamp(24px,2.6vw,44px)]">
+        <Link href="/thematic-tracks/" className="group flex h-full min-h-[300px] flex-col justify-between rounded-[var(--radius-l)] wine-grad p-[clamp(24px,2.6vw,44px)] text-paper">
           <p className="t-h2">
-            All <span className="em">tracks</span>
+            All <span className="em text-sand">tracks</span>
           </p>
-          <span className="grid size-16 place-items-center self-end rounded-full bg-navy text-signal transition-transform duration-500 group-hover:rotate-45">
+          <span className="grid size-16 place-items-center self-end rounded-full bg-paper text-wine transition-transform duration-500 group-hover:rotate-45">
             <ArrowUpRight size={26} weight="bold" />
           </span>
         </Link>

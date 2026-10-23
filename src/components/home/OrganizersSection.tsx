@@ -7,16 +7,16 @@ const FACTS = ["Hybrid mode", "Scopus-indexed Open Access journal", "APC USD 100
 
 export function OrganizersSection() {
   return (
-    <section className="glow-bottom relative overflow-hidden bg-white py-[clamp(80px,10vw,170px)] text-navy">
+    <section className="warm-a relative overflow-hidden py-[clamp(80px,10vw,170px)] text-cocoa">
       <div className="wrap">
         <Reveal>
           <h2 className="t-h2 fade-up mb-[clamp(40px,5vw,80px)] max-w-[16ch]">
-            Three schools, one <span className="em text-signal-ink">question</span>
+            Three schools, one <span className="em text-wine-ink">question</span>
           </h2>
         </Reveal>
-        <ul className="border-t border-navy/10">
+        <ul className="border-t border-cocoa/10">
           {organizers.map((o) => (
-            <li key={o.name} className="border-b border-navy/10">
+            <li key={o.name} className="border-b border-cocoa/10">
               <a
                 href={o.url}
                 target="_blank"
@@ -27,13 +27,13 @@ export function OrganizersSection() {
                   <Image src={o.image} alt="" fill sizes="160px" className="object-cover" />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[clamp(28px,4.6vw,80px)] leading-[1.02] font-medium tracking-[-0.035em] text-navy/90 transition-colors group-hover:text-navy">
+                  <span className="block text-[clamp(28px,4.6vw,80px)] leading-[1.02] font-medium tracking-[-0.035em] text-cocoa/90 transition-colors group-hover:text-cocoa">
                     {o.short}
                   </span>
                   <span className="mt-1 block text-muted md:hidden">{o.name}</span>
                 </span>
-                <span className="hidden max-w-[22ch] text-right text-muted transition-colors group-hover:text-navy/80 lg:block">{o.name}</span>
-                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-navy/[0.05] text-signal-ink transition duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-45 group-hover:bg-signal group-hover:text-navy">
+                <span className="hidden max-w-[22ch] text-right text-muted transition-colors group-hover:text-cocoa/80 lg:block">{o.name}</span>
+                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-cocoa/[0.05] text-wine-ink transition duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-45 group-hover:bg-wine group-hover:text-paper">
                   <ArrowUpRight size={20} weight="bold" />
                 </span>
               </a>
@@ -42,9 +42,9 @@ export function OrganizersSection() {
         </ul>
         <ul className="mt-[clamp(40px,5vw,72px)] flex flex-wrap gap-2">
           {FACTS.map((f) => (
-            <li key={f} className="rounded-full bg-paper px-5 py-3 text-navy/80 ring-1 ring-navy/[0.06]">{f}</li>
+            <li key={f} className="rounded-full bg-paper px-5 py-3 text-cocoa/80 ring-1 ring-cocoa/[0.06]">{f}</li>
           ))}
-          <li className="rounded-full bg-signal px-5 py-3 font-medium text-navy">{site.dates}</li>
+          <li className="rounded-full bg-wine px-5 py-3 font-medium text-paper">{site.dates}</li>
         </ul>
       </div>
     </section>

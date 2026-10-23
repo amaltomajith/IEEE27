@@ -12,12 +12,12 @@ export default function PublicityPage() {
         <CommitteeNav />
       </PageHero>
       <section className="wrap pb-[clamp(64px,8vw,130px)]">
-        <div className="glow-bottom relative overflow-hidden rounded-[var(--radius-l)] bg-signal-soft p-[clamp(28px,4vw,72px)] text-navy">
+        <div className="glow-bottom relative overflow-hidden rounded-[var(--radius-l)] bg-wine-soft p-[clamp(28px,4vw,72px)] text-cocoa">
           <p className="text-muted">{publicity.team}</p>
           <p className="t-h2 mt-4 max-w-[18ch]">
-            {publicity.social.replace(" Team", "")} <span className="em text-signal-ink">team</span>
+            {publicity.social.replace(" Team", "")} <span className="em text-wine-ink">team</span>
           </p>
-          <p className="mt-6 max-w-[40ch] text-lg text-navy/70">{publicity.socialOrg}</p>
+          <p className="mt-6 max-w-[40ch] text-lg text-cocoa/70">{publicity.socialOrg}</p>
         </div>
       </section>
     </>

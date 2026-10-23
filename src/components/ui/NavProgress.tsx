@@ -48,7 +48,7 @@ export function NavProgress() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-x-0 top-0 z-[95] h-[3px]">
       <div
-        className="h-full origin-left bg-signal shadow-[0_0_12px_rgb(34_216_200/0.7)]"
+        className="h-full origin-left bg-wine shadow-[0_0_10px_rgb(119_61_67/0.45)]"
         style={{
           transform: `scaleX(${state === "idle" ? 0 : state === "loading" ? 0.82 : 1})`,
           opacity: state === "idle" ? 0 : 1,

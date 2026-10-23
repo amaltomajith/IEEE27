@@ -2,27 +2,33 @@
 
 /*
  * Shape rule: buttons are 14px soft rectangles, cards use --radius-l,
- * chips and tags are full pills. Accent is "signal" aqua; navy is the ink.
+ * chips and tags are full pills. Palette from the IIC 2027 poster: wine accent, cocoa ink, ivory paper.
  * Z-index scale: header 50, menu 40 (under header), takeover 70, loader 90, skip-link 100.
  */
 @theme {
-  --color-signal: #22d8c8;
-  --color-signal-2: #1bc2b3;
-  --color-signal-ink: #0e9c90;
-  --color-signal-deep: #0b6f6a;
-  --color-signal-soft: #dff7f4;
-  --color-navy: #0a2129;
-  --color-navy-2: #0f2d37;
-  --color-navy-3: #143a46;
-  --color-teal: #147a86;
-  --color-paper: #f5f9f8;
-  --color-gray: #eaf0f1;
-  --color-gray-2: #d9e3e6;
-  --color-muted: #5a6d74;
-  --color-muted-dark: #9db3b9;
+  --color-wine: #773d43;
+  --color-wine-2: #6b3138;
+  --color-wine-ink: #773d43;
+  --color-wine-deep: #522429;
+  --color-wine-soft: #f4e7e3;
+  --color-cocoa: #573420;
+  --color-cocoa-2: #4a2c1b;
+  --color-cocoa-3: #6a4330;
+  --color-sand: #ead2b4;
+  /* Supporting warmth from the poster: the campus brick and the CHRIST seal gold. */
+  --color-clay: #b8603f;
+  --color-clay-soft: #f7e3d5;
+  --color-gold: #c99a45;
+  --color-gold-soft: #f7ecd4;
+  --color-paper: #faf7ee;
+  --color-gray: #f1eadf;
+  --color-gray-2: #e4d9c9;
+  --color-muted: #7a6656;
+  --color-muted-dark: #c9b6a4;
 
-  --font-sans: var(--font-instrument), system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
+  --font-display: var(--font-teko), var(--font-poppins), sans-serif;
+  --font-mono: var(--font-teko), ui-monospace, monospace;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-io: cubic-bezier(0.625, 0.05, 0, 1);
@@ -38,10 +44,11 @@
   color-scheme: only light;
   --gutter: clamp(20px, 6.2vw, 90px);
   --header-h: clamp(64px, 6vw, 88px);
-  --fs-xl: clamp(54px, 9.6vw, 156px);
-  --fs-h1: clamp(42px, 6.6vw, 112px);
-  --fs-h2: clamp(32px, 4.2vw, 68px);
-  --fs-h3: clamp(22px, 2.1vw, 34px);
+  /* Teko is condensed with tall caps, so display sizes run larger than a regular sans. */
+  --fs-xl: clamp(66px, 11.6vw, 196px);
+  --fs-h1: clamp(50px, 7.6vw, 130px);
+  --fs-h2: clamp(38px, 4.9vw, 80px);
+  --fs-h3: clamp(26px, 2.4vw, 40px);
   --fs-h5: clamp(17px, 1.45vw, 23px);
   --fs-body: clamp(16px, 1.08vw, 18px);
 }
@@ -56,33 +63,34 @@ body {
   font-family: var(--font-sans);
   font-size: var(--fs-body);
   line-height: 1.55;
-  color: var(--color-navy);
+  color: var(--color-cocoa);
   background: var(--color-paper);
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
 
-::selection { background: var(--color-signal); color: var(--color-navy); }
-:focus-visible { outline: 2px solid var(--color-signal-ink); outline-offset: 3px; border-radius: 6px; }
+::selection { background: var(--color-wine); color: var(--color-paper); }
+:focus-visible { outline: 2px solid var(--color-wine-ink); outline-offset: 3px; border-radius: 6px; }
 
-h1, h2, h3, h4, h5 { font-weight: 600; line-height: 1.06; letter-spacing: -0.03em; text-wrap: balance; }
+h1, h2, h3, h4, h5 { font-weight: 600; line-height: 1.06; letter-spacing: -0.02em; text-wrap: balance; }
+h1, h2 { font-family: var(--font-display); font-weight: 500; line-height: 0.92; letter-spacing: 0; }
 p { text-wrap: pretty; }
 
 @layer components {
   .wrap { width: 100%; max-width: 1780px; margin-inline: auto; padding-inline: var(--gutter); }
 
-  .t-xl { font-size: var(--fs-xl); line-height: 0.96; letter-spacing: -0.045em; }
-  .t-h1 { font-size: var(--fs-h1); line-height: 1.02; letter-spacing: -0.04em; }
-  .t-h2 { font-size: var(--fs-h2); line-height: 1.05; letter-spacing: -0.035em; font-weight: 500; }
-  .t-h3 { font-size: var(--fs-h3); line-height: 1.15; letter-spacing: -0.02em; font-weight: 500; }
-  .t-h5 { font-size: var(--fs-h5); line-height: 1.4; letter-spacing: -0.01em; font-weight: 400; }
-  .mono { font-family: var(--font-mono); font-feature-settings: "tnum" 1; letter-spacing: 0; }
+  .t-xl { font-family: var(--font-display); font-size: var(--fs-xl); line-height: 0.86; letter-spacing: 0; text-transform: uppercase; }
+  .t-h1 { font-family: var(--font-display); font-size: var(--fs-h1); line-height: 0.9; letter-spacing: 0; text-transform: uppercase; }
+  .t-h2 { font-family: var(--font-display); font-size: var(--fs-h2); line-height: 0.95; letter-spacing: 0; font-weight: 500; }
+  .t-h3 { font-family: var(--font-display); font-size: var(--fs-h3); line-height: 1; letter-spacing: 0.005em; font-weight: 500; }
+  .t-h5 { font-family: var(--font-sans); font-size: var(--fs-h5); line-height: 1.5; letter-spacing: -0.01em; font-weight: 400; }
+  .mono { font-family: var(--font-mono); font-feature-settings: "tnum" 1; letter-spacing: 0.03em; }
 
-  /* Emphasis: same family, true italic, slightly condensed. */
-  .em { font-style: italic; font-weight: 500; font-stretch: 88%; letter-spacing: -0.035em; padding-right: 0.05em; }
+  /* Emphasis: colour, not italic, like the poster's wine "AND". */
+  .em { font-style: normal; color: var(--color-wine); }
 
   .grad-text {
-    background: linear-gradient(90deg, var(--color-signal-deep), var(--color-navy) 32%, var(--color-teal) 62%, var(--color-signal-deep));
+    background: linear-gradient(90deg, var(--color-cocoa), var(--color-wine) 32%, #8c5a3c 62%, var(--color-cocoa));
     background-size: 1600px 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -102,15 +110,16 @@ p { text-wrap: pretty; }
   .is-in .fade-up, .fade-up.is-in { opacity: 1; transform: none; }
 
   /* Node dot: the site's bullet / separator motif. */
-  .node { display: inline-block; flex: none; width: 0.6em; height: 0.6em; border-radius: 999px; background: var(--color-signal); box-shadow: 0 0 0 0.28em color-mix(in srgb, var(--color-signal) 22%, transparent); }
+  .node { display: inline-block; flex: none; width: 0.6em; height: 0.6em; border-radius: 999px; background: var(--color-wine); box-shadow: 0 0 0 0.28em color-mix(in srgb, var(--color-wine) 22%, transparent); }
 
   /* Backdrop glow behind the dot field. */
   .field-glow {
     position: absolute; inset: 0; pointer-events: none;
     background:
-      radial-gradient(60% 55% at 72% 42%, color-mix(in srgb, var(--color-signal) 22%, transparent), transparent 70%),
-      radial-gradient(45% 50% at 92% 80%, color-mix(in srgb, var(--color-teal) 18%, transparent), transparent 70%),
-      radial-gradient(40% 40% at 8% 10%, color-mix(in srgb, var(--color-signal) 8%, transparent), transparent 70%);
+      radial-gradient(55% 50% at 70% 40%, color-mix(in srgb, var(--color-wine) 13%, transparent), transparent 70%),
+      radial-gradient(50% 55% at 95% 85%, color-mix(in srgb, var(--color-clay) 24%, transparent), transparent 70%),
+      radial-gradient(45% 45% at 6% 8%, color-mix(in srgb, var(--color-gold) 22%, transparent), transparent 70%),
+      radial-gradient(40% 40% at 35% 95%, color-mix(in srgb, var(--color-clay-soft) 90%, transparent), transparent 70%);
     -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent);
     mask-image: linear-gradient(to bottom, #000 60%, transparent);
   }
@@ -118,8 +127,8 @@ p { text-wrap: pretty; }
   /* Buttons: 14px rectangles, directional fill, arrow swap. Transform is composed from
      CSS variables so magnetic offset (--tx/--ty) and press scale (--press) never fight. */
   .btn {
-    --bg: var(--color-navy); --ink: #fff; --fill: var(--color-navy-3);
-    --tile: rgb(255 255 255 / 0.12); --tile-ink: var(--color-signal);
+    --bg: var(--color-cocoa); --ink: #fff; --fill: var(--color-cocoa-3);
+    --tile: rgb(255 255 255 / 0.12); --tile-ink: var(--color-sand);
     position: relative; isolation: isolate; overflow: hidden;
     display: inline-flex; align-items: center; gap: 14px;
     height: 48px; padding: 0 6px 0 20px; border-radius: 14px;
@@ -135,10 +144,10 @@ p { text-wrap: pretty; }
   .btn-tile > * { grid-area: 1 / 1; transition: transform 0.5s var(--ease-out); }
   .btn-tile > :nth-child(2) { transform: translateX(-160%); }
   .btn--plain { padding: 0 20px; }
-  .btn--signal { --bg: var(--color-signal); --ink: var(--color-navy); --fill: #5be6da; --tile: rgb(10 33 41 / 0.12); --tile-ink: var(--color-navy); }
-  .btn--light { --bg: #fff; --ink: var(--color-navy); --fill: var(--color-signal-soft); --tile: var(--color-signal); --tile-ink: var(--color-navy); box-shadow: 0 1px 0 rgb(10 33 41 / 0.04), 0 12px 30px -16px rgb(10 33 41 / 0.28); }
-  .btn--ghost { --bg: transparent; --ink: var(--color-navy); --fill: rgb(10 33 41 / 0.06); --tile: var(--color-navy); --tile-ink: var(--color-signal); box-shadow: inset 0 0 0 1px rgb(10 33 41 / 0.2); }
-  .btn--ghost-dark { --bg: transparent; --ink: #fff; --fill: rgb(255 255 255 / 0.08); --tile: var(--color-signal); --tile-ink: var(--color-navy); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.24); }
+  .btn--wine { --bg: var(--color-wine); --ink: var(--color-paper); --fill: var(--color-wine-deep); --tile: rgb(255 255 255 / 0.14); --tile-ink: var(--color-paper); }
+  .btn--light { --bg: #fff; --ink: var(--color-cocoa); --fill: var(--color-wine-soft); --tile: var(--color-wine); --tile-ink: var(--color-paper); box-shadow: 0 1px 0 rgb(87 52 32 / 0.04), 0 12px 30px -16px rgb(87 52 32 / 0.28); }
+  .btn--ghost { --bg: transparent; --ink: var(--color-cocoa); --fill: rgb(87 52 32 / 0.06); --tile: var(--color-cocoa); --tile-ink: var(--color-paper); box-shadow: inset 0 0 0 1px rgb(87 52 32 / 0.2); }
+  .btn--ghost-dark { --bg: transparent; --ink: #fff; --fill: rgb(255 255 255 / 0.08); --tile: var(--color-wine); --tile-ink: var(--color-paper); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.24); }
   .btn:focus-visible::before { transform: scaleX(1); }
   .btn:focus-visible .btn-tile > :first-child { transform: translateX(160%); }
   .btn:focus-visible .btn-tile > :nth-child(2) { transform: none; }
@@ -150,15 +159,15 @@ p { text-wrap: pretty; }
 
   /* Menu button: two unequal lines that fold into an X. */
   .menu-trigger { transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0); transition: transform 0.45s var(--ease-spring), color 0.3s ease; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
-  .menu-btn { position: relative; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: var(--color-navy); color: #fff; transform: scale(var(--press, 1)); transition: transform 0.4s var(--ease-spring), background-color 0.3s ease, box-shadow 0.3s ease; }
+  .menu-btn { position: relative; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: var(--color-cocoa); color: #fff; transform: scale(var(--press, 1)); transition: transform 0.4s var(--ease-spring), background-color 0.3s ease, box-shadow 0.3s ease; }
   .menu-trigger:active .menu-btn { --press: 0.92; transition-duration: 0.08s; }
   .menu-btn i { position: absolute; left: 14px; height: 2px; border-radius: 2px; background: currentColor; transition: transform 0.5s var(--ease-out), width 0.5s var(--ease-out), top 0.5s var(--ease-out); }
   .menu-btn i:first-child { top: 19px; width: 20px; }
-  .menu-btn i:last-child { top: 27px; width: 12px; background: var(--color-signal); }
-  .menu-trigger[data-dark] > .menu-btn { background: #fff; color: var(--color-navy); }
-  [aria-expanded="true"] > .menu-btn { background: var(--color-signal); color: var(--color-navy); }
+  .menu-btn i:last-child { top: 27px; width: 12px; background: var(--color-sand); }
+  .menu-trigger[data-dark] > .menu-btn { background: #fff; color: var(--color-cocoa); }
+  [aria-expanded="true"] > .menu-btn { background: var(--color-wine); color: var(--color-paper); }
   [aria-expanded="true"] > .menu-btn i:first-child { top: 23px; width: 20px; transform: rotate(45deg); }
-  [aria-expanded="true"] > .menu-btn i:last-child { top: 23px; width: 20px; transform: rotate(-45deg); background: var(--color-navy); }
+  [aria-expanded="true"] > .menu-btn i:last-child { top: 23px; width: 20px; transform: rotate(-45deg); background: var(--color-paper); }
   @media (hover: hover) { .menu-trigger:not([aria-expanded="true"]):hover .menu-btn i:last-child { width: 20px; } }
 
   /* Text roll on hover (pointer devices only, so taps never stick). */
@@ -178,7 +187,25 @@ p { text-wrap: pretty; }
   .marquee { display: flex; width: max-content; animation: marquee var(--marquee-dur, 40s) linear infinite; }
   @keyframes marquee { to { transform: translateX(-50%); } }
 
-  .glow-bottom { background-image: radial-gradient(110% 70% at 80% 130%, color-mix(in srgb, var(--color-signal) 20%, transparent), transparent 62%), radial-gradient(60% 50% at 0% 0%, color-mix(in srgb, var(--color-signal) 7%, transparent), transparent 70%); }
+  .glow-bottom { background-image: radial-gradient(110% 70% at 85% 130%, color-mix(in srgb, var(--color-clay) 26%, transparent), transparent 62%), radial-gradient(60% 50% at 0% 0%, color-mix(in srgb, var(--color-gold) 16%, transparent), transparent 70%), radial-gradient(50% 40% at 40% 110%, color-mix(in srgb, var(--color-wine) 8%, transparent), transparent 70%); }
+
+  /* Warm section surfaces (light theme, never dark): peach-to-blush and gold-to-paper. */
+  .warm-a {
+    background-color: #fbf0e6;
+    background-image:
+      radial-gradient(70% 60% at 90% 110%, color-mix(in srgb, var(--color-clay) 22%, transparent), transparent 65%),
+      radial-gradient(50% 45% at 0% 0%, color-mix(in srgb, var(--color-gold) 14%, transparent), transparent 70%),
+      linear-gradient(165deg, #fcf3ea 0%, var(--color-clay-soft) 58%, var(--color-wine-soft) 100%);
+  }
+  .warm-b {
+    background-color: #faf3e4;
+    background-image:
+      radial-gradient(60% 50% at 100% 0%, color-mix(in srgb, var(--color-gold) 18%, transparent), transparent 70%),
+      radial-gradient(60% 55% at 0% 100%, color-mix(in srgb, var(--color-clay) 12%, transparent), transparent 70%),
+      linear-gradient(180deg, var(--color-gold-soft), var(--color-paper) 85%);
+  }
+  /* Wine blocks pick up a brick undertone instead of reading as one flat colour. */
+  .wine-grad { background-color: var(--color-wine); background-image: linear-gradient(135deg, var(--color-wine) 0%, #8a423f 55%, var(--color-clay) 125%); }
 
   details summary { list-style: none; cursor: pointer; }
   details summary::-webkit-details-marker { display: none; }
@@ -190,3 +217,10 @@ p { text-wrap: pretty; }
   .line-mask > span, .fade-up { transition: none !important; transform: none !important; opacity: 1 !important; }
   .marquee { animation: none; }
 }
+
+@keyframes cd-in { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes cd-out { from { transform: none; } to { transform: translateY(-100%); } }
+
+
+/* Footer: the page's ivory warms into sand, with a little clay at the very bottom. */
+.footer-bg { background: linear-gradient(to bottom, var(--color-paper), var(--color-gray) 30%, #f3e1d1); }

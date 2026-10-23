@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { BG_FRAG, BG_VERT, EDGE_FRAG, EDGE_VERT, NODE_FRAG, NODE_VERT } from "./shaders";
 import { buildLayout, type Layout } from "./layout";
+import { cascade, type PulseTarget } from "./cascade";
 
 // Raw shader materials: keep colours in sRGB end to end (no linear conversion).
 THREE.ColorManagement.enabled = false;
@@ -9,9 +10,10 @@ const ease = (x: number) => x * x * (3 - 2 * x);
 
 /**
  * The card's "thinking system". A brain-shaped web of neurons and synapses that
- * fires: cascades radiate from wherever the cursor touches, and it sparks on its
- * own when idle. Holding rearranges the same neurons into the layers of an
- * artificial neural network, where activity flows forward layer to layer.
+ * fires: a click sends a signal down the real synapses, neuron to neuron, hover
+ * lights the synapses of the neuron under the cursor, and small thoughts run on
+ * their own when idle. Holding rearranges the same neurons into the layers of an
+ * artificial neural network, where a click runs a forward pass layer to layer.
  */
 export class ThinkingSystem {
   readonly canvas: HTMLCanvasElement;
@@ -32,7 +34,15 @@ export class ThinkingSystem {
   private last = 0;
   private lastHoverSpark = 0;
   private nextAuto = 1.2;
+  private lastHoverPick = 0;
   private v = new THREE.Vector3();
+  private nodeGeo!: THREE.BufferGeometry;
+  private edgeGeo: THREE.BufferGeometry[] = [];
+  private pulses!: { brain: PulseTarget; net: PulseTarget };
+  /** True while the pointer is over a neuron (for the cursor). */
+  nearNode = false;
+  private wasNet = false;
+  private inputs: number[] = [];
   w = 1;
   h = 1;
 
@@ -40,21 +50,28 @@ export class ThinkingSystem {
     this.frozen = !!opts.frozen;
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
     this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
-    this.renderer.setClearColor(0xf5f9f8, 1);
+    this.renderer.setClearColor(0xfaf7ee, 1);
     this.canvas = this.renderer.domElement;
     this.canvas.setAttribute("aria-hidden", "true");
     this.camera.position.set(0, 0, 5.2);
 
     const L = (this.layout = buildLayout(opts.dense ? 1400 : 620));
+    this.inputs = L.inputs;
     this.uniforms = {
       uTime: { value: 0 },
       uMix: { value: 0 },
       uSparks: { value: this.sparks },
+      uPT: { value: 0 },
+      uWob: { value: 1 },
+      uWrist: { value: 0 },
+      uHover: { value: -1 },
+      uInstant: { value: this.frozen ? 1 : 0 },
       uSize: { value: 3 },
       uDpr: { value: 1 },
-      uColA: { value: C("#1f6f73") },
-      uColB: { value: C("#0a2129") },
-      uSpark: { value: C("#0fc2b2") },
+      uColA: { value: C("#8c5a3c") },
+      uColB: { value: C("#573420") },
+      uSpark: { value: C("#a8474f") },
+      uHot: { value: C("#d0893c") },
     };
 
     // Nodes
@@ -62,6 +79,11 @@ export class ThinkingSystem {
     ng.setAttribute("position", new THREE.BufferAttribute(L.brain, 3));
     ng.setAttribute("aNet", new THREE.BufferAttribute(L.net, 3));
     ng.setAttribute("aSeed", new THREE.BufferAttribute(L.seed, 1));
+    const hit = new Float32Array(L.n).fill(-99);
+    ng.setAttribute("aHit", new THREE.BufferAttribute(hit, 1));
+    ng.setAttribute("aRing", new THREE.BufferAttribute(new Float32Array(L.n).fill(-99), 1));
+    ng.setAttribute("aIdx", new THREE.BufferAttribute(Float32Array.from({ length: L.n }, (_, i) => i), 1));
+    this.nodeGeo = ng;
     this.nodeMat = new THREE.ShaderMaterial({
       vertexShader: NODE_VERT,
       fragmentShader: NODE_FRAG,
@@ -77,6 +99,7 @@ export class ThinkingSystem {
     const edges = (pairs: Uint32Array, layer: number) => {
       const m = pairs.length / 2;
       const pos = new Float32Array(m * 6), net = new Float32Array(m * 6), seed = new Float32Array(m * 2), t = new Float32Array(m * 2), eid = new Float32Array(m * 2);
+      const fire = new Float32Array(m * 2).fill(-99), dir = new Float32Array(m * 2), ends = new Float32Array(m * 4);
       for (let e = 0; e < m; e++) {
         const r = Math.random();
         for (let k = 0; k < 2; k++) {
@@ -86,6 +109,8 @@ export class ThinkingSystem {
           seed[v] = L.seed[i];
           t[v] = k;
           eid[v] = r;
+          ends[v * 2] = pairs[e * 2];
+          ends[v * 2 + 1] = pairs[e * 2 + 1];
         }
       }
       const g = new THREE.BufferGeometry();
@@ -94,10 +119,14 @@ export class ThinkingSystem {
       g.setAttribute("aSeed", new THREE.BufferAttribute(seed, 1));
       g.setAttribute("aT", new THREE.BufferAttribute(t, 1));
       g.setAttribute("aEdge", new THREE.BufferAttribute(eid, 1));
+      g.setAttribute("aFire", new THREE.BufferAttribute(fire, 1));
+      g.setAttribute("aDir", new THREE.BufferAttribute(dir, 1));
+      g.setAttribute("aEnds", new THREE.BufferAttribute(ends, 2));
+      this.edgeGeo[layer] = g;
       const mat = new THREE.ShaderMaterial({
         vertexShader: EDGE_VERT,
         fragmentShader: EDGE_FRAG,
-        uniforms: { ...this.uniforms, uLayer: { value: layer } },
+        uniforms: { ...this.uniforms, uLayer: { value: layer }, uBaseA: { value: layer ? 0.14 : 0.13 }, uDash: { value: 1 } },
         transparent: true,
         depthWrite: false,
         blending: THREE.NormalBlending,
@@ -107,6 +136,11 @@ export class ThinkingSystem {
       return lines;
     };
     this.group.add(edges(L.brainEdges, 0), edges(L.netEdges, 1), nodes);
+    const attr = (g: THREE.BufferGeometry, k: string) => (g.getAttribute(k) as THREE.BufferAttribute).array as Float32Array;
+    this.pulses = {
+      brain: { fire: attr(this.edgeGeo[0], "aFire"), dir: attr(this.edgeGeo[0], "aDir"), hit },
+      net: { fire: attr(this.edgeGeo[1], "aFire"), dir: attr(this.edgeGeo[1], "aDir"), hit },
+    };
     this.scene.add(this.group);
 
     this.bgMat = new THREE.ShaderMaterial({
@@ -114,7 +148,7 @@ export class ThinkingSystem {
       fragmentShader: BG_FRAG,
       depthWrite: false,
       depthTest: false,
-      uniforms: { uBase: { value: C("#f3f8f7") }, uTint: { value: C("#e2f6f3") }, uGlow: { value: C("#c4efe8") }, uMix: this.uniforms.uMix },
+      uniforms: { uBase: { value: C("#faf7ee") }, uTint: { value: C("#f6e3d6") }, uGlow: { value: C("#efc9ae") }, uMix: this.uniforms.uMix },
     });
     const bg = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), this.bgMat);
     bg.frustumCulled = false;
@@ -152,14 +186,42 @@ export class ThinkingSystem {
   setFocus(v: number) {
     this.target.focus = v;
   }
-  /** A deliberate tap: fire a strong cascade at the nearest neuron. */
+  /**
+   * A deliberate tap: the nearest neuron pops (ring + flash) and sends a signal
+   * down its synapses. In the network view it runs a forward pass instead.
+   */
   poke() {
-    const i = this.pick(this.target.mx, this.target.my, 0.25);
-    this.fire(i ?? Math.floor(Math.random() * this.layout.n));
+    const net = this.uniforms.uMix.value > 0.5;
+    let i = this.pick(this.target.mx, this.target.my, 0.14) ?? Math.floor(Math.random() * this.layout.n);
+    if (net) i = this.layout.core[i];
+    (this.nodeGeo.getAttribute("aRing").array as Float32Array)[i] = this.pt();
+    this.nodeGeo.getAttribute("aRing").needsUpdate = true;
+    this.think(i, net ? { maxDepth: 6, branch: 1, cap: 500, hop: 0.2 } : { maxDepth: 7, branch: 0.6, cap: 150, hop: 0.11 });
+    if (net) this.fire(i);
+  }
+
+  private think(i: number, o: { maxDepth: number; branch: number; cap: number; hop: number }) {
+    const net = this.uniforms.uMix.value > 0.5;
+    cascade(net ? this.layout.netAdj : this.layout.brainAdj, this.layout.n, i, this.pt(), net ? this.pulses.net : this.pulses.brain, {
+      ...o,
+      hop: this.frozen ? 0 : o.hop,
+    });
+    if (net) {
+      // A neuron is a ring of nodes around its core: light the whole ring.
+      const hit = this.pulses.net.hit, core = this.layout.core;
+      for (let k = 0; k < this.layout.n; k++) if (core[k] !== k) hit[k] = hit[core[k]];
+    }
+    this.edgeGeo[net ? 1 : 0].getAttribute("aFire").needsUpdate = true;
+    this.edgeGeo[net ? 1 : 0].getAttribute("aDir").needsUpdate = true;
+    this.nodeGeo.getAttribute("aHit").needsUpdate = true;
   }
 
   private time() {
     return this.frozen ? 2 : (performance.now() - this.t0) / 1000;
+  }
+  /** Pulse clock: always real time, so a click shows even when the scene is frozen. */
+  private pt() {
+    return (performance.now() - this.t0) / 1000;
   }
 
   /** Same placement as the shaders' place(), for picking and spark origins. */
@@ -207,10 +269,22 @@ export class ThinkingSystem {
     c.focus += (tg.focus - c.focus) * kf;
     const t = this.time();
     this.uniforms.uTime.value = t;
+    this.uniforms.uPT.value = this.pt();
     this.uniforms.uMix.value = Math.min(1, c.mix + c.hold);
 
+    // Hover: ring the neuron under the cursor and light its synapses.
+    if (now - this.lastHoverPick > 70) {
+      this.lastHoverPick = now;
+      const h = tg.on ? this.pick(tg.mx, tg.my, 0.07) : null;
+      this.uniforms.uHover.value = h === null ? -1 : this.uniforms.uMix.value > 0.5 ? this.layout.core[h] : h;
+      if (this.nearNode !== (h !== null)) {
+        this.nearNode = h !== null;
+        this.canvas.style.cursor = this.nearNode ? "pointer" : "";
+      }
+    }
+
     if (!this.frozen) {
-      // Hover sparks the neuron under the cursor; idle time sparks a random one.
+      // Hover sparks a soft shell around the cursor; idle time runs a small thought.
       if (tg.on && now - this.lastHoverSpark > 450) {
         const i = this.pick(tg.mx, tg.my, 0.09);
         if (i !== null) {
@@ -219,18 +293,27 @@ export class ThinkingSystem {
           this.nextAuto = t + 2.4;
         }
       }
+      // Network view: forward passes from the input layer, a quick burst as it forms.
+      const netNow = this.uniforms.uMix.value > 0.5;
+      if (netNow && !this.wasNet) this.nextAuto = t;
+      this.wasNet = netNow;
       if (t > this.nextAuto) {
-        this.fire(Math.floor(Math.random() * this.layout.n));
-        this.nextAuto = t + 1.6 + Math.random() * 0.8;
+        if (netNow) {
+          this.think(this.inputs[Math.floor(Math.random() * this.inputs.length)], { maxDepth: 6, branch: 0.45, cap: 40, hop: 0.2 });
+          this.nextAuto = t + 0.55 + Math.random() * 0.4;
+        } else {
+          this.think(Math.floor(Math.random() * this.layout.n), { maxDepth: 4, branch: 0.5, cap: 18, hop: 0.13 });
+          this.nextAuto = t + 1.4 + Math.random() * 0.9;
+        }
       }
     }
 
     const net = this.uniforms.uMix.value;
     const baseY = this.frozen ? -0.7 : -0.7 + Math.sin(t * 0.12) * 0.45;
-    // Network state: near side-on, so each layer reads as a column, input on the left.
-    const ry = baseY * (1 - net) + -0.24 * net + c.mx * 0.3 * c.on;
+    // Network state: nearly face-on, so layers read as columns of neurons, input on the left.
+    const ry = baseY * (1 - net) + -0.1 * net + c.mx * 0.3 * c.on;
     c.ry += (ry - c.ry) * 0.06;
-    c.rx += (0.16 - c.my * 0.16 * c.on + net * 0.12 - c.rx) * 0.06;
+    c.rx += (0.16 - c.my * 0.16 * c.on - net * 0.12 - c.rx) * 0.06;
     this.group.rotation.set(c.rx, c.ry, 0);
     // Takeover: pull back slightly and slide the system right so the copy has room.
     this.camera.position.z = 5.2 + c.focus * 0.4;

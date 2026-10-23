@@ -2,10 +2,10 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence } from "motion/react";
-import { ArrowsOutSimple } from "@phosphor-icons/react/dist/ssr";
+import { ArrowsOutSimple, Monitor } from "@phosphor-icons/react/dist/ssr";
 import { HeroEngine } from "./engine";
 import { Loader, LOADER_SKEW } from "./Loader";
-import { Counter } from "./Counter";
+import { Countdown } from "@/components/home/Countdown";
 import { ThinkingSystem } from "@/components/scene/ThinkingSystem";
 import { Takeover, type Rect } from "@/components/scene/Takeover";
 import { Field } from "@/components/ui/Field";
@@ -248,34 +248,50 @@ export function HomeHero() {
             {mode === "static" && (
               <span
                 aria-hidden
-                className="absolute top-[38svh] left-[62vw] h-[30svh] w-[15.6vw] -translate-x-1/2 -translate-y-1/2 -skew-x-[22deg] rounded-[1.2svh] bg-signal md:top-[50svh] md:left-[57vw] md:h-[66svh] md:w-[14svh]"
+                className="absolute top-[38svh] left-[74vw] h-[30svh] w-[15.6vw] -translate-x-1/2 -translate-y-1/2 -skew-x-[22deg] rounded-[1.2svh] bg-wine md:top-[50svh] md:left-[57vw] md:h-[66svh] md:w-[14svh]"
               />
             )}
-            <h1 className="t-xl relative my-auto pb-[0.06em] font-semibold">
-              <span className="sr-only">{site.short}: </span>
-              <span className="line-mask">
-                <span>
-                  <span className="grad-text">Mind</span> and
+            {/* Poster lockup: conference line, title, wine theme band. */}
+            <div className="relative my-auto">
+              <p className="fade-up mb-[clamp(10px,1.6vh,22px)] font-display text-[clamp(18px,1.7vw,28px)] leading-none font-medium tracking-[0.02em] text-cocoa/75 uppercase max-md:max-w-[56vw]">
+                International Interdisciplinary Conference
+              </p>
+              <h1 className="t-xl relative pb-[0.06em] font-semibold">
+                <span className="sr-only">{site.short}: </span>
+                <span className="line-mask">
+                  <span>
+                    Mind <span className="em">and</span>
+                  </span>
                 </span>
-              </span>
-              <span className="line-mask">
-                <span className="em text-[1.12em] leading-[1.08]">Machine</span>
-              </span>
-            </h1>
+                <span className="line-mask">
+                  <span>Machine</span>
+                </span>
+              </h1>
+              <p className="fade-up mt-[clamp(14px,2.2vh,28px)] flex max-w-[34ch] items-start gap-4 text-[clamp(18px,1.55vw,26px)] leading-[1.35] text-cocoa/85 max-md:max-w-[47vw] max-md:text-[17px]">
+                <span aria-hidden className="mt-[0.12em] inline-block h-[1.15em] w-[0.32em] shrink-0 -skew-x-[22deg] rounded-[3px] bg-[linear-gradient(180deg,var(--color-wine),var(--color-clay))]" />
+                <span>Reimagining human-AI collaboration across sectors.</span>
+              </p>
+            </div>
             <div className="fade-up mt-10 flex flex-wrap items-end justify-between gap-8">
-              <div className="flex flex-col gap-5 md:max-w-[46%]">
-                <Counter />
-                <p className="t-h5 max-w-[34ch] text-navy/85">
-                  Reimagining human-AI collaboration across sectors. {site.dates}, Bengaluru and online.
-                </p>
+              <div className="flex flex-wrap items-start gap-x-8 gap-y-5">
+                <Countdown />
+                <div className="flex items-center gap-3">
+                  <span className="grid size-[clamp(44px,3.4vw,56px)] shrink-0 place-items-center rounded-[14px] bg-clay text-paper">
+                    <Monitor size={24} weight="duotone" />
+                  </span>
+                  <p className="leading-tight">
+                    <span className="block font-display text-[clamp(22px,1.8vw,30px)] leading-none font-medium">Hybrid mode</span>
+                    <span className="text-sm text-muted">Online + offline, {site.dates}</span>
+                  </p>
+                </div>
               </div>
-              <PillButton href="/thematic-tracks/" variant="signal">View tracks</PillButton>
+              <PillButton href="/thematic-tracks/" variant="wine">View tracks</PillButton>
             </div>
           </div>
 
           <div ref={introBlock} className="wrap pt-[clamp(90px,16vh,200px)] pb-[clamp(40px,8vh,100px)]">
-            <p ref={introText} className="max-w-[34em] text-[clamp(20px,1.6vw,28px)] leading-[1.5] text-navy/90 max-md:pr-[20vw] md:max-w-[30em]">
-              {site.tagline} {site.short} brings engineering, business and psychology into one room to study the human side of intelligent systems.
+            <p ref={introText} className="max-w-[34em] text-[clamp(20px,1.6vw,28px)] leading-[1.5] text-cocoa/90 max-md:pr-[20vw] md:max-w-[30em]">
+              {site.short} brings engineering, business and psychology into one room to study the human side of intelligent systems.
             </p>
             <div className="mt-8">
               <PillButton href="/about/" variant="ghost">About IIC 2027</PillButton>
@@ -304,12 +320,12 @@ export function HomeHero() {
               />
               <div
                 aria-hidden={!showCard || !!take}
-                className={`pointer-events-none absolute inset-0 flex flex-col justify-between rounded-[inherit] p-[clamp(20px,3vw,48px)] text-navy ring-1 ring-navy/[0.07] ring-inset transition-opacity duration-700 ${showCard && !take ? "opacity-100" : "opacity-0"}`}
+                className={`pointer-events-none absolute inset-0 flex flex-col justify-between rounded-[inherit] p-[clamp(20px,3vw,48px)] text-cocoa ring-1 ring-cocoa/[0.07] ring-inset transition-opacity duration-700 ${showCard && !take ? "opacity-100" : "opacity-0"}`}
               >
-                <p className="text-sm text-muted max-sm:hidden">Move to spark a thought. Hold to watch the machine think.</p>
+                <p className="text-sm text-muted max-sm:hidden">Click a neuron to send a thought. Hold to watch the machine think.</p>
                 <div className="flex items-end justify-between gap-6">
                   <p className="t-h2 font-medium max-sm:invisible">
-                    Mind and <span className="em text-signal-ink">Machine</span>
+                    Mind <span className="em">and</span> Machine
                   </p>
                   <div className={showCard && !take ? "pointer-events-auto" : "pointer-events-none"}>
                     <PillButton onClick={enter} variant="dark" tabIndex={showCard && !take ? 0 : -1} icon={<ArrowsOutSimple size={17} weight="bold" />}>
