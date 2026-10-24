@@ -22,7 +22,7 @@ function Marquee() {
   );
   return (
     <div className="overflow-hidden py-[clamp(24px,4vw,56px)]" aria-hidden>
-      <div className="marquee t-xl font-medium whitespace-nowrap">
+      <div className="marquee t-h2 font-medium whitespace-nowrap">
         {row}
         {row}
         {row}
@@ -43,7 +43,7 @@ const TONES = [
 function Cards() {
   return (
     <>
-      <li className="flex w-[min(78vw,420px)] shrink-0 snap-start flex-col justify-between rounded-[var(--radius-l)] tint-b p-[clamp(24px,2.6vw,44px)] ring-1 ring-gold/25 md:h-[min(74vh,700px)]">
+      <li className="flex w-[min(78vw,420px)] shrink-0 snap-start flex-col justify-between rounded-[var(--radius-l)] tint-b p-[clamp(24px,2.6vw,44px)] ring-1 ring-gold/25 md:min-h-[min(74vh,700px)]">
         <h2 className="t-h2">
           Pick your <span className="em">track</span>
         </h2>
@@ -55,16 +55,16 @@ function Cards() {
       {tracks.map((t, i) => {
         const tone = TONES[i % TONES.length];
         return (
-        <li key={t.slug} className="w-[min(84vw,520px)] shrink-0 snap-start md:h-[min(74vh,700px)] md:w-[min(40vw,520px)]">
+        <li key={t.slug} className="w-[min(84vw,520px)] shrink-0 snap-start md:min-h-[min(74vh,700px)] md:w-[min(40vw,520px)]">
           <Link href={`/thematic-tracks/${t.slug}/`} className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-l)] bg-white text-ink ring-1 ring-ink/[0.06] transition-shadow duration-500 hover:shadow-[0_24px_60px_-30px_rgb(10_26_64/0.3)]">
-            <div className="relative aspect-[16/10] shrink-0 overflow-hidden md:aspect-auto md:flex-1">
+            <div className="relative aspect-[16/10] shrink-0 overflow-hidden md:aspect-[16/11]">
               <Image src={t.poster} alt={`${t.short} track poster`} fill sizes="(min-width:768px) 40vw, 84vw" className="object-cover object-top transition duration-[1.2s] [transition-timing-function:var(--ease-out)] group-hover:scale-105" />
               <span className={`absolute top-4 right-4 grid size-12 place-items-center rounded-full shadow-lg ${tone.chip} transition-transform duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-45`}>
                 <ArrowUpRight size={20} weight="bold" />
               </span>
             </div>
             <span aria-hidden className={`block h-1.5 w-full ${tone.band}`} />
-            <div className="p-[clamp(20px,2vw,32px)]">
+            <div className="flex-1 p-[clamp(20px,2vw,32px)]">
               <p className="inline-flex text-sm font-medium text-ink/70">{t.short}</p>
               <h3 className="mt-1 font-display font-semibold text-[clamp(23px,1.75vw,30px)] leading-[1.15]">{t.title}</h3>
               <ul className="mt-4 flex flex-col gap-1 text-[14px] text-ink/70">
@@ -80,7 +80,7 @@ function Cards() {
         </li>
         );
       })}
-      <li className="w-[min(78vw,380px)] shrink-0 snap-start md:h-[min(74vh,700px)]">
+      <li className="w-[min(78vw,380px)] shrink-0 snap-start md:min-h-[min(74vh,700px)]">
         <Link href="/thematic-tracks/" className="group flex h-full min-h-[300px] flex-col justify-between rounded-[var(--radius-l)] navy-grad p-[clamp(24px,2.6vw,44px)] text-paper">
           <p className="t-h2">
             All <span className="em text-amber">tracks</span>

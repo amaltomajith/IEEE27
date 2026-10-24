@@ -253,12 +253,17 @@ export function HomeHero() {
             )}
             {/* Lockup: conference label, title, theme line. */}
             <div className="relative my-auto">
-              <p className="fade-up mb-[clamp(12px,2vh,26px)] flex items-center gap-3 text-[clamp(12px,0.95vw,15px)] leading-snug font-semibold tracking-[0.2em] text-gold uppercase max-md:max-w-[60vw]">
-                <span aria-hidden className="h-[1.2em] w-[2px] shrink-0 bg-gold" />
-                International Interdisciplinary Conference
-              </p>
+              {/* Conference identity: the full event name leads, the host university sits under it. */}
+              <div className="fade-up mb-[clamp(18px,3vh,40px)] border-l-2 border-gold pl-[clamp(14px,1.4vw,24px)] max-md:max-w-[66vw]">
+                <p className="font-display text-[clamp(26px,2.6vw,46px)] leading-[1.05] font-semibold tracking-[-0.01em] text-ink">
+                  International Interdisciplinary <br className="max-md:hidden" />
+                  Conference <span className="text-brand-ink [font-variant-numeric:lining-nums]">2027</span>
+                </p>
+                <p className="mt-2 text-[clamp(12px,0.95vw,15px)] leading-snug font-semibold tracking-[0.16em] text-gold uppercase">
+                  {site.host}, {site.campus}
+                </p>
+              </div>
               <h1 className="t-xl relative pb-[0.06em] font-semibold">
-                <span className="sr-only">{site.short}: </span>
                 <span className="line-mask">
                   <span>
                     Mind <span className="em">and</span>

@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { CalendarPlus, Check } from "@phosphor-icons/react/dist/ssr";
 import { milestones } from "@/content/dates";
 import { statusOf, daysUntil, type Status } from "@/lib/dates";
-import { downloadIcs } from "@/lib/ics";
+import { googleCalendarUrl } from "@/lib/calendar";
 
 const label: Record<Status, string> = { past: "Closed", next: "Next up", upcoming: "Upcoming", live: "Happening now" };
+const conference = milestones.find((m) => m.end)!;
 
 export function DatesTimeline({ dark = false }: { dark?: boolean }) {
   const [now, setNow] = useState<number | null>(null);
@@ -49,24 +50,45 @@ export function DatesTimeline({ dark = false }: { dark?: boolean }) {
                     </p>
                   )}
                 </div>
-                <time dateTime={m.date} className={`font-display text-[clamp(19px,1.45vw,24px)] font-semibold [font-variant-numeric:lining-nums] ${strong ? ink : sub}`}>
-                  {m.display}
-                </time>
+                <div className="flex items-center gap-4">
+                  <time dateTime={m.date} className={`font-display text-[clamp(19px,1.45vw,24px)] font-semibold [font-variant-numeric:lining-nums] ${strong ? ink : sub}`}>
+                    {m.display}
+                  </time>
+                  {s !== "past" && (
+                    <a
+                      href={googleCalendarUrl(m)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Add ${m.label} to Google Calendar`}
+                      title="Add to Google Calendar"
+                      className={`grid size-9 shrink-0 place-items-center rounded-full transition-colors ${
+                        dark ? "bg-white/10 text-white hover:bg-brand" : "bg-white text-brand-ink ring-1 ring-ink/10 hover:bg-brand hover:text-paper hover:ring-brand"
+                      }`}
+                    >
+                      <CalendarPlus size={17} />
+                    </a>
+                  )}
+                  {s === "past" && <span aria-hidden className="size-9 shrink-0 max-md:hidden" />}
+                </div>
               </div>
             </li>
           );
         })}
       </ol>
-      <button
-        type="button"
-        onClick={downloadIcs}
-        className={`mt-8 inline-flex items-center gap-3 rounded-full py-2 pr-5 pl-2 text-sm font-medium transition-colors ${
-          dark ? "bg-white/10 text-white hover:bg-white/15" : "bg-white text-ink ring-1 ring-ink/10 hover:ring-brand"
-        }`}
-      >
-        <span className="grid size-9 place-items-center rounded-full bg-brand text-paper"><CalendarPlus size={18} /></span>
-        Add all dates to calendar
-      </button>
+      <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+        <a
+          href={googleCalendarUrl(conference)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`inline-flex items-center gap-3 rounded-full py-2 pr-5 pl-2 text-sm font-medium transition-colors ${
+            dark ? "bg-white/10 text-white hover:bg-white/15" : "bg-white text-ink ring-1 ring-ink/10 hover:ring-brand"
+          }`}
+        >
+          <span className="grid size-9 place-items-center rounded-full bg-brand text-paper"><CalendarPlus size={18} /></span>
+          Add conference to Google Calendar
+        </a>
+        <p className={`text-sm ${sub}`}>Or use the calendar icon beside any date to save that deadline.</p>
+      </div>
     </div>
   );
 }

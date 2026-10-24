@@ -68,7 +68,7 @@ export default function AboutPage() {
           {organizers.map((o) => (
             <a key={o.name} href={o.url} target="_blank" rel="noopener noreferrer" className="group block">
               <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-m)] bg-gray">
-                <Image src={o.image} alt={`${o.name} building, Kengeri Campus`} fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <Image src={o.image} alt={`Students at the ${o.name}, CHRIST University`} fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <p className="mt-4 font-display font-semibold text-[22px] leading-snug group-hover:text-brand-ink">{o.name}</p>
             </a>

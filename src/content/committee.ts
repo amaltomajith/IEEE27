@@ -1,3 +1,5 @@
+import type { Track } from "./tracks";
+
 export type Member = {
   name: string;
   role?: string;
@@ -12,8 +14,7 @@ export type Group = { title: string; scope?: "International" | "National" | "Ind
 export const mentors: Member[] = [
   { name: "Dr. Fr Joseph C C", role: "Vice Chancellor", org: "Christ University", photo: "/images/people/joseph-cc.webp" },
   { name: "Dr. Fr Jiby Jose", role: "Director, School of Engineering and Technology", org: "Christ University", photo: "/images/people/jiby-jose.webp" },
-  { name: "Fr Shijin P.J", role: "Associate Director, School of Engineering and Technology", org: "Christ University", photo: "/images/people/shijin-pj.webp" },
-  { name: "Dr. Fr Thomas Mangara", role: "Director, School of Business and Management", photo: "/images/people/thomas-mangara.webp" },
+  { name: "Fr Shijin P J", role: "Associate Director, School of Engineering and Technology", org: "Christ University", photo: "/images/people/shijin-pj.webp" },
 ];
 
 export const generalChairs: Member[] = [
@@ -137,22 +138,32 @@ export const technical: Group[] = [
 const CU = "https://christuniversity.in/";
 
 export const coreOrganizing: Member[] = [
-  { name: "Dr. Sunandha Vincent Jaiwant", photo: "/images/people/sunandha-vincent-jaiwant.webp", url: CU + "dept/faculty-details/MzEyMg==/MzAx" },
+  { name: "Dr. Sunanda Vincent Jaiwant", photo: "/images/people/sunandha-vincent-jaiwant.webp", url: CU + "dept/faculty-details/MzEyMg==/MzAx" },
   { name: "Dr. Bhuvana Jayabalan", photo: "/images/people/bhuvana-jayabalan.webp", url: CU + "computer-science/faculty-details/ODQzNA==/NjI=" },
   { name: "Dr. Ambili Jayachandran", photo: "/images/people/ambili-jayachandran.webp", url: "https://bkc.christuniversity.in/business-and-management/faculty-details/MTAzNTg=/MzAx" },
 ];
 
-export const trackCommittee: Member[] = [
-  { name: "Dr. Muttulakshmi P", role: "Assistant Professor", org: "Business and Management", url: "https://m.christuniversity.in/dept/faculty-details/ODc3NA==/MzAx" },
-  { name: "Dr. Ramya JB", role: "Assistant Professor", org: "Business and Management", url: CU + "business-and-management/faculty-details/OTU0MQ==/MzAx" },
-  { name: "Dr. Sincy John", role: "Assistant Professor", org: "Computer Science and Engineering", url: "https://bkc.christuniversity.in/computer-science-and-engineering/faculty-details/OTYwNQ==/Nzk=" },
-  { name: "Dr. Alpha Vijayan", role: "Assistant Professor", org: "Artificial Intelligence and Data Science Engineering", url: CU + "ai-and-data-science-engineering/faculty-details/ODU4Ng==/OTY=" },
-  { name: "Dr. Sujatha", role: "Assistant Professor", org: "Psychology", url: "https://m.christuniversity.in/dept/faculty-details/ODU3Mw==/NzAx" },
-  { name: "Dr. Abhishek Prasad", role: "Assistant Professor", org: "Psychology", url: CU + "psychology/faculty-details/ODk4NQ==/NzAx" },
-  { name: "Dr. Umesh V", role: "Associate Professor", org: "Mechanical and Automobile Engineering", url: CU + "mechanical-and-automobile-engineering/faculty-details/MTk0Nw==/ODM=" },
-  { name: "Dr. Ramesha K", role: "Associate Professor", org: "Mechanical and Automobile Engineering", url: CU + "mechanical-and-automobile-engineering/faculty-details/MjE1Mw==/ODM=" },
-  { name: "Dr. Varaprasad Janamala", role: "Associate Professor", org: "Electrical and Electronics Engineering", url: CU + "electrical-and-electronics-engineering/faculty-details/MTQ2Nw==/ODA=" },
-];
+const PH = "/images/people/";
+
+// Names follow each member's CHRIST faculty page; photos are taken from the same pages.
+export const trackCommittee: Record<Track["slug"], Member[]> = {
+  "cse-ai-ml": [
+    { name: "Dr. Sincy John", role: "Assistant Professor", org: "Computer Science and Engineering", photo: PH + "sincy-john.webp", url: "https://bkc.christuniversity.in/computer-science-and-engineering/faculty-details/OTYwNQ==/Nzk=" },
+    { name: "Dr. Alpha Vijayan", role: "Assistant Professor", org: "Artificial Intelligence and Data Science Engineering", photo: PH + "alpha-vijayan.webp", url: CU + "ai-and-data-science-engineering/faculty-details/ODU4Ng==/OTY=" },
+  ],
+  "eee-me": [
+    { name: "Dr. Varaprasad Janamala", role: "Associate Professor", org: "Electrical and Electronics Engineering", photo: PH + "varaprasad-janamala.webp", url: CU + "electrical-and-electronics-engineering/faculty-details/MTQ2Nw==/ODA=" },
+    { name: "Dr. Umesh V", role: "Associate Professor", org: "Mechanical and Automobile Engineering", photo: PH + "umesh-v.webp", url: CU + "mechanical-and-automobile-engineering/faculty-details/MTk0Nw==/ODM=" },
+  ],
+  bba: [
+    { name: "Dr. Muthulakshmi P", role: "Assistant Professor", org: "Business and Management", photo: PH + "muthulakshmi-p.webp", url: "https://m.christuniversity.in/dept/faculty-details/ODc3NA==/MzAx" },
+    { name: "Dr. Ramya J B", role: "Assistant Professor", org: "Business and Management", photo: PH + "ramya-jb.webp", url: CU + "business-and-management/faculty-details/OTU0MQ==/MzAx" },
+  ],
+  psychology: [
+    { name: "Dr. Sujatha", role: "Assistant Professor", org: "Psychology", photo: PH + "sujatha.webp", url: "https://m.christuniversity.in/dept/faculty-details/ODU3Mw==/NzAx" },
+    { name: "Dr. Abhishek Prasad", role: "Assistant Professor", org: "Psychology", photo: PH + "abhishek-prasad.webp", url: CU + "psychology/faculty-details/ODk4NQ==/NzAx" },
+  ],
+};
 
 export const publicity = {
   team: "Publicity Team",

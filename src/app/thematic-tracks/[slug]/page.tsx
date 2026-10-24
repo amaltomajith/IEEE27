@@ -6,7 +6,9 @@ import { ArrowLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { PillButton } from "@/components/ui/PillButton";
+import { FacultyCard } from "@/components/pages/TrackCommittee";
 import { getTrack, tracks } from "@/content/tracks";
+import { trackCommittee } from "@/content/committee";
 import { site } from "@/content/site";
 
 export const dynamicParams = false;
@@ -33,16 +35,24 @@ export default async function TrackPage({ params }: { params: Promise<{ slug: st
         intro={t.department}
       />
 
-      <section className="wrap grid items-start gap-[clamp(32px,5vw,96px)] pb-[clamp(64px,8vw,130px)] lg:grid-cols-[1fr_0.85fr]">
+      <section className="wrap grid items-start gap-[clamp(32px,5vw,96px)] pb-[clamp(64px,8vw,130px)] lg:grid-cols-[minmax(0,1fr)_auto]">
         <Reveal className="space-y-8">
           <p className="fade-up text-[clamp(18px,1.4vw,25px)] leading-[1.55] text-ink/85">{t.description}</p>
           <div className="fade-up">
             <PillButton href={site.portals.submission} variant="brand">Submit to this track</PillButton>
           </div>
+          <div className="fade-up pt-4">
+            <h2 className="mb-4 font-display text-[22px] font-semibold text-muted">Track Committee</h2>
+            <ul className="grid max-w-[384px] grid-cols-2 gap-4">
+              {trackCommittee[t.slug].map((m) => (
+                <li key={m.name}><FacultyCard m={m} /></li>
+              ))}
+            </ul>
+          </div>
         </Reveal>
-        <Reveal className="lg:sticky lg:top-[calc(var(--header-h)+24px)]">
+        <Reveal className="w-full max-w-[420px] lg:w-[clamp(320px,30vw,420px)] lg:sticky lg:top-[calc(var(--header-h)+24px)] lg:justify-self-end">
           <div className="fade-up relative aspect-square overflow-hidden rounded-[var(--radius-l)] bg-gray">
-            <Image src={t.poster} alt={`${t.short} track poster`} fill priority sizes="(min-width:1024px) 40vw, 92vw" className="object-cover" />
+            <Image src={t.poster} alt={`${t.short} track poster`} fill priority sizes="(min-width:640px) 420px, 92vw" className="object-cover" />
           </div>
         </Reveal>
       </section>
