@@ -39,6 +39,17 @@ export default async function TrackPage({ params }: { params: Promise<{ slug: st
         <Reveal className="space-y-8">
           <p className="fade-up text-[clamp(18px,1.4vw,25px)] leading-[1.55] text-ink/85">{t.description}</p>
           <div className="fade-up">
+            <h2 className="mb-3 font-display text-[22px] font-semibold text-muted">Sub-tracks</h2>
+            <ol className="max-w-[60ch] border-b border-ink/10">
+              {t.subTracks.map((s) => (
+                <li key={s.number} className="flex items-baseline gap-4 border-t border-ink/10 py-[clamp(12px,1.2vw,16px)]">
+                  <span className="mono w-8 shrink-0 text-[1.05em] text-amber-ink [font-variant-numeric:lining-nums]">{String(s.number).padStart(2, "0")}</span>
+                  <span className="font-display text-[clamp(19px,1.45vw,24px)] leading-snug font-semibold">{s.title}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div className="fade-up">
             <PillButton href={site.portals.submission} variant="brand">Submit to this track</PillButton>
           </div>
           <div className="fade-up pt-4">
@@ -57,21 +68,6 @@ export default async function TrackPage({ params }: { params: Promise<{ slug: st
         </Reveal>
       </section>
 
-      <section className="tint-b relative overflow-hidden py-[clamp(72px,9vw,150px)] text-ink">
-        <div className="wrap">
-          <Reveal><h2 className="t-h2 fade-up mb-[clamp(32px,4vw,64px)]">Sub-<span className="em text-brand-ink">tracks</span></h2></Reveal>
-          <ol className="grid gap-3 lg:grid-cols-3">
-            {t.subTracks.map((s) => (
-              <Reveal as="li" key={s.number} className="rounded-[var(--radius-l)] bg-paper p-[clamp(24px,2.4vw,40px)] ring-1 ring-ink/[0.06]">
-                <div className="fade-up flex h-full flex-col justify-between gap-12">
-                  <span className="font-display text-[clamp(60px,6.4vw,104px)] leading-none font-semibold text-amber-ink [font-variant-numeric:lining-nums]">{String(s.number).padStart(2, "0")}</span>
-                  <h3 className="t-h3">{s.title}</h3>
-                </div>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
-      </section>
 
       <section className="wrap py-[clamp(64px,8vw,130px)]">
         <Reveal><h2 className="t-h2 fade-up mb-10">Topics of <span className="em">interest</span></h2></Reveal>

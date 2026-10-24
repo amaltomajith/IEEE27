@@ -58,7 +58,8 @@
   --fs-body: clamp(16px, 1.08vw, 18px);
 }
 
-html { background: var(--color-paper); -webkit-text-size-adjust: 100%; }
+/* Decorative ribbons hang past the right edge on purpose; never let them add a sideways scroll. */
+html { background: var(--color-paper); -webkit-text-size-adjust: 100%; overflow-x: clip; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: clip; }

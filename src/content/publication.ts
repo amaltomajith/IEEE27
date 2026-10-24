@@ -14,8 +14,9 @@ export const publication = {
   interest:
     "Authors who wish to be considered for the APC-based Open Access publication track are requested to formally communicate their interest to the Publication Chair.",
   chair: {
-    name: "Dr Varaprasad Janamala",
-    role: "Associate Professor, Department of Electrical and Electronics Engineering, School of Engineering and Technology, Christ University",
-    email: "varaprasad.janamala@christuniversity.in",
+    name: "Dr Ambili Jayachandran",
+    role: "Assistant Professor, Department of Business and Management, School of Business and Management, Christ University",
+    // Her own address is to follow; null shows only the conference inbox until then.
+    email: null as string | null,
   },
 };

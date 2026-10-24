@@ -24,6 +24,17 @@ export const site = {
   },
 } as const;
 
+/**
+ * Kengeri campus film looping beside the hero ribbon. Built from assets/ by
+ * `node scripts/campus-loop.mjs` (footage only, end card trimmed, seamless crossfade loop, no audio).
+ */
+export const campusVideo = {
+  webm: "/video/kengeri-loop.webm",
+  mp4: "/video/kengeri-loop.mp4",
+  mp4Small: "/video/kengeri-loop-sm.mp4",
+  poster: "/video/kengeri-poster.webp",
+} as const;
+
 export type School = { name: string; short: string; url: string; image: string; venueImage: string };
 
 export const organizers: School[] = [

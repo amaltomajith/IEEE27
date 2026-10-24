@@ -47,7 +47,14 @@ export default function PublicationPage() {
               <div>
                 <p className="font-display font-semibold text-[24px]">{publication.chair.name}</p>
                 <p className="text-paper/75">{publication.chair.role}</p>
-                <p className="mt-3"><a className="font-medium underline decoration-2 underline-offset-4" href={`mailto:${publication.chair.email}`}>{publication.chair.email}</a> or <a className="font-medium underline decoration-2 underline-offset-4" href={`mailto:${site.email}`}>{site.email}</a></p>
+                <p className="mt-3">
+                  {publication.chair.email && (
+                    <>
+                      <a className="font-medium underline decoration-2 underline-offset-4" href={`mailto:${publication.chair.email}`}>{publication.chair.email}</a> or{" "}
+                    </>
+                  )}
+                  <a className="font-medium underline decoration-2 underline-offset-4" href={`mailto:${site.email}`}>{site.email}</a>
+                </p>
               </div>
               <PillButton href={site.portals.publicationInterest} variant="light">Send expression of interest</PillButton>
             </div>

@@ -48,7 +48,7 @@ export class Hands {
   w = 1;
   h = 1;
   /** Pose: roll about the finger axis, scale (share of half-width), tilt; p* = portrait. */
-  private readonly tune = { rollR: 0.6, rollH: -0.9, scale: 0.5, tiltR: -0.36, tiltH: 0.12, pScale: 1.05, pTiltR: -1.05, pTiltH: 0.3, pMeetX: -0.3, pMeetY: 0.08 };
+  private readonly tune = { rollR: 0.6, rollH: -0.9, scale: 0.5, tiltR: -0.36, tiltH: 0.12, pScale: 1.3, pTiltR: -1.05, pTiltH: 0.3, pMeetX: -0.16, pMeetY: 0.02 };
 
   constructor(opts: { dense: boolean; frozen?: boolean }) {
     this.frozen = !!opts.frozen;

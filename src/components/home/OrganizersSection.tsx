@@ -42,11 +42,12 @@ export function OrganizersSection() {
             </li>
           ))}
         </ul>
-        <ul className="mt-[clamp(40px,5vw,72px)] flex flex-wrap gap-2">
+        {/* Always one row: fluid pills fit on laptops and up; narrower screens swipe the strip, date first. */}
+        <ul className="-mx-[var(--gutter)] mt-[clamp(40px,5vw,72px)] flex snap-x scroll-px-[var(--gutter)] flex-nowrap gap-[clamp(5px,0.55vw,8px)] overflow-x-auto px-[var(--gutter)] py-1 text-[clamp(12.5px,1.05vw,17px)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {FACTS.map((f) => (
-            <li key={f} className="rounded-full bg-paper px-5 py-3 text-ink/80 ring-1 ring-ink/[0.06]">{f}</li>
+            <li key={f} className="shrink-0 snap-start rounded-full bg-paper px-[clamp(11px,1.08vw,20px)] py-[clamp(9px,0.8vw,12px)] whitespace-nowrap text-ink/80 ring-1 ring-ink/[0.06]">{f}</li>
           ))}
-          <li className="rounded-full bg-brand px-5 py-3 font-medium text-paper">{site.dates}</li>
+          <li className="shrink-0 snap-start rounded-full bg-brand px-[clamp(11px,1.08vw,20px)] py-[clamp(9px,0.8vw,12px)] font-medium whitespace-nowrap text-paper max-lg:order-first">{site.dates}</li>
         </ul>
       </div>
     </section>

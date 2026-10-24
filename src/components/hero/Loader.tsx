@@ -38,7 +38,8 @@ export function Loader({ ready, onComplete, phase }: Props) {
     track(document.fonts ? document.fonts.ready : Promise.resolve());
     track(document.readyState === "complete" ? Promise.resolve() : new Promise((r) => addEventListener("load", r, { once: true })));
     track(ready);
-    const cap = setTimeout(() => (loaded = 1), 4500);
+    // Ceilings, so a slow or blocked video never traps the visitor behind the loader.
+    const cap = setTimeout(() => (loaded = 1), 8000);
     const t0 = performance.now(), MIN = 1300;
     let s = 0, t100 = 0;
     const off = onFrame((now) => {
@@ -68,7 +69,7 @@ export function Loader({ ready, onComplete, phase }: Props) {
         off();
         onComplete(slash.current);
       }
-    }, 7000);
+    }, 10000);
     return () => {
       off();
       clearTimeout(cap);

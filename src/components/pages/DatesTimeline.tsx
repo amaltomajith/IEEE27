@@ -20,6 +20,21 @@ export function DatesTimeline({ dark = false }: { dark?: boolean }) {
 
   return (
     <div>
+      {/* Save-to-calendar leads, so it is seen before the list rather than after it. */}
+      <div className={`mb-6 flex flex-wrap items-center gap-x-5 gap-y-3 border-b pb-6 ${dark ? "border-white/10" : "border-ink/10"}`}>
+        <a
+          href={googleCalendarUrl(conference)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`inline-flex items-center gap-3 rounded-full py-2 pr-5 pl-2 text-sm font-medium transition-colors ${
+            dark ? "bg-white/10 text-white hover:bg-white/15" : "bg-white text-ink ring-1 ring-ink/10 hover:ring-brand"
+          }`}
+        >
+          <span className="grid size-9 place-items-center rounded-full bg-brand text-paper"><CalendarPlus size={18} /></span>
+          Add conference to Google Calendar
+        </a>
+        <p className={`text-sm ${sub}`}>Or save a single deadline with the calendar icon beside it.</p>
+      </div>
       <ol className="relative">
         <span aria-hidden className={`absolute top-3 bottom-3 left-[11px] w-px ${dark ? "bg-white/15" : "bg-ink/12"}`} />
         <span
@@ -75,20 +90,6 @@ export function DatesTimeline({ dark = false }: { dark?: boolean }) {
           );
         })}
       </ol>
-      <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
-        <a
-          href={googleCalendarUrl(conference)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`inline-flex items-center gap-3 rounded-full py-2 pr-5 pl-2 text-sm font-medium transition-colors ${
-            dark ? "bg-white/10 text-white hover:bg-white/15" : "bg-white text-ink ring-1 ring-ink/10 hover:ring-brand"
-          }`}
-        >
-          <span className="grid size-9 place-items-center rounded-full bg-brand text-paper"><CalendarPlus size={18} /></span>
-          Add conference to Google Calendar
-        </a>
-        <p className={`text-sm ${sub}`}>Or use the calendar icon beside any date to save that deadline.</p>
-      </div>
     </div>
   );
 }

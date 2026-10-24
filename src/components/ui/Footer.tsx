@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUp, EnvelopeSimple, MapPin, Phone } from "@phosphor-icons/react/dist/ssr";
 import { nav, site } from "@/content/site";
 import { venue } from "@/content/venue";
-import { Wordmark } from "./Logo";
+import { ConferenceLockup } from "./Lockup";
 import { FooterSlash } from "./FooterSlash";
 import { NextDeadline } from "./NextDeadline";
 import { BackToTop } from "./BackToTop";
@@ -14,9 +14,17 @@ export function Footer() {
     <footer className="footer-bg relative overflow-hidden pt-[clamp(80px,10vw,150px)] pb-6">
       <FooterSlash />
       <div className="wrap relative">
-        <p className="t-xl mb-[clamp(40px,5vw,80px)] text-[clamp(64px,17vw,300px)]">
-          <Wordmark />
-        </p>
+        {/* The conference name lands here from the nav as the footer arrives (see Header). */}
+        <div className="mb-[clamp(40px,5vw,80px)] flex flex-wrap items-end justify-between gap-x-10 gap-y-8">
+          <div data-snap="down" className="min-w-0">
+            <ConferenceLockup size="footer" host masked className="text-ink" />
+          </div>
+          {/* Host logo on a card like the ones below, so it reads cleanly over the slash. */}
+          <a href={site.universityUrl} target="_blank" rel="noopener noreferrer" aria-label="CHRIST (Deemed to be University)" className={`${card} relative shrink-0 transition-transform duration-500 [transition-timing-function:var(--ease-out)] hover:-translate-y-1`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/brand/christ-logo.webp" alt="CHRIST (Deemed to be University)" width={480} height={153} loading="lazy" className="h-[clamp(44px,4.6vw,80px)] w-auto" />
+          </a>
+        </div>
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[1.3fr_1fr_1fr]">
           <nav aria-label="Footer" className={`${card} xl:row-span-2`}>
             <ul className="grid grid-cols-2 gap-x-6 gap-y-2 font-display font-semibold text-[clamp(20px,1.55vw,26px)]">

@@ -6,8 +6,9 @@ export type Contact = { topic: string; name?: string; email: string };
 // Venue Guidance are listed on the source page without a named contact, so they
 // route to the conference inbox.
 export const contacts: Contact[] = [
-  { topic: "Submission", name: "Dr Varaprasad Janamala", email: "varaprasad.janamala@christuniversity.in" },
-  { topic: "Publications", name: "Dr Varaprasad Janamala", email: "varaprasad.janamala@christuniversity.in" },
+  // Dr Ambili Jayachandran's own address is to follow; until then her topics route to the conference inbox.
+  { topic: "Submission", name: "Dr Ambili Jayachandran", email: site.email },
+  { topic: "Publications", name: "Dr Ambili Jayachandran", email: site.email },
   { topic: "Accommodation", name: "Dr Manikandan P", email: "manikandan.p@christuniversity.in" },
 ];
 

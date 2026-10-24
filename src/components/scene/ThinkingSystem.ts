@@ -30,7 +30,7 @@ export class ThinkingSystem {
   private t0 = performance.now();
   private frozen: boolean;
   private target = { mix: 0.0, focus: 0, mx: 0, my: 0, on: 0, hold: 0 };
-  private cur = { mix: 0.0, focus: 0, mx: 0, my: 0, on: 0, hold: 0, rx: 0.18, ry: -0.7 };
+  private cur = { mix: 0.0, focus: 0, mx: 0, my: 0, on: 0, hold: 0, rx: 0.22, ry: -1.05 };
   private last = 0;
   private lastHoverSpark = 0;
   private nextAuto = 1.2;
@@ -55,7 +55,7 @@ export class ThinkingSystem {
     this.canvas.setAttribute("aria-hidden", "true");
     this.camera.position.set(0, 0, 5.2);
 
-    const L = (this.layout = buildLayout(opts.dense ? 1400 : 620));
+    const L = (this.layout = buildLayout(opts.dense ? 2000 : 820));
     this.inputs = L.inputs;
     this.uniforms = {
       uTime: { value: 0 },
@@ -72,6 +72,10 @@ export class ThinkingSystem {
       uColB: { value: C("#081c38") },
       uSpark: { value: C("#d88400") },
       uHot: { value: C("#f0b428") },
+      // Depth: the far side fades toward the card colour, nodes are lit spheres (see shaders).
+      uDepth: { value: 1 },
+      uCamDist: { value: 5.2 },
+      uFogCol: { value: C("#e6ecf6") },
     };
 
     // Nodes
@@ -96,9 +100,10 @@ export class ThinkingSystem {
     nodes.frustumCulled = false;
 
     // Edges: one mesh per layout; each fades with the mix.
-    const edges = (pairs: Uint32Array, layer: number) => {
+    const edges = (pairs: Uint32Array, layer: number, kinds?: Uint8Array) => {
       const m = pairs.length / 2;
       const pos = new Float32Array(m * 6), net = new Float32Array(m * 6), seed = new Float32Array(m * 2), t = new Float32Array(m * 2), eid = new Float32Array(m * 2);
+      const kind = new Float32Array(m * 2);
       const fire = new Float32Array(m * 2).fill(-99), dir = new Float32Array(m * 2), ends = new Float32Array(m * 4);
       for (let e = 0; e < m; e++) {
         const r = Math.random();
@@ -111,6 +116,7 @@ export class ThinkingSystem {
           eid[v] = r;
           ends[v * 2] = pairs[e * 2];
           ends[v * 2 + 1] = pairs[e * 2 + 1];
+          kind[v] = kinds ? kinds[e] : 0;
         }
       }
       const g = new THREE.BufferGeometry();
@@ -122,11 +128,12 @@ export class ThinkingSystem {
       g.setAttribute("aFire", new THREE.BufferAttribute(fire, 1));
       g.setAttribute("aDir", new THREE.BufferAttribute(dir, 1));
       g.setAttribute("aEnds", new THREE.BufferAttribute(ends, 2));
+      g.setAttribute("aKind", new THREE.BufferAttribute(kind, 1));
       this.edgeGeo[layer] = g;
       const mat = new THREE.ShaderMaterial({
         vertexShader: EDGE_VERT,
         fragmentShader: EDGE_FRAG,
-        uniforms: { ...this.uniforms, uLayer: { value: layer }, uBaseA: { value: layer ? 0.14 : 0.13 }, uDash: { value: 1 } },
+        uniforms: { ...this.uniforms, uLayer: { value: layer }, uBaseA: { value: layer ? 0.11 : 0.42 }, uDash: { value: 1 } },
         transparent: true,
         depthWrite: false,
         blending: THREE.NormalBlending,
@@ -135,7 +142,7 @@ export class ThinkingSystem {
       lines.frustumCulled = false;
       return lines;
     };
-    this.group.add(edges(L.brainEdges, 0), edges(L.netEdges, 1), nodes);
+    this.group.add(edges(L.brainEdges, 0, L.brainEdgeKind), edges(L.netEdges, 1), nodes);
     const attr = (g: THREE.BufferGeometry, k: string) => (g.getAttribute(k) as THREE.BufferAttribute).array as Float32Array;
     this.pulses = {
       brain: { fire: attr(this.edgeGeo[0], "aFire"), dir: attr(this.edgeGeo[0], "aDir"), hit },
@@ -183,6 +190,10 @@ export class ThinkingSystem {
   setMix(v: number) {
     this.target.mix = v;
   }
+  /** Takeover progress, set every frame by the expanding panel so the camera move tracks it exactly. */
+  setFocusNow(v: number) {
+    this.target.focus = this.cur.focus = v;
+  }
   setFocus(v: number) {
     this.target.focus = v;
   }
@@ -229,7 +240,7 @@ export class ThinkingSystem {
     const L = this.layout, s = L.seed[i];
     const k = ease(Math.min(1, Math.max(0, this.uniforms.uMix.value * 1.3 - s * 0.3)));
     const bx = L.brain[i * 3], by = L.brain[i * 3 + 1], bz = L.brain[i * 3 + 2];
-    const bl = Math.hypot(bx, by, bz) || 1, w = 0.018 * Math.sin(t * 1.3 + s * 40);
+    const bl = Math.hypot(bx, by, bz) || 1, w = 0.01 * Math.sin(t * 1.3 + bx * 2.3 + by * 3.1 + bz * 1.7);
     const nx = L.net[i * 3], ny = L.net[i * 3 + 1] + 0.012 * Math.sin(t * 2 + s * 30), nz = L.net[i * 3 + 2];
     return out.set(bx + (bx / bl) * w + (nx - bx - (bx / bl) * w) * k, by + (by / bl) * w + (ny - by - (by / bl) * w) * k, bz + (bz / bl) * w + (nz - bz - (bz / bl) * w) * k);
   }
@@ -309,16 +320,24 @@ export class ThinkingSystem {
     }
 
     const net = this.uniforms.uMix.value;
-    const baseY = this.frozen ? -0.7 : -0.7 + Math.sin(t * 0.12) * 0.45;
-    // Network state: nearly face-on, so layers read as columns of neurons, input on the left.
-    const ry = baseY * (1 - net) + -0.1 * net + c.mx * 0.3 * c.on;
+    // Brain: a three-quarter side view (front lobe to the left, seen a little from above), the angle a
+    // brain is most readable from, swaying gently so its depth shows.
+    const baseY = this.frozen ? -1.05 : -1.05 + Math.sin(t * 0.12) * 0.24;
+    // Network: an oblique view so the layer grids show their depth, input on the left.
+    const ry = baseY * (1 - net) + -0.34 * net + c.mx * 0.3 * c.on;
     c.ry += (ry - c.ry) * 0.06;
-    c.rx += (0.16 - c.my * 0.16 * c.on - net * 0.12 - c.rx) * 0.06;
+    c.rx += (0.22 - c.my * 0.16 * c.on + net * 0.1 - c.rx) * 0.06;
     this.group.rotation.set(c.rx, c.ry, 0);
     // Takeover: pull back slightly and slide the system right so the copy has room.
-    this.camera.position.z = 5.2 + c.focus * 0.4;
-    this.camera.position.x = c.focus * -1.2 * Math.min(1, this.w / this.h / 1.4);
-    this.camera.lookAt(this.camera.position.x, 0, 0);
+    // Narrow canvases (phones): step back just enough to keep the brain, and the wider network, in frame.
+    const aspect = this.w / this.h, fit = Math.max(1, (0.92 + net * 0.42) / aspect);
+    this.camera.position.z = 5.2 * fit + c.focus * 0.4;
+    // Takeover: landscape slides the system right of the copy; portrait (phones) drops it below the copy.
+    const tall = aspect < 1, halfH = this.camera.position.z * Math.tan((16 * Math.PI) / 180);
+    this.camera.position.x = tall ? 0 : c.focus * -1.2 * Math.min(1, aspect / 1.4);
+    this.camera.position.y = tall ? c.focus * 0.5 * halfH : 0;
+    this.camera.lookAt(this.camera.position.x, this.camera.position.y, 0);
+    this.uniforms.uCamDist.value = this.camera.position.length();
     this.renderer.render(this.scene, this.camera);
   }
 

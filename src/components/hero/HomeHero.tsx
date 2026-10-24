@@ -5,10 +5,12 @@ import { AnimatePresence } from "motion/react";
 import { ArrowsOutSimple, Monitor } from "@phosphor-icons/react/dist/ssr";
 import { HeroEngine } from "./engine";
 import { Loader, LOADER_SKEW } from "./Loader";
+import { CampusFilmBeside, filmReady } from "@/components/home/CampusFilm";
 import { Countdown } from "@/components/home/Countdown";
 import { ThinkingSystem } from "@/components/scene/ThinkingSystem";
 import { Takeover, type Rect } from "@/components/scene/Takeover";
 import { Field } from "@/components/ui/Field";
+import { ConferenceLockup } from "@/components/ui/Lockup";
 import { PillButton } from "@/components/ui/PillButton";
 import { onFrame } from "@/lib/frame";
 import { acquireScrollLock } from "@/lib/scroll";
@@ -80,6 +82,9 @@ export function HomeHero() {
     return { p, resolve };
   }, []);
 
+  // The intro holds until the scene is built and the campus film is actually playing.
+  const loaderReady = useMemo(() => Promise.all([sceneReady.p, filmReady]), [sceneReady]);
+
   const setHold = useCallback((on: boolean) => scene.current?.setHold(on), []);
   const poke = useCallback(() => scene.current?.poke(), []);
   const hold = useHold(setHold, poke);
@@ -107,7 +112,8 @@ export function HomeHero() {
     if (!reduce) {
       try {
         eng = new HeroEngine({ root: root.current!, canvas: canvas.current!, introText: introText.current!, introBlock: introBlock.current!, slot: slotEl });
-      } catch {
+      } catch (err) {
+        console.warn("[hero] ribbon engine unavailable, using the static slash:", err);
         eng = null;
       }
     }
@@ -147,7 +153,7 @@ export function HomeHero() {
         scrollTo(0, 0);
         loaderLock.current = acquireScrollLock();
         // The loader owns this lock; the timeout only ever releases the loader's own token.
-        loaderTimeout = setTimeout(() => loaderLock.current?.(), 9000);
+        loaderTimeout = setTimeout(() => loaderLock.current?.(), 11000);
         setLoader("load");
       } else {
         eng.intro = 1;
@@ -166,7 +172,9 @@ export function HomeHero() {
       const isOpen = !engine.current || slotEl.classList.contains("is-open");
       if (!taking && (!visible || !isOpen)) return;
       if (taking) {
-        s.setSize(innerWidth, innerHeight);
+        // The takeover's scene box follows its clip, so the brain is drawn at the size it is shown.
+        const r = takeHost.current?.getBoundingClientRect();
+        s.setSize(r?.width || innerWidth, r?.height || innerHeight);
         s.setMix(0);
       } else {
         const r = slotEl.getBoundingClientRect();
@@ -214,7 +222,6 @@ export function HomeHero() {
     if (!el) return;
     const r = el.getBoundingClientRect();
     takeRef.current = true;
-    scene.current?.setFocus(1);
     scene.current?.setHold(false);
     setTake({ top: r.top, left: r.left, width: r.width, height: r.height, radius: innerHeight * 0.022 });
   };
@@ -223,8 +230,9 @@ export function HomeHero() {
     if (take && takeHost.current && scene.current) takeHost.current.appendChild(scene.current.canvas);
   }, [take]);
 
+  const progress = useCallback((v: number) => scene.current?.setFocusNow(v), []);
+
   const close = useCallback(() => {
-    scene.current?.setFocus(0);
     scene.current?.setHold(false);
     setTake(null);
   }, []);
@@ -237,6 +245,8 @@ export function HomeHero() {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[100svh]">
           <Field />
         </div>
+        {/* Campus film in the space right of the slash. */}
+        <CampusFilmBeside />
         {mode === "gl" && (
           <div aria-hidden className="pointer-events-none sticky top-0 z-[1] -mb-[100lvh] h-[100lvh]">
             <canvas ref={canvas} className="block size-full" />
@@ -248,20 +258,17 @@ export function HomeHero() {
             {mode === "static" && (
               <span
                 aria-hidden
-                className="absolute top-[38svh] left-[74vw] h-[30svh] w-[15.6vw] -translate-x-1/2 -translate-y-1/2 -skew-x-[22deg] rounded-[1.2svh] bg-brand md:top-[50svh] md:left-[57vw] md:h-[66svh] md:w-[14svh]"
+                className="absolute top-[30svh] left-[82vw] h-[26svh] w-[15.6vw] -translate-x-1/2 -translate-y-1/2 -skew-x-[22deg] rounded-[1.2svh] bg-brand md:top-[50svh] md:left-[57vw] md:h-[66svh] md:w-[14svh]"
               />
             )}
             {/* Lockup: conference label, title, theme line. */}
             <div className="relative my-auto">
-              {/* Conference identity: the full event name leads, the host university sits under it. */}
-              <div className="fade-up mb-[clamp(18px,3vh,40px)] border-l-2 border-gold pl-[clamp(14px,1.4vw,24px)] max-md:max-w-[66vw]">
-                <p className="font-display text-[clamp(26px,2.6vw,46px)] leading-[1.05] font-semibold tracking-[-0.01em] text-ink">
-                  International Interdisciplinary <br className="max-md:hidden" />
-                  Conference <span className="text-brand-ink [font-variant-numeric:lining-nums]">2027</span>
-                </p>
-                <p className="mt-2 text-[clamp(12px,0.95vw,15px)] leading-snug font-semibold tracking-[0.16em] text-gold uppercase">
-                  {site.host}, {site.campus}
-                </p>
+              {/* Conference identity: the full event name leads, the host university sits under it.
+                  It is the first dock for the name, which snaps into the nav once scrolled past. */}
+              <div className="fade-up mb-[clamp(18px,3vh,40px)]">
+                <div data-snap="up" className="w-fit">
+                  <ConferenceLockup size="hero" host className="text-ink" />
+                </div>
               </div>
               <h1 className="t-xl relative pb-[0.06em] font-semibold">
                 <span className="line-mask">
@@ -273,7 +280,7 @@ export function HomeHero() {
                   <span>Machine</span>
                 </span>
               </h1>
-              <p className="fade-up mt-[clamp(14px,2.2vh,28px)] flex max-w-[34ch] items-start gap-4 text-[clamp(18px,1.55vw,26px)] leading-[1.35] text-ink/85 max-md:max-w-[47vw] max-md:text-[17px]">
+              <p className="fade-up mt-[clamp(14px,2.2vh,28px)] flex max-w-[34ch] items-start gap-4 text-[clamp(18px,1.55vw,26px)] leading-[1.35] text-ink/85 max-md:max-w-[62vw] max-md:text-[17px]">
                 <span aria-hidden className="mt-[0.12em] inline-block h-[1.15em] w-[0.32em] shrink-0 -skew-x-[22deg] rounded-[3px] bg-[linear-gradient(180deg,var(--color-brand),var(--color-royal))]" />
                 <span>Reimagining human-AI collaboration across sectors.</span>
               </p>
@@ -305,7 +312,7 @@ export function HomeHero() {
           </div>
 
           <div className="wrap pb-[clamp(60px,12vh,160px)]">
-            <div ref={slot} id="slot" className="relative mx-auto aspect-video max-h-[78vh] w-full max-w-[1400px] rounded-[2.2vh]">
+            <div ref={slot} id="slot" className="relative mx-auto aspect-video max-h-[78vh] w-full max-w-[1400px] rounded-[2.2vh] max-sm:aspect-square">
               <div
                 ref={sceneHost}
                 className={`absolute inset-0 touch-pan-y overflow-hidden rounded-[inherit] bg-paper transition-opacity duration-500 [&>canvas]:block [&>canvas]:size-full ${showCard ? "opacity-100" : "pointer-events-none opacity-0"}`}
@@ -329,7 +336,7 @@ export function HomeHero() {
                 className={`pointer-events-none absolute inset-0 flex flex-col justify-between rounded-[inherit] p-[clamp(20px,3vw,48px)] text-ink ring-1 ring-ink/[0.07] ring-inset transition-opacity duration-700 ${showCard && !take ? "opacity-100" : "opacity-0"}`}
               >
                 <p className="text-sm text-muted max-sm:hidden">Click a neuron to send a thought. Hold to watch the machine think.</p>
-                <div className="flex items-end justify-between gap-6">
+                <div className="mt-auto flex items-end justify-between gap-6">
                   <p className="t-h2 font-medium max-sm:invisible">
                     Mind <span className="em">and</span> Machine
                   </p>
@@ -345,7 +352,7 @@ export function HomeHero() {
         </div>
       </section>
 
-      {loader !== "none" && <Loader ready={sceneReady.p} onComplete={onLoaderDone} phase={loader === "out" ? "out" : "load"} />}
+      {loader !== "none" && <Loader ready={loaderReady} onComplete={onLoaderDone} phase={loader === "out" ? "out" : "load"} />}
 
       <AnimatePresence
         onExitComplete={() => {
@@ -362,6 +369,7 @@ export function HomeHero() {
             onPointer={(e) => pointer(e, e.currentTarget)}
             onHold={setHold}
             onPoke={poke}
+            onProgress={progress}
           />
         )}
       </AnimatePresence>

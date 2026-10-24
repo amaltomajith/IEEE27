@@ -34,6 +34,7 @@ export class HeroEngine {
   private prog: WebGLProgram;
   private U: Record<string, WebGLUniformLocation | null> = {};
   private tex: WebGLTexture;
+  private buf: WebGLBuffer | null = null;
   private N: number;
   private fine: boolean;
   private reduce: boolean;
@@ -74,7 +75,7 @@ export class HeroEngine {
     this.N = this.fine ? 64 : 32;
     this.ptsBuf = new Float32Array(this.N * 2);
     const gl = els.canvas.getContext("webgl", { premultipliedAlpha: true, alpha: true, antialias: this.fine, preserveDrawingBuffer: this.fine });
-    if (!gl) throw new Error("webgl-unavailable");
+    if (!gl || gl.isContextLost()) throw new Error("webgl-unavailable");
     this.gl = gl;
     const sh = (t: number, s: string) => {
       const o = gl.createShader(t)!;
@@ -90,7 +91,7 @@ export class HeroEngine {
     if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(pr) ?? "link");
     gl.useProgram(pr);
     this.prog = pr;
-    const buf = gl.createBuffer();
+    const buf = (this.buf = gl.createBuffer());
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
     const loc = gl.getAttribLocation(pr, "a");
@@ -121,8 +122,9 @@ export class HeroEngine {
     const { canvas, root, introText, introBlock, slot } = this.els;
     const W = canvas.clientWidth || innerWidth, H = innerHeight, mob = W / H < 1, sy = scrollY;
     const top = root.getBoundingClientRect().top + sy;
-    const hx = mob ? W * 0.078 : 0.07 * H, hy = (mob ? 0.15 : 0.33) * H;
-    this.S = { cx: mob ? W * 0.74 : W / 2 + 0.07 * W, cy: top + (mob ? H * 0.38 : H / 2), hx, hy };
+    // Phones: a shorter bar in the top-right corner, clear of the conference name and the headline.
+    const hx = mob ? W * 0.078 : 0.07 * H, hy = (mob ? 0.13 : 0.33) * H;
+    this.S = { cx: mob ? W * 0.82 : W / 2 + 0.07 * W, cy: top + (mob ? H * 0.3 : H / 2), hx, hy };
     const S = this.S;
     const B0: Pt = [S.cx + HSK * hy, S.cy - hy], A0: Pt = [S.cx - HSK * hy, S.cy + hy];
     const dl = Math.hypot(A0[0] - B0[0], A0[1] - B0[1]);
@@ -181,10 +183,19 @@ export class HeroEngine {
     });
   }
 
+  /**
+   * Frees this engine's GPU objects but keeps the context alive: React can mount the hero again on the
+   * same canvas (navigation, dev re-runs), and a lost context there would leave the page without its ribbon.
+   */
   destroy() {
     this.cleanup.forEach((f) => f());
     this.cleanup = [];
-    this.gl.getExtension("WEBGL_lose_context")?.loseContext();
+    const gl = this.gl;
+    gl.deleteTexture(this.tex);
+    gl.deleteBuffer(this.buf);
+    gl.deleteProgram(this.prog);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
   }
 
   private toS = (x: number, y: number, W: number, H: number, sy: number): Pt => [(x - W / 2) / H, (H / 2 - (y - sy)) / H];
@@ -247,6 +258,7 @@ export class HeroEngine {
     }
 
     this.bulge(now, W, H, rest);
+
 
     // Live scene as texture (the path the reference uses for its showreel video).
     const src = this.texSource;

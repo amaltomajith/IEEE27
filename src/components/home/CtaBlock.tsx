@@ -23,8 +23,10 @@ export function CtaBlock() {
           </h2>
           <div className="mt-12 flex flex-wrap items-center gap-6">
             <PillButton href="/contact/" variant="dark">Contact the team</PillButton>
-            <a href={`mailto:${site.email}`} className="text-lg break-all text-ink/75 underline decoration-brand decoration-2 underline-offset-[6px] hover:text-brand-deep">
-              {site.email}
+            {/* Breaks only at the @ on narrow screens, never mid-word. */}
+            <a href={`mailto:${site.email}`} className="text-lg text-ink/75 underline decoration-brand decoration-2 underline-offset-[6px] [overflow-wrap:anywhere] hover:text-brand-deep max-sm:text-base">
+              {site.email.split("@")[0]}
+              <wbr />@{site.email.split("@")[1]}
             </a>
           </div>
         </div>
