@@ -21,7 +21,10 @@ export const metadata: Metadata = {
     images: ["/images/brand/iic-banner.webp"],
     type: "website",
   },
-  icons: { icon: "/icon.svg" },
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }, { url: "/favicon.ico", sizes: "any" }],
+    apple: "/apple-icon.png",
+  },
 };
 
 // White-first site: opt out of browser/OS auto-dark (Chrome Android, Samsung Internet).
