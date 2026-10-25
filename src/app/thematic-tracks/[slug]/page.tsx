@@ -39,7 +39,7 @@ export default async function TrackPage({ params }: { params: Promise<{ slug: st
         <Reveal className="space-y-8">
           <p className="fade-up text-[clamp(18px,1.4vw,25px)] leading-[1.55] text-ink/85">{t.description}</p>
           <div className="fade-up">
-            <h2 className="mb-3 font-display text-[22px] font-semibold text-muted">Sub-tracks</h2>
+            <h2 className="mb-3 font-display text-[22px] font-semibold text-muted">Sub-Tracks</h2>
             <ol className="max-w-[60ch] border-b border-ink/10">
               {t.subTracks.map((s) => (
                 <li key={s.number} className="flex items-baseline gap-4 border-t border-ink/10 py-[clamp(12px,1.2vw,16px)]">
@@ -50,7 +50,7 @@ export default async function TrackPage({ params }: { params: Promise<{ slug: st
             </ol>
           </div>
           <div className="fade-up">
-            <PillButton href={site.portals.submission} variant="brand">Submit to this track</PillButton>
+            <PillButton href={site.portals.submission} variant="brand">Submit to This Track</PillButton>
           </div>
           <div className="fade-up pt-4">
             <h2 className="mb-4 font-display text-[22px] font-semibold text-muted">Track Committee</h2>
@@ -70,20 +70,30 @@ export default async function TrackPage({ params }: { params: Promise<{ slug: st
 
 
       <section className="wrap py-[clamp(64px,8vw,130px)]">
-        <Reveal><h2 className="t-h2 fade-up mb-10">Topics of <span className="em">interest</span></h2></Reveal>
-        <div className="space-y-10">
-          {t.topics.map((g, gi) => (
-            <Reveal key={gi}>
-              {g.heading && <h3 className="fade-up mb-4 font-display font-semibold text-[22px] text-muted">{g.heading}</h3>}
-              <ul className="fade-up flex flex-wrap gap-2">
-                {g.items.map((it) => (
-                  <li key={it} className="rounded-full bg-white px-4 py-2.5 text-[15px] ring-1 ring-ink/10 transition hover:bg-brand hover:text-paper hover:ring-brand">
-                    {it}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          ))}
+        <Reveal><h2 className="t-h2 fade-up mb-10">Topics of <span className="em">Interest</span></h2></Reveal>
+        {/* One row per sub-track: its number and title on the left, the topics it covers on the right. */}
+        <div className="border-b border-ink/10">
+          {t.topics.map((g) => {
+            const st = t.subTracks.find((s) => s.number === g.subTrack)!;
+            return (
+              <Reveal key={g.subTrack} className="grid gap-5 border-t border-ink/10 py-[clamp(24px,3vw,44px)] lg:grid-cols-[minmax(0,380px)_1fr] lg:gap-[clamp(32px,4vw,72px)]">
+                <div className="fade-up flex items-baseline gap-4">
+                  <span className="mono w-8 shrink-0 text-[1.05em] text-amber-ink [font-variant-numeric:lining-nums]">{String(st.number).padStart(2, "0")}</span>
+                  <div>
+                    <h3 className="font-display text-[clamp(21px,1.6vw,27px)] leading-snug font-semibold">{st.title}</h3>
+                    <p className="mt-1.5 text-sm text-muted">{g.items.length} topics</p>
+                  </div>
+                </div>
+                <ul className="fade-up flex flex-wrap content-start gap-2 sm:max-lg:pl-12">
+                  {g.items.map((it) => (
+                    <li key={it} className="rounded-full bg-white px-4 py-2.5 text-[15px] max-sm:rounded-[14px] ring-1 ring-ink/10 transition hover:bg-brand hover:text-paper hover:ring-brand">
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 
@@ -94,7 +104,7 @@ export default async function TrackPage({ params }: { params: Promise<{ slug: st
               {dir === "Next" ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
             </span>
             <span>
-              <span className="block text-sm text-muted">{dir} track</span>
+              <span className="block text-sm text-muted">{dir} Track</span>
               <span className="block font-medium">{o.short}: {o.title}</span>
             </span>
           </Link>

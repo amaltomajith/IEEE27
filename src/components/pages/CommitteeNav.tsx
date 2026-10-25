@@ -7,8 +7,7 @@ const tabs = [
   { label: "Leadership", href: "/committee/" },
   { label: "Advisory", href: "/committee/advisory/" },
   { label: "Technical", href: "/committee/technical/" },
-  { label: "Organizing", href: "/committee/organizing/" },
-  { label: "Publicity", href: "/committee/publicity/" },
+  { label: "Organising", href: "/committee/organizing/" },
 ];
 
 export function CommitteeNav() {

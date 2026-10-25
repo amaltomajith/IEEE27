@@ -8,7 +8,7 @@ const LINKS = [
   { href: "/registration/", label: "Registration", note: "National and international fees" },
   { href: "/publication/", label: "Publication", note: "Scopus-indexed Open Access journal" },
   { href: "/venue/", label: "Venue", note: "Kengeri Campus, Bengaluru" },
-  { href: "/committee/", label: "Committee", note: "Advisory, technical and organizing boards" },
+  { href: "/committee/", label: "Committee", note: "Advisory, technical and organising boards" },
 ];
 
 export function TakePart() {
@@ -16,7 +16,7 @@ export function TakePart() {
     <section className="wrap grid gap-3 pb-[clamp(80px,10vw,170px)] lg:grid-cols-[1.25fr_1fr]">
       <Reveal className="rounded-[var(--radius-l)] bg-white p-[clamp(24px,3vw,56px)] ring-1 ring-ink/5">
         <h2 className="t-h2 fade-up mb-8">
-          Plan your <span className="em">part</span>
+          Plan Your <span className="em">Part</span>
         </h2>
         <ul className="fade-up">
           {LINKS.map((l) => (
@@ -42,12 +42,12 @@ export function TakePart() {
           <circle cx="134" cy="200" r="5" className="fill-paper/30" />
         </svg>
         <div className="fade-up relative">
-          <p className="text-paper/70">Registration from</p>
+          <p className="text-paper/70">Registration From</p>
           <p className="mt-2 font-display text-[clamp(64px,6.6vw,116px)] leading-none font-semibold text-amber [font-variant-numeric:lining-nums]">₹1,500</p>
           <p className="mt-3 text-lg text-paper/80">or $100 for international delegates. Early bird closes 15 January 2027.</p>
         </div>
         <div className="fade-up relative mt-10">
-          <PillButton href="/registration/" variant="light">See all fees</PillButton>
+          <PillButton href="/registration/" variant="light">See All Fees</PillButton>
         </div>
       </Reveal>
     </section>

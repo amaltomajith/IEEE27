@@ -26,7 +26,7 @@ const cls: Record<Variant, string> = {
   "ghost-dark": "btn btn--ghost-dark",
 };
 
-/** Site button: label + arrow tile. Name kept from v1 so call sites stay unchanged. */
+/** Site button: a pill whose round arrow dot floods it on hover (styles: .btn in globals.css). Name kept from v1 so call sites stay unchanged. */
 export function PillButton({ href, onClick, children, variant = "dark", external, icon, className = "", ariaLabel, tabIndex }: Props) {
   const ref = useMagnetic<HTMLAnchorElement & HTMLButtonElement>();
   const glyph = icon ?? <ArrowRight size={17} weight="bold" />;

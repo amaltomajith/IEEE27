@@ -10,6 +10,7 @@ import { acquireScrollLock } from "@/lib/scroll";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { Countdown } from "@/components/home/Countdown";
 import { PillButton } from "./PillButton";
+import { MailLink } from "./MailLink";
 import { useNextDeadline } from "./NextDeadline";
 
 export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -71,7 +72,6 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
     };
   }, [open, onClose]);
 
-  const tracks = nav.find((n) => n.href === "/thematic-tracks/")!;
   const next = useNextDeadline();
   const after = next?.m ? milestones[milestones.indexOf(next.m) + 1] : undefined;
   const ease = [0.16, 1, 0.3, 1] as const;
@@ -141,7 +141,7 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
             >
               {/* Countdown, level with the first menu item. */}
               <div className="navy-grad relative overflow-hidden rounded-[var(--radius-l)] p-[clamp(20px,2vw,32px)] text-white">
-                <Countdown label="IIC 2027 begins in" dark />
+                <Countdown label="IIC 2027 Begins In" dark />
                 <p className="mt-5 text-sm text-white/70">{site.dates}, {site.mode}</p>
               </div>
 
@@ -151,9 +151,9 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
                   onClick={go("/important-dates/")}
                   className="group relative flex min-h-[176px] flex-col justify-between rounded-[var(--radius-m)] bg-white p-5 ring-1 ring-ink/[0.06] transition hover:ring-brand/30"
                 >
-                  <span className="text-xs font-semibold tracking-[0.18em] text-amber-ink uppercase">Next deadline</span>
+                  <span className="text-xs font-semibold tracking-[0.18em] text-amber-ink uppercase">Next Deadline</span>
                   {next?.m ? (
-                    <span className="mt-6 flex flex-col gap-5">
+                    <span className="mt-6 flex flex-col gap-5 [@media(max-height:760px)]:mt-3">
                       <span>
                         <span className="block font-display text-[clamp(24px,1.9vw,32px)] leading-[1.1] font-semibold">{next.m.label}</span>
                         <span className="mt-1 block text-sm text-muted">
@@ -161,7 +161,7 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
                         </span>
                       </span>
                       {after && (
-                        <span className="border-t border-ink/10 pt-4 text-sm text-muted">
+                        <span className="border-t border-ink/10 pt-4 text-sm text-muted [@media(max-height:760px)]:hidden">
                           Then <span className="font-display text-[17px] font-semibold text-ink">{after.label}</span>, {after.display}
                         </span>
                       )}
@@ -187,29 +187,16 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
                 </Link>
               </div>
 
-              <div className="flex flex-col gap-6 pt-6">
-                <div>
-                  <p className="mb-3 text-sm text-muted">Thematic tracks</p>
-                  <ul className="flex flex-wrap gap-2">
-                    {tracks.children!.map((c) => (
-                      <li key={c.href}>
-                        <Link href={c.href} onClick={go(c.href)} className={`inline-flex rounded-full px-4 py-2 text-[15px] ring-1 transition hover:bg-brand hover:text-white hover:ring-brand ${pending === c.href ? "bg-brand text-white ring-brand" : "bg-white/60 ring-ink/15"}`}>
-                          {c.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="flex flex-wrap items-end justify-between gap-5 border-t border-ink/10 pt-6">
+              {/* Directly under the cards, so short laptop screens see it without scrolling the menu. */}
+              <div className="mt-2 flex flex-wrap items-end justify-between gap-5 border-t border-ink/10 pt-4">
                   <div className="min-w-0">
-                    <p className="text-sm text-muted">Write to us</p>
-                    <a href={`mailto:${site.email}`} className="block font-display text-[clamp(19px,1.4vw,23px)] font-semibold [font-variant-numeric:lining-nums] [overflow-wrap:anywhere] hover:text-brand-ink">
+                    <p className="text-sm text-muted">Write to Us</p>
+                    <MailLink to={site.email} className="block font-display text-[clamp(19px,1.4vw,23px)] font-semibold [font-variant-numeric:lining-nums] [overflow-wrap:anywhere] hover:text-brand-ink">
                       {site.email}
-                    </a>
+                    </MailLink>
                   </div>
                   {/* The header carries Submit paper on desktop; phones get it here. */}
-                  <PillButton href={site.portals.submission} variant="brand" className="md:hidden">Submit paper</PillButton>
-                </div>
+                  <PillButton href={site.portals.submission} variant="brand" className="md:hidden">Submit Paper</PillButton>
               </div>
             </motion.aside>
           </div>

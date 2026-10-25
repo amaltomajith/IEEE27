@@ -6,7 +6,7 @@ import { milestones } from "@/content/dates";
 import { statusOf, daysUntil, type Status } from "@/lib/dates";
 import { googleCalendarUrl } from "@/lib/calendar";
 
-const label: Record<Status, string> = { past: "Closed", next: "Next up", upcoming: "Upcoming", live: "Happening now" };
+const label: Record<Status, string> = { past: "Closed", next: "Next Up", upcoming: "Upcoming", live: "Happening Now" };
 const conference = milestones.find((m) => m.end)!;
 
 export function DatesTimeline({ dark = false }: { dark?: boolean }) {
@@ -31,7 +31,7 @@ export function DatesTimeline({ dark = false }: { dark?: boolean }) {
           }`}
         >
           <span className="grid size-9 place-items-center rounded-full bg-brand text-paper"><CalendarPlus size={18} /></span>
-          Add conference to Google Calendar
+          Add Conference to Google Calendar
         </a>
         <p className={`text-sm ${sub}`}>Or save a single deadline with the calendar icon beside it.</p>
       </div>

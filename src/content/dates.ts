@@ -17,6 +17,6 @@ export const milestones: Milestone[] = [
   { label: "Manuscript Notification", date: "2027-01-05", display: "05 January 2027" },
   { label: "Early Bird Registration", date: "2027-01-15", display: "15 January 2027" },
   { label: "Regular Registration", date: "2027-01-30", display: "30 January 2027" },
-  { label: "Camera Ready Paper", date: "2027-02-15", display: "15 February 2027" },
+  { label: "Camera-Ready Paper", date: "2027-02-15", display: "15 February 2027" },
   { label: "Conference Dates", date: "2027-03-02", end: "2027-03-03", display: "2-3 March 2027" },
 ];

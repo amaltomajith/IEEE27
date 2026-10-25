@@ -34,12 +34,12 @@ export function FeeMatrix() {
   return (
     <div>
       <div className="mb-8 flex flex-wrap items-center gap-3">
-        <Segmented id="region" label="Participant region" value={region} onChange={setRegion} options={[{ v: "national", label: "National (INR)" }, { v: "international", label: "International (USD)" }]} />
-        <Segmented id="tier" label="Registration window" value={tier} onChange={setTier} options={[{ v: "early", label: "Early Bird" }, { v: "regular", label: "Regular" }]} />
+        <Segmented id="region" label="Participant Region" value={region} onChange={setRegion} options={[{ v: "national", label: "National (INR)" }, { v: "international", label: "International (USD)" }]} />
+        <Segmented id="tier" label="Registration Window" value={tier} onChange={setTier} options={[{ v: "early", label: "Early Bird" }, { v: "regular", label: "Regular" }]} />
       </div>
       <p className="mb-6 text-muted">
         {feeDeadlines[tier].label}: <span className="text-ink">{feeDeadlines[tier].display}</span>
-        {currentTier === tier && <span className="ml-3 rounded-full bg-brand px-3 py-1 text-xs font-semibold text-paper">Open now</span>}
+        {currentTier === tier && <span className="ml-3 rounded-full bg-brand px-3 py-1 text-xs font-semibold text-paper">Open Now</span>}
         {currentTier === "regular" && tier === "early" && <span className="ml-3 rounded-full bg-gray-2 px-3 py-1 text-xs font-semibold text-ink">Closed</span>}
       </p>
       <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

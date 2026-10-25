@@ -1,14 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence } from "motion/react";
-import { ArrowsOutSimple, Monitor } from "@phosphor-icons/react/dist/ssr";
+import { Monitor } from "@phosphor-icons/react/dist/ssr";
 import { HeroEngine } from "./engine";
 import { Loader, LOADER_SKEW } from "./Loader";
 import { CampusFilmBeside, filmReady } from "@/components/home/CampusFilm";
 import { Countdown } from "@/components/home/Countdown";
 import { ThinkingSystem } from "@/components/scene/ThinkingSystem";
-import { Takeover, type Rect } from "@/components/scene/Takeover";
 import { Field } from "@/components/ui/Field";
 import { ConferenceLockup } from "@/components/ui/Lockup";
 import { PillButton } from "@/components/ui/PillButton";
@@ -64,17 +62,14 @@ export function HomeHero() {
   const introBlock = useRef<HTMLDivElement>(null);
   const slot = useRef<HTMLDivElement>(null);
   const sceneHost = useRef<HTMLDivElement>(null);
-  const takeHost = useRef<HTMLDivElement>(null);
   const engine = useRef<HeroEngine | null>(null);
   const scene = useRef<ThinkingSystem | null>(null);
-  const takeRef = useRef(false);
   const loaderLock = useRef<(() => void) | null>(null);
 
   const [mode, setMode] = useState<"gl" | "static">("gl");
   const [heroIn, setHeroIn] = useState(false);
   const [loader, setLoader] = useState<"none" | "load" | "out">("none");
   const [open, setOpen] = useState(false);
-  const [take, setTake] = useState<Rect | null>(null);
 
   const sceneReady = useMemo(() => {
     let resolve!: () => void;
@@ -168,19 +163,11 @@ export function HomeHero() {
     const off = onFrame((now) => {
       const s = scene.current;
       if (!s) return;
-      const taking = takeRef.current;
       const isOpen = !engine.current || slotEl.classList.contains("is-open");
-      if (!taking && (!visible || !isOpen)) return;
-      if (taking) {
-        // The takeover's scene box follows its clip, so the brain is drawn at the size it is shown.
-        const r = takeHost.current?.getBoundingClientRect();
-        s.setSize(r?.width || innerWidth, r?.height || innerHeight);
-        s.setMix(0);
-      } else {
-        const r = slotEl.getBoundingClientRect();
-        s.setSize(r.width, r.height);
-        s.setMix(clamp((innerHeight * 0.5 - (r.top + r.height / 2)) / (innerHeight * 0.8)) * 0.35);
-      }
+      if (!visible || !isOpen) return;
+      const r = slotEl.getBoundingClientRect();
+      s.setSize(r.width, r.height);
+      s.setMix(clamp((innerHeight * 0.5 - (r.top + r.height / 2)) / (innerHeight * 0.8)) * 0.35);
       s.render(now);
     });
 
@@ -217,26 +204,6 @@ export function HomeHero() {
     scene.current.setPointer(((e.clientX - r.left) / r.width) * 2 - 1, -(((e.clientY - r.top) / r.height) * 2 - 1), true);
   };
 
-  const enter = () => {
-    const el = slot.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    takeRef.current = true;
-    scene.current?.setHold(false);
-    setTake({ top: r.top, left: r.left, width: r.width, height: r.height, radius: innerHeight * 0.022 });
-  };
-
-  useEffect(() => {
-    if (take && takeHost.current && scene.current) takeHost.current.appendChild(scene.current.canvas);
-  }, [take]);
-
-  const progress = useCallback((v: number) => scene.current?.setFocusNow(v), []);
-
-  const close = useCallback(() => {
-    scene.current?.setHold(false);
-    setTake(null);
-  }, []);
-
   const showCard = open || mode === "static";
 
   return (
@@ -266,6 +233,11 @@ export function HomeHero() {
               {/* Conference identity: the full event name leads, the host university sits under it.
                   It is the first dock for the name, which snaps into the nav once scrolled past. */}
               <div className="fade-up mb-[clamp(18px,3vh,40px)]">
+                {/* The host's mark, part of the page: it scrolls away with the hero rather than riding in the nav. */}
+                <a href={site.universityUrl} target="_blank" rel="noopener noreferrer" aria-label="CHRIST (Deemed to be University)" data-host-mark className="mb-[clamp(14px,2.4vh,28px)] block w-fit">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/brand/christ-logo.webp" alt="CHRIST (Deemed to be University)" width={480} height={153} className="h-[clamp(40px,4.6vw,68px)] w-auto" />
+                </a>
                 <div data-snap="up" className="w-fit">
                   <ConferenceLockup size="hero" host className="text-ink" />
                 </div>
@@ -282,7 +254,7 @@ export function HomeHero() {
               </h1>
               <p className="fade-up mt-[clamp(14px,2.2vh,28px)] flex max-w-[34ch] items-start gap-4 text-[clamp(18px,1.55vw,26px)] leading-[1.35] text-ink/85 max-md:max-w-[62vw] max-md:text-[17px]">
                 <span aria-hidden className="mt-[0.12em] inline-block h-[1.15em] w-[0.32em] shrink-0 -skew-x-[22deg] rounded-[3px] bg-[linear-gradient(180deg,var(--color-brand),var(--color-royal))]" />
-                <span>Reimagining human-AI collaboration across sectors.</span>
+                <span>Reimagining Human-AI Collaboration Across Sectors.</span>
               </p>
             </div>
             <div className="fade-up mt-10 flex flex-wrap items-end justify-between gap-8">
@@ -293,12 +265,12 @@ export function HomeHero() {
                     <Monitor size={24} weight="duotone" />
                   </span>
                   <p className="leading-tight">
-                    <span className="block font-display text-[clamp(22px,1.8vw,30px)] leading-none font-medium">Hybrid mode</span>
+                    <span className="block font-display text-[clamp(22px,1.8vw,30px)] leading-none font-medium">Hybrid Mode</span>
                     <span className="text-sm text-muted">Online + offline, {site.dates}</span>
                   </p>
                 </div>
               </div>
-              <PillButton href="/thematic-tracks/" variant="brand">View tracks</PillButton>
+              <PillButton href="/thematic-tracks/" variant="brand">View Tracks</PillButton>
             </div>
           </div>
 
@@ -306,9 +278,6 @@ export function HomeHero() {
             <p ref={introText} className="max-w-[34em] text-[clamp(20px,1.6vw,28px)] leading-[1.5] text-ink/90 max-md:pr-[20vw] md:max-w-[30em]">
               {site.short} brings engineering, business and psychology into one room to study the human side of intelligent systems.
             </p>
-            <div className="mt-8">
-              <PillButton href="/about/" variant="ghost">About IIC 2027</PillButton>
-            </div>
           </div>
 
           <div className="wrap pb-[clamp(60px,12vh,160px)]">
@@ -332,17 +301,18 @@ export function HomeHero() {
                 }}
               />
               <div
-                aria-hidden={!showCard || !!take}
-                className={`pointer-events-none absolute inset-0 flex flex-col justify-between rounded-[inherit] p-[clamp(20px,3vw,48px)] text-ink ring-1 ring-ink/[0.07] ring-inset transition-opacity duration-700 ${showCard && !take ? "opacity-100" : "opacity-0"}`}
+                aria-hidden={!showCard}
+                className={`pointer-events-none absolute inset-0 flex flex-col justify-between rounded-[inherit] p-[clamp(20px,3vw,48px)] text-ink ring-1 ring-ink/[0.07] ring-inset transition-opacity duration-700 ${showCard ? "opacity-100" : "opacity-0"}`}
               >
                 <p className="text-sm text-muted max-sm:hidden">Click a neuron to send a thought. Hold to watch the machine think.</p>
-                <div className="mt-auto flex items-end justify-between gap-6">
-                  <p className="t-h2 font-medium max-sm:invisible">
+                <div className="mt-auto flex items-end justify-between gap-6 max-sm:justify-end">
+                  <p className="t-h2 font-medium max-sm:hidden">
                     Mind <span className="em">and</span> Machine
                   </p>
-                  <div className={showCard && !take ? "pointer-events-auto" : "pointer-events-none"}>
-                    <PillButton onClick={enter} variant="dark" tabIndex={showCard && !take ? 0 : -1} icon={<ArrowsOutSimple size={17} weight="bold" />}>
-                      Enter
+                  {/* The theme on the card leads to the vision behind it. */}
+                  <div className={showCard ? "pointer-events-auto" : "pointer-events-none"}>
+                    <PillButton href="/about/" variant="dark" tabIndex={showCard ? 0 : -1}>
+                      Read the Vision
                     </PillButton>
                   </div>
                 </div>
@@ -353,26 +323,6 @@ export function HomeHero() {
       </section>
 
       {loader !== "none" && <Loader ready={loaderReady} onComplete={onLoaderDone} phase={loader === "out" ? "out" : "load"} />}
-
-      <AnimatePresence
-        onExitComplete={() => {
-          takeRef.current = false;
-          if (scene.current && sceneHost.current) sceneHost.current.appendChild(scene.current.canvas);
-        }}
-      >
-        {take && (
-          <Takeover
-            key="take"
-            from={take}
-            hostRef={takeHost}
-            onClose={close}
-            onPointer={(e) => pointer(e, e.currentTarget)}
-            onHold={setHold}
-            onPoke={poke}
-            onProgress={progress}
-          />
-        )}
-      </AnimatePresence>
     </>
   );
 }

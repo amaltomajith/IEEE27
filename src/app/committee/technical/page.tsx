@@ -6,14 +6,14 @@ import { MemberDirectory } from "@/components/pages/MemberDirectory";
 import { technical, tpcIntro } from "@/content/committee";
 import { site } from "@/content/site";
 
-export const metadata: Metadata = { title: "Technical Program Committee", description: tpcIntro };
+export const metadata: Metadata = { title: "Technical Programme Committee", description: tpcIntro };
 
 export default function TechnicalPage() {
   return (
     <>
       <PageHero
-        title="Technical Program Committee"
-        emphasis="Program"
+        title="Technical Programme Committee"
+        emphasis="Programme"
         crumbs={[{ label: "Committee", href: "/committee/" }, { label: "Technical" }]}
         intro={`${tpcIntro}.`}
       >

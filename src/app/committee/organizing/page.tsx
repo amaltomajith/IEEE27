@@ -7,17 +7,17 @@ import { PortraitCard } from "@/components/pages/PortraitCard";
 import { TrackCommittee } from "@/components/pages/TrackCommittee";
 import { coreOrganizing } from "@/content/committee";
 
-export const metadata: Metadata = { title: "Organizing Committee", description: "Core Organizing Committee and Track Committee members of IIC 2027." };
+export const metadata: Metadata = { title: "Organising Committee", description: "Core Organising Committee and Track Committee members of IIC 2027." };
 
 export default function OrganizingPage() {
   return (
     <>
-      <PageHero title="Organizing Committee" emphasis="Committee" crumbs={[{ label: "Committee", href: "/committee/" }, { label: "Organizing" }]}>
+      <PageHero title="Organising Committee" emphasis="Committee" crumbs={[{ label: "Committee", href: "/committee/" }, { label: "Organising" }]}>
         <CommitteeNav />
       </PageHero>
       <section className="wrap pb-[clamp(64px,8vw,130px)]">
         <Reveal>
-          <h2 className="t-h2 fade-up mb-10">Core Organizing Committee</h2>
+          <h2 className="t-h2 fade-up mb-10">Core Organising Committee</h2>
         </Reveal>
         <ul className="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-3 lg:max-w-[75%]">
           {coreOrganizing.map((m, i) => (

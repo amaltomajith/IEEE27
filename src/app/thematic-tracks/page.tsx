@@ -25,8 +25,8 @@ export default function TracksPage() {
   return (
     <>
       <PageHero
-        title="Four dedicated thematic tracks"
-        emphasis="thematic"
+        title="Four Dedicated Thematic Tracks"
+        emphasis="Thematic"
         crumbs={[{ label: "Thematic Tracks" }]}
         intro="Each participating department anchors a track, curates its own scholarly community, and contributes to one shared question: how humans and AI work together."
       />

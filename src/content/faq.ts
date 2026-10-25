@@ -2,11 +2,11 @@
 export const faq = [
   {
     q: "Can I attend or present online?",
-    a: "Yes. IIC 2027 runs in hybrid mode on March 2-3, 2027, at CHRIST (Deemed to be University), Bangalore Kengeri Campus, with remote participation.",
+    a: "Yes. IIC 2027 runs in hybrid mode on 2-3 March 2027 at CHRIST (Deemed to be University), Bangalore Kengeri Campus, with remote participation.",
   },
   {
     q: "What can I submit?",
-    a: "Either an extended abstract of up to 1,500 words (due October 20, 2026) or a full manuscript (due December 1, 2026). Both are submitted through the paper submission portal.",
+    a: "Either an extended abstract of up to 1,500 words (due 20 October 2026) or a full manuscript (due 1 December 2026). Both are submitted through the paper submission portal.",
   },
   {
     q: "Where will accepted papers be published?",

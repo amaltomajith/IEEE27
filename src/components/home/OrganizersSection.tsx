@@ -4,7 +4,7 @@ import { organizers, site } from "@/content/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { Ribbon } from "@/components/ui/Ribbon";
 
-const FACTS = ["Hybrid mode", "Scopus-indexed Open Access journal", "APC USD 100, on acceptance only", "Proceedings with DOI"];
+const FACTS = ["Hybrid Mode", "Scopus-Indexed Open Access Journal", "APC USD 100, on Acceptance Only", "Proceedings with DOI"];
 
 export function OrganizersSection() {
   return (
@@ -13,7 +13,7 @@ export function OrganizersSection() {
       <div className="wrap relative z-[1]">
         <Reveal>
           <h2 className="t-h2 fade-up mb-[clamp(40px,5vw,80px)] max-w-[16ch]">
-            Three schools, one <span className="em text-brand-ink">question</span>
+            Three Schools, One <span className="em text-brand-ink">Question</span>
           </h2>
         </Reveal>
         <ul className="border-t border-ink/10">

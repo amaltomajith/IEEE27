@@ -15,13 +15,13 @@ export function AdvisoryStack() {
         <div>
           <Reveal className="lg:sticky lg:top-[calc(var(--header-h)+40px)]">
             <h2 className="t-h2 fade-up max-w-[13ch]">
-              Guided by an international <span className="em text-brand-ink">board</span>
+              Guided by an International <span className="em text-brand-ink">Board</span>
             </h2>
             <p className="fade-up mt-6 max-w-[38ch] text-muted">
               Advisors in psychology, business and engineering from the United States, South Africa and Uganda.
             </p>
             <div className="fade-up mt-8">
-              <PillButton href="/committee/advisory/" variant="ghost">Full advisory board</PillButton>
+              <PillButton href="/committee/advisory/" variant="ghost">Full Advisory Board</PillButton>
             </div>
           </Reveal>
         </div>

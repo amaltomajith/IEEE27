@@ -63,7 +63,7 @@ export function MemberDirectory({ groups }: { groups: Group[] }) {
     <div>
       <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col gap-2">
-          <label htmlFor="member-search" className="text-sm font-medium text-ink">Search {total} members</label>
+          <label htmlFor="member-search" className="text-sm font-medium text-ink">Search {total} Members</label>
           <div className="relative">
             <MagnifyingGlass size={18} className="absolute top-1/2 left-4 -translate-y-1/2 text-muted" aria-hidden />
             <input
@@ -100,7 +100,7 @@ export function MemberDirectory({ groups }: { groups: Group[] }) {
           <p className="font-display font-semibold text-[22px]">No members match &ldquo;{q}&rdquo;</p>
           <p className="mt-1 text-muted">Try a surname, an institution, or clear the filter.</p>
           <button type="button" onClick={() => { setQ(""); setScope("All"); }} className="mt-5 rounded-full bg-navy px-5 py-2.5 text-sm text-white">
-            Reset search
+            Reset Search
           </button>
         </div>
       )}

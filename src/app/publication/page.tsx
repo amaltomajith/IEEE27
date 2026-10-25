@@ -4,6 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { PillButton } from "@/components/ui/PillButton";
 import { publication } from "@/content/publication";
 import { site } from "@/content/site";
+import { MailLink } from "@/components/ui/MailLink";
 
 export const metadata: Metadata = { title: "Publication", description: publication.body.slice(0, 160) };
 
@@ -19,7 +20,7 @@ export default function PublicationPage() {
           <div className="fade-up">
             <p className="text-muted">Article Processing Charge</p>
             <p className="mt-3 font-display text-[clamp(60px,5.8vw,100px)] leading-none font-semibold text-amber-ink [font-variant-numeric:lining-nums]">{publication.apc}</p>
-            <p className="mt-2 text-ink/70">per paper</p>
+            <p className="mt-2 text-ink/70">Per Paper</p>
             <ul className="mt-8 space-y-3 text-ink/75">
               {publication.apcNotes.map((n) => <li key={n}>{n}</li>)}
             </ul>
@@ -27,7 +28,7 @@ export default function PublicationPage() {
         </Reveal>
       </section>
       <section className="wrap pb-[clamp(64px,8vw,130px)]">
-        <Reveal><h2 className="t-h2 fade-up mb-10">Important <span className="em">notes</span></h2></Reveal>
+        <Reveal><h2 className="t-h2 fade-up mb-10">Important <span className="em">Notes</span></h2></Reveal>
         <div className="grid gap-3 md:grid-cols-3">
           {publication.notes.map((n) => (
             <Reveal key={n} className="rounded-[var(--radius-m)] bg-white p-[clamp(20px,2vw,32px)] ring-1 ring-ink/5">
@@ -40,23 +41,23 @@ export default function PublicationPage() {
         <div className="relative overflow-hidden rounded-[var(--radius-l)] navy-grad p-[clamp(28px,4vw,72px)] text-paper">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-end">
             <div>
-              <h2 className="t-h2 max-w-[16ch]">Expression of <span className="em text-amber">interest</span></h2>
+              <h2 className="t-h2 max-w-[16ch]">Expression of <span className="em text-amber">Interest</span></h2>
               <p className="mt-6 max-w-[48ch] text-lg text-paper/80">{publication.interest}</p>
             </div>
             <div className="space-y-5">
               <div>
                 <p className="font-display font-semibold text-[24px]">{publication.chair.name}</p>
                 <p className="text-paper/75">{publication.chair.role}</p>
-                <p className="mt-3">
+                <p className="mt-3 [overflow-wrap:anywhere]">
                   {publication.chair.email && (
                     <>
-                      <a className="font-medium underline decoration-2 underline-offset-4" href={`mailto:${publication.chair.email}`}>{publication.chair.email}</a> or{" "}
+                      <MailLink to={publication.chair.email} subject="IIC 2027: Expression of Interest for Journal Publication" greeting={`Dear ${publication.chair.name},`} className="font-medium underline decoration-2 underline-offset-4">{publication.chair.email}</MailLink> or{" "}
                     </>
                   )}
-                  <a className="font-medium underline decoration-2 underline-offset-4" href={`mailto:${site.email}`}>{site.email}</a>
+                  <MailLink to={site.email} subject="IIC 2027: Expression of Interest for Journal Publication" className="font-medium underline decoration-2 underline-offset-4">{site.email}</MailLink>
                 </p>
               </div>
-              <PillButton href={site.portals.publicationInterest} variant="light">Send expression of interest</PillButton>
+              <PillButton href={site.portals.publicationInterest} variant="light">Send Expression of Interest</PillButton>
             </div>
           </div>
         </div>

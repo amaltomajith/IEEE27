@@ -12,8 +12,8 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        title="Asking what AI does to us"
-        emphasis="to us"
+        title="Asking What AI Does to Us"
+        emphasis="to Us"
         crumbs={[{ label: "About" }]}
         intro={site.tagline}
       />
@@ -21,7 +21,7 @@ export default function AboutPage() {
       <section className="wrap grid gap-[clamp(32px,5vw,96px)] py-[clamp(64px,8vw,140px)] lg:grid-cols-[0.9fr_1.1fr]">
         <Reveal>
           <h2 className="t-h2 fade-up">
-            Conference <span className="em">vision</span>
+            Conference <span className="em">Vision</span>
           </h2>
         </Reveal>
         <Reveal className="space-y-6 text-[clamp(18px,1.35vw,24px)] leading-[1.55] text-ink/85">
@@ -36,7 +36,7 @@ export default function AboutPage() {
         <div className="wrap relative z-[1]">
           <Reveal>
             <h2 className="t-h2 fade-up mb-[clamp(36px,5vw,72px)] max-w-[18ch]">
-              Why it is built <span className="em text-brand-ink">this way</span>
+              Why It Is Built <span className="em text-brand-ink">This Way</span>
             </h2>
           </Reveal>
           <div className="grid gap-3 md:grid-cols-12">
@@ -61,7 +61,7 @@ export default function AboutPage() {
       <section className="wrap py-[clamp(64px,8vw,140px)]">
         <Reveal>
           <h2 className="t-h2 fade-up mb-10 max-w-[20ch]">
-            Jointly organized by three <span className="em">schools</span>
+            Jointly Organised by Three <span className="em">Schools</span>
           </h2>
         </Reveal>
         <div className="grid gap-4 md:grid-cols-3">
@@ -74,10 +74,8 @@ export default function AboutPage() {
             </a>
           ))}
         </div>
-        <div className="mt-12 flex flex-wrap items-center gap-6">
-          <span className="inline-flex rounded-[var(--radius-m)] bg-white px-6 py-4 ring-1 ring-ink/5">
-            <Image src="/images/brand/christ-logo.webp" alt="CHRIST (Deemed to be University)" width={1280} height={434} className="h-auto w-[240px]" />
-          </span>
+        {/* The CHRIST logo itself sits in the footer just below, so this row carries only the link. */}
+        <div className="mt-12">
           <PillButton href={site.universityUrl} variant="ghost">Visit christuniversity.in</PillButton>
         </div>
       </section>

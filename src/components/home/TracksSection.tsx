@@ -45,11 +45,20 @@ function Cards() {
     <>
       <li className="flex w-[min(78vw,420px)] shrink-0 snap-start flex-col justify-between rounded-[var(--radius-l)] tint-b p-[clamp(24px,2.6vw,44px)] ring-1 ring-gold/25 md:min-h-[min(74vh,700px)]">
         <h2 className="t-h2">
-          Pick your <span className="em">track</span>
+          Pick Your <span className="em">Track</span>
         </h2>
         <div className="mt-16">
           <p className="max-w-[28ch] text-ink/75">Every department runs its own call for papers, peer review and publication route.</p>
-          <span className="mt-6 inline-grid size-20 place-items-center rounded-full bg-gold-soft font-display text-4xl font-semibold text-ink ring-1 ring-gold/50">12</span>
+          {/* The gold circle this card always had, now a way in to every track. */}
+          <Link href="/thematic-tracks/" className="group mt-6 inline-flex items-center gap-4">
+            <span className="grid size-20 place-items-center rounded-full bg-gold-soft text-ink ring-1 ring-gold/50 transition duration-500 [transition-timing-function:var(--ease-spring)] group-hover:scale-105 group-hover:bg-gold">
+              <ArrowUpRight size={26} weight="bold" className="transition-transform duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-45" />
+            </span>
+            <span className="roll font-display text-[clamp(20px,1.5vw,24px)] font-semibold">
+              <span>See All Tracks</span>
+              <span aria-hidden>See All Tracks</span>
+            </span>
+          </Link>
         </div>
       </li>
       {tracks.map((t, i) => {
@@ -83,7 +92,7 @@ function Cards() {
       <li className="w-[min(78vw,380px)] shrink-0 snap-start md:min-h-[min(74vh,700px)]">
         <Link href="/thematic-tracks/" className="group flex h-full min-h-[300px] flex-col justify-between rounded-[var(--radius-l)] navy-grad p-[clamp(24px,2.6vw,44px)] text-paper">
           <p className="t-h2">
-            All <span className="em text-amber">tracks</span>
+            All <span className="em text-amber">Tracks</span>
           </p>
           <span className="grid size-16 place-items-center self-end rounded-full bg-paper text-brand transition-transform duration-500 group-hover:rotate-45">
             <ArrowUpRight size={26} weight="bold" />

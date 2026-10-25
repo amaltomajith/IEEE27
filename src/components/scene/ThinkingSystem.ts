@@ -29,8 +29,8 @@ export class ThinkingSystem {
   private sparkIdx = 0;
   private t0 = performance.now();
   private frozen: boolean;
-  private target = { mix: 0.0, focus: 0, mx: 0, my: 0, on: 0, hold: 0 };
-  private cur = { mix: 0.0, focus: 0, mx: 0, my: 0, on: 0, hold: 0, rx: 0.22, ry: -1.05 };
+  private target = { mix: 0.0, mx: 0, my: 0, on: 0, hold: 0 };
+  private cur = { mix: 0.0, mx: 0, my: 0, on: 0, hold: 0, rx: 0.22, ry: -1.05 };
   private last = 0;
   private lastHoverSpark = 0;
   private nextAuto = 1.2;
@@ -190,13 +190,6 @@ export class ThinkingSystem {
   setMix(v: number) {
     this.target.mix = v;
   }
-  /** Takeover progress, set every frame by the expanding panel so the camera move tracks it exactly. */
-  setFocusNow(v: number) {
-    this.target.focus = this.cur.focus = v;
-  }
-  setFocus(v: number) {
-    this.target.focus = v;
-  }
   /**
    * A deliberate tap: the nearest neuron pops (ring + flash) and sends a signal
    * down its synapses. In the network view it runs a forward pass instead.
@@ -277,7 +270,6 @@ export class ThinkingSystem {
     c.on += (tg.on - c.on) * k;
     c.hold += (tg.hold - c.hold) * kf;
     c.mix += (tg.mix - c.mix) * kf;
-    c.focus += (tg.focus - c.focus) * kf;
     const t = this.time();
     this.uniforms.uTime.value = t;
     this.uniforms.uPT.value = this.pt();
@@ -328,15 +320,10 @@ export class ThinkingSystem {
     c.ry += (ry - c.ry) * 0.06;
     c.rx += (0.22 - c.my * 0.16 * c.on + net * 0.1 - c.rx) * 0.06;
     this.group.rotation.set(c.rx, c.ry, 0);
-    // Takeover: pull back slightly and slide the system right so the copy has room.
     // Narrow canvases (phones): step back just enough to keep the brain, and the wider network, in frame.
     const aspect = this.w / this.h, fit = Math.max(1, (0.92 + net * 0.42) / aspect);
-    this.camera.position.z = 5.2 * fit + c.focus * 0.4;
-    // Takeover: landscape slides the system right of the copy; portrait (phones) drops it below the copy.
-    const tall = aspect < 1, halfH = this.camera.position.z * Math.tan((16 * Math.PI) / 180);
-    this.camera.position.x = tall ? 0 : c.focus * -1.2 * Math.min(1, aspect / 1.4);
-    this.camera.position.y = tall ? c.focus * 0.5 * halfH : 0;
-    this.camera.lookAt(this.camera.position.x, this.camera.position.y, 0);
+    this.camera.position.set(0, 0, 5.2 * fit);
+    this.camera.lookAt(0, 0, 0);
     this.uniforms.uCamDist.value = this.camera.position.length();
     this.renderer.render(this.scene, this.camera);
   }

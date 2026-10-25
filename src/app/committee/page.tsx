@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Committee", description: "Mentors an
 export default function CommitteePage() {
   return (
     <>
-      <PageHero title="The people behind IIC 2027" emphasis="people" crumbs={[{ label: "Committee" }]}>
+      <PageHero title="The People Behind IIC 2027" emphasis="People" crumbs={[{ label: "Committee" }]}>
         <CommitteeNav />
       </PageHero>
       {[

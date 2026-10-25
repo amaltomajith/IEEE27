@@ -14,6 +14,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [dark, setDark] = useState(false);
   const [docked, setDocked] = useState(true);
+  const [markInView, setMarkInView] = useState(true);
   const pathname = usePathname();
   const menuBtn = useMagnetic<HTMLButtonElement>();
   const sentinel = useRef<HTMLDivElement>(null);
@@ -90,8 +91,32 @@ export function Header() {
     };
   }, [pathname]);
 
+  // The hero's CHRIST mark ([data-host-mark]): the nav shows its own copy as soon as that one has slid
+  // under the bar, so a CHRIST logo is on screen at every scroll position.
+  useEffect(() => {
+    const h = bar.current?.offsetHeight ?? 72;
+    const seen = new Set<Element>();
+    const io = new IntersectionObserver((es) => {
+      es.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
+      setMarkInView(seen.size > 0);
+    }, { rootMargin: `-${h}px 0px 0px 0px` });
+    const scan = () => {
+      const marks = document.querySelectorAll("[data-host-mark]");
+      marks.forEach((el) => io.observe(el));
+      if (!marks.length) setMarkInView(false);
+    };
+    scan();
+    const mo = new MutationObserver(scan);
+    mo.observe(document.body, { childList: true, subtree: true });
+    return () => {
+      io.disconnect();
+      mo.disconnect();
+    };
+  }, [pathname]);
+
   const onDark = dark && !open;
   const inNav = open || !docked;
+  const showMark = open || !markInView;
 
   return (
     <>
@@ -109,17 +134,21 @@ export function Header() {
         }`}
       >
         <div className="wrap flex h-[var(--header-h)] items-center justify-between gap-3">
-          <Link
-            href="/"
-            aria-label={`${site.name}, home`}
-            tabIndex={inNav ? undefined : -1}
-            className={`min-w-0 transition-colors duration-500 ${inNav ? "" : "pointer-events-none"} ${onDark ? "text-white [&_span]:text-[#a9c0ff]" : "text-ink"}`}
-          >
-            <ConferenceLockup size="nav" masked className={inNav ? "is-in" : ""} />
-          </Link>
+          {/* The CHRIST logo is not part of the bar's left side: on the home page it sits above the hero's
+              conference name and scrolls away with it; once it has scrolled under the bar, the logo shows right of Menu. */}
+          <div className="flex min-w-0 items-center">
+            <Link
+              href="/"
+              aria-label={`${site.name}, home`}
+              tabIndex={inNav ? undefined : -1}
+              className={`min-w-0 transition-colors duration-500 ${inNav ? "" : "pointer-events-none"} ${onDark ? "text-white [&_span]:text-[#a9c0ff]" : "text-ink"}`}
+            >
+              <ConferenceLockup size="nav" masked className={inNav ? "is-in" : ""} />
+            </Link>
+          </div>
           <div className="flex items-center">
             <PillButton href={site.portals.submission} variant={onDark ? "brand" : "light"} className="mr-2 hidden md:inline-flex">
-              Submit paper
+              Submit Paper
             </PillButton>
             <button
               ref={menuBtn}
@@ -140,16 +169,17 @@ export function Header() {
                 <i />
               </span>
             </button>
-            {/* The host university arrives with the name; its column opens, so Submit paper and Menu ease left. */}
+            {/* Whenever the hero's mark is off screen, the host university sits right of Menu; its column opens, so Submit paper and Menu ease left. */}
             <div
-              className={`grid transition-[grid-template-columns,opacity] duration-[0.9s] [transition-timing-function:var(--ease-out)] ${inNav ? "grid-cols-[1fr] opacity-100 delay-100" : "grid-cols-[0fr] opacity-0"}`}
+              className={`grid transition-[grid-template-columns,opacity] duration-[0.9s] [transition-timing-function:var(--ease-out)] ${showMark ? "grid-cols-[1fr] opacity-100" : "grid-cols-[0fr] opacity-0"}`}
             >
               <div className="min-w-0 overflow-hidden">
                 <a
                   href={site.universityUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  tabIndex={inNav ? undefined : -1}
+                  tabIndex={showMark ? undefined : -1}
+                  aria-hidden={!showMark || undefined}
                   aria-label="CHRIST (Deemed to be University)"
                   className="flex w-max items-center pl-[clamp(10px,1.2vw,18px)]"
                 >

@@ -78,7 +78,7 @@ export function Countdown({ label, dark = false }: { label?: string; dark?: bool
           {state.phase === "live" ? `Day ${state.day}` : "2027"}
         </span>
         <p className={`font-display font-semibold text-[clamp(20px,1.5vw,24px)] ${dark ? "text-white" : ""}`} role="status">
-          {state.phase === "live" ? "Happening now" : "IIC 2027 has concluded"}
+          {state.phase === "live" ? "Happening Now" : "IIC 2027 has concluded"}
           <span className={`block text-sm font-normal ${dark ? "text-white/60" : "text-muted"}`}>{display}, Bangalore Kengeri Campus</span>
         </p>
       </div>

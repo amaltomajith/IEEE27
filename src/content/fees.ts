@@ -14,7 +14,7 @@ export const feeDeadlines: Record<Tier, { label: string; date: string; display: 
 
 export const fees: FeeRow[] = [
   { category: "UG / PG Students", national: { early: 3000, regular: 4000 }, international: { early: 100, regular: 150 } },
-  { category: "Ph.D. Scholars & Faculty", national: { early: 4000, regular: 5000 }, international: { early: 200, regular: 250 } },
+  { category: "PhD Scholars & Faculty", national: { early: 4000, regular: 5000 }, international: { early: 200, regular: 250 } },
   { category: "Industry", national: { early: 6000, regular: 7000 }, international: { early: 300, regular: 350 } },
   { category: "Attendee / Co-Author", national: { early: 1500, regular: 2000 }, international: { early: 150, regular: 200 } },
 ];

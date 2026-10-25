@@ -6,10 +6,17 @@ export type Contact = { topic: string; name?: string; email: string };
 // Venue Guidance are listed on the source page without a named contact, so they
 // route to the conference inbox.
 export const contacts: Contact[] = [
-  // Dr Ambili Jayachandran's own address is to follow; until then her topics route to the conference inbox.
-  { topic: "Submission", name: "Dr Ambili Jayachandran", email: site.email },
-  { topic: "Publications", name: "Dr Ambili Jayachandran", email: site.email },
+  { topic: "Submission", name: "Dr Bhuvana Jayabalan", email: "bhuvana.jayabalan@christuniversity.in" },
+  { topic: "Publications", name: "Dr Ambili Jayachandran", email: "ambili.jayachandran@christuniversity.in" },
   { topic: "Accommodation", name: "Dr Manikandan P", email: "manikandan.p@christuniversity.in" },
+];
+
+export type Convener = { name: string; phone: string; tel: string };
+
+// From the conference poster's "Conference Conveners" panel.
+export const conveners: Convener[] = [
+  { name: "Dr Ambili Jayachandran", phone: "+91 97444 90632", tel: "tel:+919744490632" },
+  { name: "Dr Bhuvana Jayabalan", phone: "+91 90474 30020", tel: "tel:+919047430020" },
 ];
 
 export const generalTopics = ["Registration", "Sponsorship", "Collaboration", "Exhibition", "Visa and Travel", "Venue Guidance"];

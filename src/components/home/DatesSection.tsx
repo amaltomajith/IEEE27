@@ -9,7 +9,7 @@ export function DatesSection() {
       <div>
         <Reveal className="lg:sticky lg:top-[calc(var(--header-h)+40px)]">
           <h2 className="t-h2 fade-up max-w-[12ch]">
-            From abstract to <span className="em">Bengaluru</span>
+            From Abstract to <span className="em">Bengaluru</span>
           </h2>
           <div className="fade-up mt-8 inline-flex items-start gap-3 rounded-[var(--radius-m)] bg-white px-5 py-4 ring-1 ring-ink/5">
             <span className="relative mt-2 flex size-2.5 shrink-0">
@@ -19,7 +19,7 @@ export function DatesSection() {
             <NextDeadline />
           </div>
           <div className="fade-up mt-8">
-            <PillButton href="/important-dates/" variant="ghost">All dates</PillButton>
+            <PillButton href="/important-dates/" variant="ghost">All Dates</PillButton>
           </div>
         </Reveal>
       </div>

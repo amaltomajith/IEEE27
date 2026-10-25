@@ -5,7 +5,7 @@ export const site = {
   short: "IIC 2027",
   name: "International Interdisciplinary Conference 2027",
   theme: "Mind and Machine: Reimagining Human-AI Collaboration Across Sectors",
-  dates: "March 2-3, 2027",
+  dates: "2-3 March 2027",
   mode: "Hybrid Mode",
   host: "CHRIST (Deemed to be University)",
   campus: "Bangalore Kengeri Campus",
@@ -72,8 +72,7 @@ export const nav: NavItem[] = [
     children: [
       { label: "Advisory", href: "/committee/advisory/" },
       { label: "Technical", href: "/committee/technical/" },
-      { label: "Organizing", href: "/committee/organizing/" },
-      { label: "Publicity", href: "/committee/publicity/" },
+      { label: "Organising", href: "/committee/organizing/" },
     ],
   },
   {
@@ -101,19 +100,19 @@ export const about = {
   ],
   rationale: [
     {
-      title: "Interdisciplinary legitimacy",
+      title: "Interdisciplinary Legitimacy",
       body: "AI's societal impact cannot be understood through a single lens; this conference models the collaborative approach that would give a well-rounded understanding.",
     },
     {
-      title: "Departmental ownership",
+      title: "Departmental Ownership",
       body: "Each department manages its track end-to-end: call for papers, peer review, keynote curation, and publication, building institutional research capacity.",
     },
     {
-      title: "Publication output",
+      title: "Publication Output",
       body: "Tracks are designed to produce independently publishable special issues, edited volumes, or indexed proceedings/ISBN, giving every department a concrete research deliverable.",
     },
     {
-      title: "Community building",
+      title: "Community Building",
       body: "Structured networking, cross-track panels, and shared plenaries generate durable inter-departmental research collaborations.",
     },
   ],

@@ -9,10 +9,10 @@ export const metadata: Metadata = { title: "Important Dates", description: "Subm
 export default function DatesPage() {
   return (
     <>
-      <PageHero title="Important dates" emphasis="dates" crumbs={[{ label: "Important Dates" }]} intro="Abstracts open the process in October 2026. The conference runs March 2-3, 2027.">
+      <PageHero title="Important Dates" emphasis="Dates" crumbs={[{ label: "Important Dates" }]} intro="Abstracts open the process in October 2026. The conference runs 2-3 March 2027.">
         <div className="flex flex-wrap gap-3">
-          <PillButton href={site.portals.submission} variant="brand">Submit extended abstract</PillButton>
-          <PillButton href={site.portals.submission} variant="ghost">Submit full manuscript</PillButton>
+          <PillButton href={site.portals.submission} variant="brand">Submit Extended Abstract</PillButton>
+          <PillButton href={site.portals.submission} variant="ghost">Submit Full Manuscript</PillButton>
         </div>
       </PageHero>
       <section className="wrap grid gap-12 pb-[clamp(64px,8vw,130px)] lg:grid-cols-[0.6fr_1fr]">
