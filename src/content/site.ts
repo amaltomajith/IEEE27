@@ -35,6 +35,9 @@ export const campusVideo = {
   poster: "/video/kengeri-poster.webp",
 } as const;
 
+/** Drone shot of the Kengeri campus, shown inside the resting hero slash. */
+export const heroCampusPhoto = "/images/hero/kengeri-aerial.webp";
+
 export type School = { name: string; short: string; url: string; image: string; venueImage: string };
 
 export const organizers: School[] = [
@@ -62,36 +65,55 @@ export const organizers: School[] = [
 ];
 
 export type NavItem = { label: string; href: string; children?: NavItem[] };
+export type NavGroup = { title: string; items: NavItem[] };
 
-export const nav: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about/" },
+/** The menu shows these groups; the footer and prefetching use the flat `nav` below. */
+export const navGroups: NavGroup[] = [
   {
-    label: "Committee",
-    href: "/committee/",
-    children: [
-      { label: "Advisory", href: "/committee/advisory/" },
-      { label: "Technical", href: "/committee/technical/" },
-      { label: "Organising", href: "/committee/organizing/" },
+    title: "The Conference",
+    items: [
+      { label: "Home", href: "/" },
+      { label: "About", href: "/about/" },
+      {
+        label: "Committees",
+        href: "/committee/",
+        children: [
+          { label: "Advisory Boards", href: "/committee/advisory/" },
+          { label: "Technical Programme", href: "/committee/technical/" },
+          { label: "Organising", href: "/committee/organizing/" },
+        ],
+      },
+      {
+        label: "Thematic Tracks",
+        href: "/thematic-tracks/",
+        children: [
+          { label: "CSE, AI & ML", href: "/thematic-tracks/cse-ai-ml/" },
+          { label: "EEE & ME", href: "/thematic-tracks/eee-me/" },
+          { label: "BBA", href: "/thematic-tracks/bba/" },
+          { label: "Psychology", href: "/thematic-tracks/psychology/" },
+        ],
+      },
     ],
   },
   {
-    label: "Thematic Tracks",
-    href: "/thematic-tracks/",
-    children: [
-      { label: "CSE, AI & ML", href: "/thematic-tracks/cse-ai-ml/" },
-      { label: "EEE & ME", href: "/thematic-tracks/eee-me/" },
-      { label: "BBA", href: "/thematic-tracks/bba/" },
-      { label: "Psychology", href: "/thematic-tracks/psychology/" },
+    title: "For Authors",
+    items: [
+      { label: "Important Dates", href: "/important-dates/" },
+      { label: "Paper Submission", href: "/submission/" },
+      { label: "Publication", href: "/publication/" },
     ],
   },
-  { label: "Important Dates", href: "/important-dates/" },
-  { label: "Submission", href: "/submission/" },
-  { label: "Registration", href: "/registration/" },
-  { label: "Publication", href: "/publication/" },
-  { label: "Venue", href: "/venue/" },
-  { label: "Contact", href: "/contact/" },
+  {
+    title: "Attend",
+    items: [
+      { label: "Registration", href: "/registration/" },
+      { label: "Venue", href: "/venue/" },
+      { label: "Contact", href: "/contact/" },
+    ],
+  },
 ];
+
+export const nav: NavItem[] = navGroups.flatMap((g) => g.items);
 
 export const about = {
   vision: [

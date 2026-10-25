@@ -12,7 +12,7 @@ export const metadata: Metadata = { title: "Organising Committee", description: 
 export default function OrganizingPage() {
   return (
     <>
-      <PageHero title="Organising Committee" emphasis="Committee" crumbs={[{ label: "Committee", href: "/committee/" }, { label: "Organising" }]}>
+      <PageHero title="Organising Committee" emphasis="Committee" crumbs={[{ label: "Committees", href: "/committee/" }, { label: "Organising" }]}>
         <CommitteeNav />
       </PageHero>
       <section className="wrap pb-[clamp(64px,8vw,130px)]">

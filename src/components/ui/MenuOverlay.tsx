@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { nav, site } from "@/content/site";
+import { nav, navGroups, site } from "@/content/site";
+import { venue } from "@/content/venue";
 import { milestones } from "@/content/dates";
 import { acquireScrollLock } from "@/lib/scroll";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
@@ -92,45 +93,84 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
           transition={{ duration: reduce ? 0.2 : 0.75, ease: [0.76, 0, 0.24, 1] }}
         >
           <div className="wrap grid min-h-full gap-12 pt-[calc(var(--header-h)+3vh)] pb-12 lg:grid-cols-[1.4fr_1fr]">
-            <nav aria-label="Primary">
-              <ol className="grid border-t border-ink/10">
-                {nav.map((item, i) => (
-                  <motion.li
-                    key={item.href}
-                    initial={reduce ? false : { y: 24, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.22 + i * 0.035, duration: 0.8, ease }}
-                    className="border-b border-ink/10"
+            <nav aria-label="Primary" className="grid content-start">
+              {navGroups.map((group, g) => (
+                <section
+                  key={group.title}
+                  aria-labelledby={`menu-group-${g}`}
+                  className="grid border-t border-ink/15 pt-2 pb-[clamp(8px,1.4vh,16px)] lg:grid-cols-[10.5rem_1fr] lg:gap-4"
+                >
+                  <motion.p
+                    id={`menu-group-${g}`}
+                    initial={reduce ? false : { opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 + g * 0.08, duration: 0.8, ease }}
+                    className="flex items-baseline gap-2.5 whitespace-nowrap pt-[clamp(10px,1.6vh,16px)] text-xs font-semibold tracking-[0.18em] text-amber-ink uppercase max-lg:pb-1"
                   >
-                    <Link
-                      href={item.href}
-                      onClick={go(item.href)}
-                      aria-busy={pending === item.href || undefined}
-                      aria-current={norm(item.href) === norm(pathname) ? "page" : undefined}
-                      className={`group flex items-baseline gap-5 py-[clamp(6px,1.1vh,12px)] font-display text-[clamp(30px,min(3.8vw,5.6vh),56px)] leading-[1.05] font-semibold transition-[opacity,color] duration-300 ${pending && pending !== item.href ? "opacity-35" : ""} ${norm(item.href) === norm(pathname) ? "text-royal italic" : pending === item.href ? "text-brand-ink" : "text-ink"} hover:text-royal`}
-                    >
-                      <span className="mono relative w-8 shrink-0 text-[16px] text-amber-ink not-italic">
-                        {pending === item.href ? (
-                          <span aria-hidden className="absolute top-1/2 left-0 block h-[2px] w-6 -translate-y-1/2 overflow-hidden rounded-full bg-ink/10">
-                            <span className="block h-full w-1/2 animate-[navload_0.9s_ease-in-out_infinite] rounded-full bg-brand" />
-                          </span>
-                        ) : (
-                          String(i + 1).padStart(2, "0")
-                        )}
-                      </span>
-                      <span className="transition-transform duration-500 [transition-timing-function:var(--ease-out)] group-hover:translate-x-2">
-                        {item.label}
-                      </span>
-                      <ArrowUpRight
-                        aria-hidden
-                        size={22}
-                        weight="bold"
-                        className="ml-auto self-center text-amber opacity-0 transition duration-500 [transition-timing-function:var(--ease-out)] group-hover:translate-x-0 group-hover:opacity-100 max-md:hidden -translate-x-3"
-                      />
-                    </Link>
-                  </motion.li>
-                ))}
-              </ol>
+                    <span className="mono text-[13px] tracking-normal text-ink/35">{String(g + 1).padStart(2, "0")}</span>
+                    {group.title}
+                  </motion.p>
+                  <ul className="grid divide-y divide-ink/[0.07]">
+                    {group.items.map((item) => {
+                      const i = nav.indexOf(item);
+                      const current = norm(item.href) === norm(pathname);
+                      return (
+                        <motion.li
+                          key={item.href}
+                          initial={reduce ? false : { y: 24, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          transition={{ delay: 0.22 + i * 0.035, duration: 0.8, ease }}
+                          className={`py-[clamp(4px,0.8vh,9px)] transition-opacity duration-300 ${pending && pending !== item.href ? "opacity-35" : ""}`}
+                        >
+                          <Link
+                            href={item.href}
+                            onClick={go(item.href)}
+                            aria-busy={pending === item.href || undefined}
+                            aria-current={current ? "page" : undefined}
+                            className={`group flex items-center gap-5 font-display text-[clamp(28px,min(3.2vw,4.4vh),46px)] leading-[1.1] font-semibold transition-colors duration-300 ${current ? "text-royal italic" : pending === item.href ? "text-brand-ink" : "text-ink"} hover:text-royal`}
+                          >
+                            <span className="transition-transform duration-500 [transition-timing-function:var(--ease-out)] group-hover:translate-x-2">
+                              {item.label}
+                            </span>
+                            {pending === item.href ? (
+                              <span aria-hidden className="ml-auto block h-[2px] w-8 overflow-hidden rounded-full bg-ink/10">
+                                <span className="block h-full w-1/2 animate-[navload_0.9s_ease-in-out_infinite] rounded-full bg-brand" />
+                              </span>
+                            ) : (
+                              <ArrowUpRight
+                                aria-hidden
+                                size={22}
+                                weight="bold"
+                                className="ml-auto -translate-x-3 text-amber opacity-0 transition duration-500 [transition-timing-function:var(--ease-out)] group-hover:translate-x-0 group-hover:opacity-100 max-md:hidden"
+                              />
+                            )}
+                          </Link>
+                          {item.children && (
+                            <ul aria-label={`${item.label} pages`} className="mt-1.5 mb-0.5 flex flex-wrap gap-1.5">
+                              {item.children.map((c) => {
+                                const on = norm(c.href) === norm(pathname);
+                                return (
+                                  <li key={c.href}>
+                                    <Link
+                                      href={c.href}
+                                      onClick={go(c.href)}
+                                      aria-busy={pending === c.href || undefined}
+                                      aria-current={on ? "page" : undefined}
+                                      className={`inline-flex items-center rounded-full px-3 py-1 text-[13px] font-medium ring-1 transition-colors duration-300 ${on ? "bg-royal text-white ring-royal" : pending === c.href ? "bg-brand/10 text-brand-ink ring-brand/30" : "text-ink/70 ring-ink/[0.12] hover:bg-white hover:text-brand-ink hover:ring-brand/30"}`}
+                                    >
+                                      {c.label}
+                                    </Link>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          )}
+                        </motion.li>
+                      );
+                    })}
+                  </ul>
+                </section>
+              ))}
             </nav>
             <motion.aside
               aria-label="Conference at a glance"
@@ -141,7 +181,7 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
             >
               {/* Countdown, level with the first menu item. */}
               <div className="navy-grad relative overflow-hidden rounded-[var(--radius-l)] p-[clamp(20px,2vw,32px)] text-white">
-                <Countdown label="IIC 2027 Begins In" dark />
+                <Countdown label="IIC 2027 Begins In" dark stretch />
                 <p className="mt-5 text-sm text-white/70">{site.dates}, {site.mode}</p>
               </div>
 
@@ -182,7 +222,7 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
                   </span>
                   <span className="flex flex-col p-5 pt-3">
                     <span className="text-xs font-semibold tracking-[0.18em] text-amber-ink uppercase">Venue</span>
-                    <span className="mt-1 block font-display text-[clamp(20px,1.5vw,24px)] leading-[1.1] font-semibold">Kengeri Campus, Bengaluru</span>
+                    <span className="mt-1 block font-display text-[clamp(18px,1.3vw,21px)] leading-[1.15] font-semibold">{venue.name}</span>
                   </span>
                 </Link>
               </div>

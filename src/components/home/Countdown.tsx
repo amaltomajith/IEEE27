@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { conferenceWindow } from "@/lib/dates";
 
 const UNITS = [
@@ -65,8 +65,11 @@ export function useCountdown() {
   return { state, still };
 }
 
-/** Countdown to the conference in date-chip tiles. `dark` is for use on navy surfaces. */
-export function Countdown({ label, dark = false }: { label?: string; dark?: boolean }) {
+/**
+ * Countdown to the conference in date-chip tiles. `dark` is for use on navy surfaces;
+ * `stretch` widens the tiles to fill their container instead of sitting at natural width.
+ */
+export function Countdown({ label, dark = false, stretch = false }: { label?: string; dark?: boolean; stretch?: boolean }) {
   const { state, still } = useCountdown();
 
   const { display } = conferenceWindow();
@@ -90,15 +93,15 @@ export function Countdown({ label, dark = false }: { label?: string; dark?: bool
       {label && <p className={`mb-4 text-sm ${dark ? "text-white/70" : "text-muted"}`}>{label}</p>}
       <div aria-hidden className="flex items-start gap-[clamp(6px,0.7vw,12px)]">
         {UNITS.map((u, i) => (
-          <div key={u.key} className="flex items-start gap-[clamp(6px,0.7vw,12px)]">
+          <Fragment key={u.key}>
             {i > 0 && <span className="mono pt-[0.2em] text-[clamp(26px,2.4vw,40px)] leading-none text-amber">:</span>}
-            <div className="flex flex-col items-center gap-2">
-              <span className={`mono grid h-[clamp(56px,4.4vw,76px)] min-w-[clamp(58px,4.6vw,80px)] place-items-center rounded-[14px] px-2 pt-[0.12em] text-[clamp(34px,3vw,52px)] leading-none text-paper ${dark ? "bg-white/[0.08] ring-1 ring-white/15" : "bg-navy shadow-[0_14px_30px_-18px_rgb(8_28_56/0.7)]"}`}>
+            <div className={`flex flex-col items-center gap-2 ${stretch ? "flex-1" : ""}`}>
+              <span className={`mono grid h-[clamp(56px,4.4vw,76px)] min-w-[clamp(58px,4.6vw,80px)] place-items-center rounded-[14px] px-2 pt-[0.12em] text-[clamp(34px,3vw,52px)] leading-none text-paper ${stretch ? "w-full" : ""} ${dark ? "bg-white/[0.08] ring-1 ring-white/15" : "bg-navy shadow-[0_14px_30px_-18px_rgb(8_28_56/0.7)]"}`}>
                 {state ? <Roll value={state.parts[u.key]} still={still} /> : <span className="block opacity-40">--</span>}
               </span>
               <span className={`text-[11px] font-medium tracking-[0.08em] uppercase sm:text-xs ${dark ? "text-white/55" : "text-muted"}`}>{u.label}</span>
             </div>
-          </div>
+          </Fragment>
         ))}
       </div>
       <p className="sr-only">

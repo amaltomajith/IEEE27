@@ -5,12 +5,12 @@ import { CommitteeNav } from "@/components/pages/CommitteeNav";
 import { PortraitCard } from "@/components/pages/PortraitCard";
 import { generalChairs, mentors } from "@/content/committee";
 
-export const metadata: Metadata = { title: "Committee", description: "Mentors and General Chairs of IIC 2027." };
+export const metadata: Metadata = { title: "Committees", description: "Mentors and General Chairs of IIC 2027." };
 
 export default function CommitteePage() {
   return (
     <>
-      <PageHero title="The People Behind IIC 2027" emphasis="People" crumbs={[{ label: "Committee" }]}>
+      <PageHero title="The People Behind IIC 2027" emphasis="People" crumbs={[{ label: "Committees" }]}>
         <CommitteeNav />
       </PageHero>
       {[

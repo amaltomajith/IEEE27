@@ -68,6 +68,9 @@ export class HeroEngine {
   texSource: TextureSource | null = null;
   onOpenChange?: (open: boolean) => void;
   private open = false;
+  private picTex: WebGLTexture;
+  private hasPic = false;
+  private picOn = 0;
 
   constructor(private els: EngineEls) {
     this.fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
@@ -106,10 +109,41 @@ export class HeroEngine {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([10, 33, 41, 255]));
+    // Unit 1: the campus photo in the resting slash. Unit 0 stays active for the card texture.
+    gl.activeTexture(gl.TEXTURE1);
+    this.picTex = gl.createTexture()!;
+    gl.bindTexture(gl.TEXTURE_2D, this.picTex);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([19, 52, 122, 255]));
+    gl.activeTexture(gl.TEXTURE0);
+    gl.uniform1i(this.u("uTex"), 0);
+    gl.uniform1i(this.u("uPic"), 1);
     // Accent brand, CHRIST navy-blue #13347a.
     gl.uniform3f(this.u("uCol"), 19 / 255, 52 / 255, 122 / 255);
     this.mx = innerWidth * 0.6;
     this.my = innerHeight * 0.5;
+  }
+
+  /** Shows a photo inside the resting slash once it has decoded; until then the slash stays solid navy. */
+  setPhoto(img: HTMLImageElement) {
+    const up = () => {
+      const gl = this.gl;
+      gl.activeTexture(gl.TEXTURE1);
+      gl.bindTexture(gl.TEXTURE_2D, this.picTex);
+      try {
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+        gl.uniform2f(this.u("uPicSize"), img.naturalWidth, img.naturalHeight);
+        this.hasPic = true;
+      } catch {
+        /* not decodable; keep the solid slash */
+      }
+      gl.activeTexture(gl.TEXTURE0);
+    };
+    if (img.complete && img.naturalWidth) up();
+    else img.addEventListener("load", up, { once: true });
   }
 
   private u(n: string) {
@@ -259,6 +293,9 @@ export class HeroEngine {
 
     this.bulge(now, W, H, rest);
 
+    // Campus photo in the resting slash, faded in once it has uploaded.
+    this.picOn = this.reduce ? (this.hasPic ? 1 : 0) : damp(this.picOn, this.hasPic ? 1 : 0, 0.06);
+    gl.uniform1f(U("uPicOn"), this.picOn);
 
     // Live scene as texture (the path the reference uses for its showreel video).
     const src = this.texSource;

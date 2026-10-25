@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Advisory Boards", description: "Inte
 export default function AdvisoryPage() {
   return (
     <>
-      <PageHero title="Advisory Boards" emphasis="Boards" crumbs={[{ label: "Committee", href: "/committee/" }, { label: "Advisory" }]}>
+      <PageHero title="Advisory Boards" emphasis="Boards" crumbs={[{ label: "Committees", href: "/committee/" }, { label: "Advisory Boards" }]}>
         <CommitteeNav />
       </PageHero>
       <section className="wrap pb-[clamp(64px,8vw,130px)]">

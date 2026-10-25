@@ -13,7 +13,7 @@ import { PillButton } from "@/components/ui/PillButton";
 import { onFrame } from "@/lib/frame";
 import { acquireScrollLock } from "@/lib/scroll";
 import { clamp } from "@/lib/damp";
-import { site } from "@/content/site";
+import { site, heroCampusPhoto } from "@/content/site";
 
 const INTRO_KEY = "iic-intro-seen";
 
@@ -113,6 +113,12 @@ export function HomeHero() {
       }
     }
     engine.current = eng;
+    if (eng) {
+      const photo = new Image();
+      photo.decoding = "async";
+      photo.src = heroCampusPhoto;
+      eng.setPhoto(photo);
+    }
 
     let loaderTimeout: ReturnType<typeof setTimeout> | undefined;
     if (!eng) {
@@ -225,8 +231,13 @@ export function HomeHero() {
             {mode === "static" && (
               <span
                 aria-hidden
-                className="absolute top-[30svh] left-[82vw] h-[26svh] w-[15.6vw] -translate-x-1/2 -translate-y-1/2 -skew-x-[22deg] rounded-[1.2svh] bg-brand md:top-[50svh] md:left-[57vw] md:h-[66svh] md:w-[14svh]"
-              />
+                className="absolute top-[30svh] left-[82vw] h-[26svh] w-[15.6vw] -translate-x-1/2 -translate-y-1/2 -skew-x-[22deg] overflow-hidden rounded-[1.2svh] bg-brand md:top-[50svh] md:left-[57vw] md:h-[66svh] md:w-[14svh]"
+              >
+                {/* Same campus window as the WebGL slash: photo upright, bar slanted over it. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={heroCampusPhoto} alt="" className="absolute inset-y-0 left-1/2 h-full w-[400%] max-w-none -translate-x-1/2 skew-x-[22deg] object-cover" />
+                <span className="absolute inset-0 bg-brand/45 mix-blend-multiply" />
+              </span>
             )}
             {/* Lockup: conference label, title, theme line. */}
             <div className="relative my-auto">

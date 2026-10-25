@@ -14,7 +14,7 @@ export default function TechnicalPage() {
       <PageHero
         title="Technical Programme Committee"
         emphasis="Programme"
-        crumbs={[{ label: "Committee", href: "/committee/" }, { label: "Technical" }]}
+        crumbs={[{ label: "Committees", href: "/committee/" }, { label: "Technical Programme" }]}
         intro={`${tpcIntro}.`}
       >
         <div className="flex flex-col items-start gap-8">
