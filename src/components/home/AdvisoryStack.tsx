@@ -3,6 +3,7 @@ import { advisory } from "@/content/committee";
 import { Reveal } from "@/components/ui/Reveal";
 import { PillButton } from "@/components/ui/PillButton";
 import { Ribbon } from "@/components/ui/Ribbon";
+import { Phrases } from "@/components/ui/Phrases";
 
 const intl = advisory.find((g) => g.scope === "International")!.members;
 
@@ -30,7 +31,7 @@ export function AdvisoryStack() {
             <li key={m.name} className="sticky pb-4" style={{ top: `calc(var(--header-h) + 24px + ${i * 14}px)` }}>
               <article className="flex min-h-[clamp(220px,26vh,300px)] flex-col justify-between gap-8 rounded-[var(--radius-l)] bg-paper p-[clamp(22px,2.4vw,40px)] shadow-[0_-24px_60px_-34px_rgb(10_26_64/0.22)] ring-1 ring-ink/[0.06]">
                 <div className="flex items-start justify-between gap-4">
-                  <span className="text-sm text-muted">{m.place}</span>
+                  <span className="text-sm text-muted"><Phrases parts={[m.place]} /></span>
                   {m.url && (
                     <a href={m.url} target="_blank" rel="noopener noreferrer" aria-label={`${m.name} profile`} className="grid size-11 place-items-center rounded-full bg-ink/[0.05] text-brand-ink transition hover:rotate-45 hover:bg-brand hover:text-paper">
                       <ArrowUpRight size={18} weight="bold" />
@@ -39,7 +40,7 @@ export function AdvisoryStack() {
                 </div>
                 <div>
                   <h3 className="t-h3">{m.name}</h3>
-                  <p className="mt-2 max-w-[48ch] text-muted">{[m.role, m.org].filter(Boolean).join(", ")}</p>
+                  <p className="mt-2 max-w-[48ch] text-muted"><Phrases parts={[m.role, m.org]} /></p>
                 </div>
               </article>
             </li>

@@ -11,13 +11,15 @@ const LETTERS = ["I", "I", "C", ".", "2", "0", "2", "7"];
 type Props = {
   /** Extra readiness signal (e.g. scene compiled). */
   ready: Promise<unknown>;
+  /** Continuous readiness (0 to 1) for something heavy that streams in, e.g. the campus film's buffer. */
+  progress?: () => number;
   /** Called once progress reaches 100%; receives the slash element for the handoff. */
   onComplete: (slash: HTMLElement) => void;
   phase: "load" | "out";
 };
 
 /** Loader: "/IIC.2027" rises in while a liquid wave fills the slash; a ring counts to 100. */
-export function Loader({ ready, onComplete, phase }: Props) {
+export function Loader({ ready, progress, onComplete, phase }: Props) {
   const slash = useRef<HTMLSpanElement>(null);
   const wave = useRef<SVGPathElement>(null);
   const ring = useRef<SVGCircleElement>(null);
@@ -27,22 +29,22 @@ export function Loader({ ready, onComplete, phase }: Props) {
 
   useEffect(() => {
     requestAnimationFrame(() => setShown(true));
-    let total = 0, ok = 0, loaded = 0;
+    let total = 0, ok = 0, capped = false;
     const track = (p: Promise<unknown>) => {
       total++;
-      p.finally(() => {
-        ok++;
-        loaded = ok / total;
-      });
+      p.finally(() => ok++);
     };
     track(document.fonts ? document.fonts.ready : Promise.resolve());
     track(document.readyState === "complete" ? Promise.resolve() : new Promise((r) => addEventListener("load", r, { once: true })));
     track(ready);
     // Ceilings, so a slow or blocked video never traps the visitor behind the loader.
-    const cap = setTimeout(() => (loaded = 1), 8000);
+    const cap = setTimeout(() => (capped = true), 8000);
+    // The streamed part weighs as much as everything else together: it is most of the bytes.
+    const W = progress ? 3 : 0;
     const t0 = performance.now(), MIN = 1300;
     let s = 0, t100 = 0;
     const off = onFrame((now) => {
+      const loaded = capped ? 1 : (ok + (progress ? progress() * W : 0)) / (total + W);
       const target = Math.min(Math.min(1, (now - t0) / MIN), loaded);
       s += (target - s) * (1 - Math.pow(0.86, frameFactor()));
       if (target >= 1 && s > 0.985) s = 1;
@@ -75,7 +77,7 @@ export function Loader({ ready, onComplete, phase }: Props) {
       clearTimeout(cap);
       clearTimeout(failsafe);
     };
-  }, [ready, onComplete]);
+  }, [ready, progress, onComplete]);
 
   const out = phase === "out";
   return (

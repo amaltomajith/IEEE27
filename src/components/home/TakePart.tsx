@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Reveal } from "@/components/ui/Reveal";
 import { RegistrationCard } from "./RegistrationCard";
+import { keep } from "@/lib/keep";
 
 const LINKS = [
   { href: "/submission/", label: "Paper Submission", note: "Extended abstract or full manuscript" },
@@ -24,7 +25,7 @@ export function TakePart() {
               <Link href={l.href} className="group flex items-center justify-between gap-6 border-t border-ink/10 py-5">
                 <span>
                   <span className="block font-display font-semibold text-[clamp(26px,2.3vw,38px)] leading-tight transition-colors group-hover:text-brand-ink">{l.label}</span>
-                  <span className="block text-muted">{l.note}</span>
+                  <span className="block text-muted">{keep(l.note)}</span>
                 </span>
                 <span className="grid size-11 shrink-0 place-items-center rounded-full bg-gray transition duration-500 [transition-timing-function:var(--ease-spring)] group-hover:translate-x-1 group-hover:bg-brand group-hover:text-paper">
                   <ArrowRight size={18} weight="bold" />

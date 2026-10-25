@@ -5,6 +5,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 import { site } from "@/content/site";
 import { PillButton } from "@/components/ui/PillButton";
 import { MailLink } from "@/components/ui/MailLink";
+import { EmailText } from "@/components/ui/EmailText";
 
 /** Navy block that opens from an inset clip as it scrolls in. */
 export function CtaBlock() {
@@ -24,10 +25,9 @@ export function CtaBlock() {
           </h2>
           <div className="mt-12 flex flex-wrap items-center gap-6">
             <PillButton href="/contact/" variant="dark">Contact the Team</PillButton>
-            {/* Breaks only at the @ on narrow screens, never mid-word. */}
+            {/* Breaks only at the @ or a dot on narrow screens, never mid-word. */}
             <MailLink to={site.email} className="text-lg text-ink/75 underline decoration-brand decoration-2 underline-offset-[6px] [overflow-wrap:anywhere] hover:text-brand-deep max-sm:text-base">
-              {site.email.split("@")[0]}
-              <wbr />@{site.email.split("@")[1]}
+              <EmailText email={site.email} />
             </MailLink>
           </div>
         </div>

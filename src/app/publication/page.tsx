@@ -5,6 +5,8 @@ import { PillButton } from "@/components/ui/PillButton";
 import { publication } from "@/content/publication";
 import { site } from "@/content/site";
 import { MailLink } from "@/components/ui/MailLink";
+import { EmailText } from "@/components/ui/EmailText";
+import { Phrases } from "@/components/ui/Phrases";
 
 export const metadata: Metadata = { title: "Publication", description: publication.body.slice(0, 160) };
 
@@ -47,14 +49,20 @@ export default function PublicationPage() {
             <div className="space-y-5">
               <div>
                 <p className="font-display font-semibold text-[24px]">{publication.chair.name}</p>
-                <p className="text-paper/75">{publication.chair.role}</p>
+                <p className="mt-1 text-paper/75 max-sm:text-sm">
+                  {publication.chair.role.map((line) => (
+                    <span key={line} className="block">
+                      <Phrases parts={[line]} />
+                    </span>
+                  ))}
+                </p>
                 <p className="mt-3 [overflow-wrap:anywhere]">
                   {publication.chair.email && (
                     <>
-                      <MailLink to={publication.chair.email} subject="IIC 2027: Expression of Interest for Journal Publication" greeting={`Dear ${publication.chair.name},`} className="font-medium underline decoration-2 underline-offset-4">{publication.chair.email}</MailLink> or{" "}
+                      <MailLink to={publication.chair.email} subject="IIC 2027: Expression of Interest for Journal Publication" greeting={`Dear ${publication.chair.name},`} className="font-medium underline decoration-2 underline-offset-4"><EmailText email={publication.chair.email} /></MailLink> or{" "}
                     </>
                   )}
-                  <MailLink to={site.email} subject="IIC 2027: Expression of Interest for Journal Publication" className="font-medium underline decoration-2 underline-offset-4">{site.email}</MailLink>
+                  <MailLink to={site.email} subject="IIC 2027: Expression of Interest for Journal Publication" className="font-medium underline decoration-2 underline-offset-4"><EmailText email={site.email} /></MailLink>
                 </p>
               </div>
               <PillButton href={site.portals.publicationInterest} variant="light">Send Expression of Interest</PillButton>

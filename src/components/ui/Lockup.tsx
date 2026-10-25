@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import { site } from "@/content/site";
+import { keep } from "@/lib/keep";
 
 // Only the type size changes between sizes; rule, padding and leading are in em, so all three read as one mark.
 const SIZES = {
@@ -46,7 +47,7 @@ export const ConferenceLockup = forwardRef<
       </p>
       {host && (
         <p className={`mt-[0.75em] leading-snug font-semibold text-gold uppercase ${masked ? "fade-up [transition-delay:0.2s]" : ""} ${s.host}`}>
-          {site.host}, {site.campus}
+          {keep(`${site.host}, ${site.campus}`)}
         </p>
       )}
     </div>

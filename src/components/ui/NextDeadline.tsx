@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { nextMilestone, daysUntil } from "@/lib/dates";
 import type { Milestone } from "@/content/dates";
+import { keep } from "@/lib/keep";
 
 /** Client-only: the static export cannot know "today". */
 export function useNextDeadline() {
@@ -23,7 +24,7 @@ export function NextDeadline({ dark = false }: { dark?: boolean }) {
     <span className="inline-flex flex-wrap items-baseline gap-x-2">
       <span className={`font-display text-[1.2em] font-semibold ${dark ? "text-white" : "text-ink"}`}>{s.m.label}</span>
       <span className={dark ? "text-muted-dark" : "text-muted"}>
-        {s.days === 0 ? "today" : `in ${s.days} day${s.days === 1 ? "" : "s"}`}, {s.m.display}
+        {s.days === 0 ? "today" : `in ${s.days} day${s.days === 1 ? "" : "s"}`}, {keep(s.m.display)}
       </span>
     </span>
   );

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { fees, feeDeadlines, formatFee, type Region, type Tier } from "@/content/fees";
+import { keep } from "@/lib/keep";
 
 function Segmented<T extends string>({ value, options, onChange, label, id }: { value: T; options: { v: T; label: string }[]; onChange: (v: T) => void; label: string; id: string }) {
   return (
@@ -38,7 +39,7 @@ export function FeeMatrix() {
         <Segmented id="tier" label="Registration Window" value={tier} onChange={setTier} options={[{ v: "early", label: "Early Bird" }, { v: "regular", label: "Regular" }]} />
       </div>
       <p className="mb-6 text-muted">
-        {feeDeadlines[tier].label}: <span className="text-ink">{feeDeadlines[tier].display}</span>
+        {feeDeadlines[tier].label}: <span className="text-ink">{keep(feeDeadlines[tier].display)}</span>
         {currentTier === tier && <span className="ml-3 rounded-full bg-brand px-3 py-1 text-xs font-semibold text-paper">Open Now</span>}
         {currentTier === "regular" && tier === "early" && <span className="ml-3 rounded-full bg-gray-2 px-3 py-1 text-xs font-semibold text-ink">Closed</span>}
       </p>

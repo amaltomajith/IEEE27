@@ -6,6 +6,7 @@ import { fees, feeDeadlines, formatFee, type Tier } from "@/content/fees";
 import { daysUntil } from "@/lib/dates";
 import { PillButton } from "@/components/ui/PillButton";
 import { ScrollSlash } from "@/components/ui/ScrollSlash";
+import { keep } from "@/lib/keep";
 
 const TIERS: { key: Tier; label: string }[] = [
   { key: "early", label: "Early Bird" },
@@ -58,7 +59,7 @@ export function RegistrationCard() {
   };
 
   const deadline = feeDeadlines[tier];
-  const deadlineDay = deadline.display.replace(/^(Before|By) /, "");
+  const deadlineDay = keep(deadline.display.replace(/^(Before|By) /, ""));
   const left = days?.[tier];
 
   return (

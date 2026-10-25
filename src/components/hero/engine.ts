@@ -2,8 +2,9 @@ import { VERT, frag } from "./shader";
 import { samplePath, denseSpline, type Pt } from "@/lib/catmullRom";
 import { clamp, lerp, damp, easeInOutCubic, smoothstep } from "@/lib/damp";
 import { onFrame } from "@/lib/frame";
+import { SLASH, slashX } from "./slash";
 
-const HSKD = 22;
+const HSKD = SLASH.skewDeg;
 const HSK = Math.tan((HSKD * Math.PI) / 180);
 const COS = Math.cos((HSKD * Math.PI) / 180);
 
@@ -20,6 +21,8 @@ export type EngineEls = {
   introText: HTMLElement;
   introBlock: HTMLElement;
   slot: HTMLElement;
+  /** White copy of the hero text, clipped each frame to wherever the ribbon passes under it. */
+  ink?: HTMLElement | null;
 };
 
 export type TextureSource = { canvas: HTMLCanvasElement; render: (now: number) => void; width: () => number; height: () => number };
@@ -71,6 +74,9 @@ export class HeroEngine {
   private picTex: WebGLTexture;
   private hasPic = false;
   private picOn = 0;
+  private inkBox = { x: 0, y: 0, w: 0, h: 0 };
+  private inkClip = "";
+  private k2 = 0;
 
   constructor(private els: EngineEls) {
     this.fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
@@ -157,8 +163,9 @@ export class HeroEngine {
     const W = canvas.clientWidth || innerWidth, H = innerHeight, mob = W / H < 1, sy = scrollY;
     const top = root.getBoundingClientRect().top + sy;
     // Phones: a shorter bar in the top-right corner, clear of the conference name and the headline.
-    const hx = mob ? W * 0.078 : 0.07 * H, hy = (mob ? 0.13 : 0.33) * H;
-    this.S = { cx: mob ? W * 0.82 : W / 2 + 0.07 * W, cy: top + (mob ? H * 0.3 : H / 2), hx, hy };
+    const hx = mob ? W * 0.078 : SLASH.hx * H, hy = (mob ? 0.13 : SLASH.hy) * H;
+    const cy = top + (mob ? H * 0.3 : H / 2);
+    this.S = { cx: mob ? W * 0.82 : slashX(W, H, cy), cy, hx, hy };
     const S = this.S;
     const B0: Pt = [S.cx + HSK * hy, S.cy - hy], A0: Pt = [S.cx - HSK * hy, S.cy + hy];
     const dl = Math.hypot(A0[0] - B0[0], A0[1] - B0[1]);
@@ -171,6 +178,8 @@ export class HeroEngine {
     const P: Pt[] = [B0, A0, [A0[0] + dir[0] * 0.22 * H, A0[1] + dir[1] * 0.22 * H], [xR, iTop + 0.02 * H], [xR, iBot - 0.02 * H], [sb.cx + W * 0.06, sb.top - 0.1 * H], [sb.cx, sb.cy]];
     this.PATH = samplePath(P, this.N);
     this.SEG = [B0, A0];
+    const ink = this.els.ink?.getBoundingClientRect();
+    if (ink) this.inkBox = { x: ink.left, y: ink.top + sy, w: ink.width, h: ink.height };
   };
 
   size = () => {
@@ -282,7 +291,8 @@ export class HeroEngine {
     if (Math.abs(this.e2s - t2) < 0.002) this.e2s = t2;
     const e2 = easeInOutCubic(this.e2s), bc = toS(box.cx, box.cy);
     gl.uniform4f(U("uBox"), bc[0], bc[1], this.e2s > 0.001 ? lerp(S.hx * 0.9, box.hx, e2) / H : 0, this.e2s > 0.001 ? lerp(S.hx * 0.9, box.hy, e2) / H : 0);
-    gl.uniform1f(U("uK2"), clamp((this.e2s - 0.25) / 0.6));
+    this.k2 = clamp((this.e2s - 0.25) / 0.6);
+    gl.uniform1f(U("uK2"), this.k2);
     gl.uniform1f(U("uE2"), e2);
     const open = this.e2s > 0.97;
     if (open !== this.open) {
@@ -292,6 +302,7 @@ export class HeroEngine {
     }
 
     this.bulge(now, W, H, rest);
+    this.clipInk(H, rest);
 
     // Campus photo in the resting slash, faded in once it has uploaded.
     this.picOn = this.reduce ? (this.hasPic ? 1 : 0) : damp(this.picOn, this.hasPic ? 1 : 0, 0.06);
@@ -321,6 +332,50 @@ export class HeroEngine {
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   };
+
+  /**
+   * Traces the ribbon as a CSS path in the ink layer's own coordinates, so its white text shows only
+   * over the blue: the resting bar as a parallelogram, then the tube as capsules up to the head (the
+   * same shapes the shader fuses). Inset a little, so any mismatch leaves dark text on blue rather than
+   * white text on the paper.
+   */
+  private clipInk(H: number, rest: number) {
+    const el = this.els.ink;
+    if (!el) return;
+    const { x: ox, y: oy, w: bw, h: bh } = this.inkBox, S = this.S, IN = 1.5;
+    let d = "";
+    const f = (n: number) => n.toFixed(1);
+    if (!this.IX && this.intro > 0.99) {
+      if (smoothstep(0, 1.2, this.head) < 0.5) {
+        const sk = HSK + (this.smx - 0.5) * 0.05 * rest, hx = S.hx - IN, hy = S.hy - IN, cx = S.cx - ox, cy = S.cy - oy;
+        d = `M${f(cx - hx - sk * hy)} ${f(cy + hy)}L${f(cx + hx - sk * hy)} ${f(cy + hy)}L${f(cx + hx + sk * hy)} ${f(cy - hy)}L${f(cx - hx + sk * hy)} ${f(cy - hy)}Z`;
+      } else {
+        const r = S.hx * COS - this.k2 * 0.12 * H - IN;
+        if (r > 0) {
+          const cap = (a: Pt, b: Pt, ends: 1 | 2) => {
+            const ax = a[0] - ox, ay = a[1] - oy, bx = b[0] - ox, by = b[1] - oy;
+            if (Math.max(ax, bx) < -r || Math.min(ax, bx) > bw + r || Math.max(ay, by) < -r || Math.min(ay, by) > bh + r) return;
+            const l = Math.hypot(bx - ax, by - ay) || 1, nx = (-(by - ay) / l) * r, ny = ((bx - ax) / l) * r;
+            // Quad and end circles wind the same way, so the nonzero rule unions every piece.
+            d += `M${f(ax + nx)} ${f(ay + ny)}L${f(bx + nx)} ${f(by + ny)}L${f(bx - nx)} ${f(by - ny)}L${f(ax - nx)} ${f(ay - ny)}Z`;
+            // Round joins: each piece adds the circle at its far end (the first adds both).
+            for (const [cx, cy] of ends === 2 ? [[ax, ay], [bx, by]] : [[bx, by]]) d += `M${f(cx + r)} ${f(cy)}A${f(r)} ${f(r)} 0 1 0 ${f(cx - r)} ${f(cy)}A${f(r)} ${f(r)} 0 1 0 ${f(cx + r)} ${f(cy)}Z`;
+          };
+          cap(this.SEG[0], this.SEG[1], 2);
+          const P = this.PATH;
+          for (let i = 0; i < P.length - 1 && i < this.head - 0.001; i++) {
+            const k = Math.min(1, this.head - i);
+            cap(P[i], [P[i][0] + (P[i + 1][0] - P[i][0]) * k, P[i][1] + (P[i + 1][1] - P[i][1]) * k], i ? 1 : 2);
+          }
+        }
+      }
+    }
+    const clip = d ? `path('${d}')` : "polygon(0 0, 0 0, 0 0)";
+    if (clip !== this.inkClip) {
+      this.inkClip = clip;
+      el.style.clipPath = clip;
+    }
+  }
 
   /** Cursor droplets: read the pixel under the mouse, then let four springs chase it. */
   private bulge(now: number, W: number, H: number, rest: number) {

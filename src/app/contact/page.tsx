@@ -5,6 +5,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { contacts, conferenceEmail, generalTopics } from "@/content/contact";
 import { MailLink } from "@/components/ui/MailLink";
+import { EmailText } from "@/components/ui/EmailText";
 
 export const metadata: Metadata = { title: "Contact", description: `Contact the IIC 2027 organisers at ${conferenceEmail}.` };
 
@@ -22,8 +23,7 @@ export default function ContactPage() {
           <MailLink to={conferenceEmail} className="glow-bottom group relative block overflow-hidden rounded-[var(--radius-l)] bg-brand-soft p-[clamp(24px,3vw,48px)] text-ink">
             <p className="text-muted">Conference Email</p>
             <p className="mt-3 font-display font-semibold text-[clamp(26px,2.7vw,44px)] leading-tight [font-variant-numeric:lining-nums] [overflow-wrap:anywhere] group-hover:text-brand-deep">
-              {conferenceEmail.split("@")[0]}
-              <wbr />@{conferenceEmail.split("@")[1]}
+              <EmailText email={conferenceEmail} />
             </p>
             <p className="mt-6 max-w-[52ch] text-ink/70">For {generalTopics.slice(0, -1).join(", ").toLowerCase()} and {generalTopics.at(-1)!.toLowerCase()}.</p>
             <ArrowUpRight size={28} className="absolute top-8 right-8 text-brand-ink transition-transform group-hover:rotate-45" />
@@ -35,8 +35,7 @@ export default function ContactPage() {
                 <div>
                   <p className="font-medium">{c.name}</p>
                   <p className="text-[15px] [overflow-wrap:anywhere] text-ink/70 group-hover:text-brand-ink">
-                    {c.email.split("@")[0]}
-                    <wbr />@{c.email.split("@")[1]}
+                    <EmailText email={c.email} />
                   </p>
                 </div>
               </MailLink>

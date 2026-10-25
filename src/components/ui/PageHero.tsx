@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Field } from "./Field";
 import { Reveal } from "./Reveal";
 import { ScrollSlash } from "./ScrollSlash";
+import { keep } from "@/lib/keep";
 
 type Crumb = { label: string; href?: string };
 
@@ -38,13 +39,14 @@ export function PageHero({
         <h1 className={title.length > 42 ? "t-h2 max-w-[26ch] !font-semibold" : "t-h1 max-w-[16ch] md:max-w-[18ch]"}>
           <span className="line-mask">
             <span>
-              {parts[0]}
+              {/* Protected names stay whole, and the emphasis never drops onto a line of its own. */}
+              {emphasis ? keep(parts[0]).replace(/ $/, "\u00a0") : keep(parts[0])}
               {emphasis && <span className="em">{emphasis}</span>}
-              {parts[1]}
+              {parts[1] && keep(parts[1])}
             </span>
           </span>
         </h1>
-        {intro && <div className="fade-up t-h5 mt-8 max-w-[44ch] text-ink/80">{intro}</div>}
+        {intro && <div className="fade-up t-h5 mt-8 max-w-[44ch] text-ink/80">{typeof intro === "string" ? keep(intro) : intro}</div>}
         {children && <div className="fade-up mt-10">{children}</div>}
       </Reveal>
     </section>

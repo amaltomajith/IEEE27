@@ -8,6 +8,9 @@ import { FooterSlash } from "./FooterSlash";
 import { NextDeadline } from "./NextDeadline";
 import { BackToTop } from "./BackToTop";
 import { MailLink } from "./MailLink";
+import { keep } from "@/lib/keep";
+import { Phrases } from "@/components/ui/Phrases";
+import { EmailText } from "@/components/ui/EmailText";
 
 const card = "min-w-0 rounded-[clamp(16px,1.6vw,24px)] bg-white p-[clamp(20px,2vw,32px)] shadow-[0_1px_0_rgb(10_26_64/0.04)]";
 
@@ -77,8 +80,7 @@ export function Footer() {
             <span className="min-w-0">
               <span className="block text-sm text-muted">Conference Email</span>
               <span className="block font-display font-semibold text-[clamp(19px,1.4vw,24px)] leading-snug [font-variant-numeric:lining-nums] [overflow-wrap:anywhere]">
-                {site.email.split("@")[0]}
-                <wbr />@{site.email.split("@")[1]}
+                <EmailText email={site.email} />
               </span>
             </span>
             <EnvelopeSimple size={26} className="shrink-0 text-brand-ink transition-transform group-hover:-rotate-12" />
@@ -92,8 +94,8 @@ export function Footer() {
             <span className="flex items-start justify-between gap-4 p-[clamp(12px,1.2vw,20px)] md:max-xl:flex-1 md:max-xl:self-center">
               <span className="min-w-0">
                 <span className="block text-sm text-muted">Venue</span>
-                <span className="mt-1 block font-display font-semibold text-[clamp(19px,1.4vw,22px)] leading-snug">{venue.name}</span>
-                <span className="mt-2 block text-[15px] leading-relaxed text-muted">{venue.address.join(", ")}</span>
+                <span className="mt-1 block font-display font-semibold text-[clamp(19px,1.4vw,22px)] leading-snug">{keep(venue.name)}</span>
+                <span className="mt-2 block text-[15px] leading-relaxed text-muted"><Phrases parts={venue.address} /></span>
               </span>
               <MapPin size={26} className="shrink-0 text-amber transition-transform group-hover:-translate-y-1" />
             </span>
@@ -101,7 +103,7 @@ export function Footer() {
         </div>
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-sm text-muted">
           <p>
-            &copy; {site.short}. All rights reserved. {site.host}, {site.campus}
+            &copy; {site.short}. All rights reserved. {keep(`${site.host}, ${site.campus}`)}
           </p>
           <BackToTop icon={<ArrowUp size={18} weight="bold" />} />
         </div>

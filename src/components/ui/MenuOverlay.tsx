@@ -13,6 +13,8 @@ import { Countdown } from "@/components/home/Countdown";
 import { PillButton } from "./PillButton";
 import { MailLink } from "./MailLink";
 import { useNextDeadline } from "./NextDeadline";
+import { keep } from "@/lib/keep";
+import { EmailText } from "@/components/ui/EmailText";
 
 export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
   const reduce = useReducedMotion();
@@ -34,13 +36,13 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
     });
   }, [open, router]);
 
-  // Header closes the menu once the new route has rendered (pathname change).
-  // Safety net: close anyway if navigation stalls.
+  // Header closes the menu once the new route has rendered (pathname change), so the menu never
+  // drops back onto the old page. Safety net for a stalled client navigation: load the page outright.
   useEffect(() => {
     if (!pending) return;
-    const t = setTimeout(onClose, 8000);
+    const t = setTimeout(() => location.assign(pending), 15000);
     return () => clearTimeout(t);
-  }, [pending, onClose]);
+  }, [pending]);
 
   /** Same page: close now. Other page: keep the menu up until that page is ready. */
   const go = (href: string) => (e: React.MouseEvent) => {
@@ -86,19 +88,21 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
           role="dialog"
           aria-modal="true"
           aria-label="Site menu"
-          className="glow-bottom fixed inset-0 z-40 overflow-y-auto bg-paper text-ink"
+          // Lenis stops the page while the menu is open and would swallow this panel's own scroll too.
+          data-lenis-prevent
+          className="glow-bottom fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-paper text-ink"
           initial={reduce ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }}
           animate={reduce ? { opacity: 1 } : { clipPath: "inset(0 0 0% 0)" }}
           exit={reduce ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }}
           transition={{ duration: reduce ? 0.2 : 0.75, ease: [0.76, 0, 0.24, 1] }}
         >
-          <div className="wrap grid min-h-full gap-12 pt-[calc(var(--header-h)+3vh)] pb-12 lg:grid-cols-[1.4fr_1fr]">
+          <div className="wrap grid min-h-full gap-12 pt-[calc(var(--header-h)+3vh)] pb-12 max-md:pt-[calc(var(--header-h)+8px)] lg:grid-cols-[1.4fr_1fr]">
             <nav aria-label="Primary" className="grid content-start">
               {navGroups.map((group, g) => (
                 <section
                   key={group.title}
                   aria-labelledby={`menu-group-${g}`}
-                  className="grid border-t border-ink/15 pt-2 pb-[clamp(8px,1.4vh,16px)] lg:grid-cols-[10.5rem_1fr] lg:gap-4"
+                  className="grid border-t border-ink/15 pt-2 pb-[clamp(8px,1.4vh,16px)] max-md:pt-1 max-md:pb-2 lg:grid-cols-[10.5rem_1fr] lg:gap-4"
                 >
                   <motion.p
                     id={`menu-group-${g}`}
@@ -120,14 +124,14 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
                           initial={reduce ? false : { y: 24, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           transition={{ delay: 0.22 + i * 0.035, duration: 0.8, ease }}
-                          className={`py-[clamp(4px,0.8vh,9px)] transition-opacity duration-300 ${pending && pending !== item.href ? "opacity-35" : ""}`}
+                          className={`py-[clamp(4px,0.8vh,9px)] max-md:py-[3px] transition-opacity duration-300 ${pending && pending !== item.href ? "opacity-35" : ""}`}
                         >
                           <Link
                             href={item.href}
                             onClick={go(item.href)}
                             aria-busy={pending === item.href || undefined}
                             aria-current={current ? "page" : undefined}
-                            className={`group flex items-center gap-5 font-display text-[clamp(28px,min(3.2vw,4.4vh),46px)] leading-[1.1] font-semibold transition-colors duration-300 ${current ? "text-royal italic" : pending === item.href ? "text-brand-ink" : "text-ink"} hover:text-royal`}
+                            className={`group flex items-center gap-5 font-display text-[clamp(28px,min(3.2vw,4.4vh),46px)] leading-[1.1] max-md:text-[26px] font-semibold transition-colors duration-300 ${current ? "text-royal italic" : pending === item.href ? "text-brand-ink" : "text-ink"} hover:text-royal`}
                           >
                             <span className="transition-transform duration-500 [transition-timing-function:var(--ease-out)] group-hover:translate-x-2">
                               {item.label}
@@ -182,7 +186,7 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
               {/* Countdown, level with the first menu item. */}
               <div className="navy-grad relative overflow-hidden rounded-[var(--radius-l)] p-[clamp(20px,2vw,32px)] text-white">
                 <Countdown label="IIC 2027 Begins In" dark stretch />
-                <p className="mt-5 text-sm text-white/70">{site.dates}, {site.mode}</p>
+                <p className="mt-5 text-sm text-white/70">{keep(site.dates)}, {site.mode}</p>
               </div>
 
               <div className="grid flex-1 gap-3 sm:grid-cols-2">
@@ -197,12 +201,12 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
                       <span>
                         <span className="block font-display text-[clamp(24px,1.9vw,32px)] leading-[1.1] font-semibold">{next.m.label}</span>
                         <span className="mt-1 block text-sm text-muted">
-                          {next.m.display}, {next.days === 0 ? "today" : `in ${next.days} day${next.days === 1 ? "" : "s"}`}
+                          {keep(next.m.display)}, {next.days === 0 ? "today" : `in ${next.days} day${next.days === 1 ? "" : "s"}`}
                         </span>
                       </span>
                       {after && (
                         <span className="border-t border-ink/10 pt-4 text-sm text-muted [@media(max-height:760px)]:hidden">
-                          Then <span className="font-display text-[17px] font-semibold text-ink">{after.label}</span>, {after.display}
+                          Then <span className="font-display text-[17px] font-semibold text-ink">{after.label}</span>, {keep(after.display)}
                         </span>
                       )}
                     </span>
@@ -222,7 +226,7 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
                   </span>
                   <span className="flex flex-col p-5 pt-3">
                     <span className="text-xs font-semibold tracking-[0.18em] text-amber-ink uppercase">Venue</span>
-                    <span className="mt-1 block font-display text-[clamp(18px,1.3vw,21px)] leading-[1.15] font-semibold">{venue.name}</span>
+                    <span className="mt-1 block font-display text-[clamp(18px,1.3vw,21px)] leading-[1.15] font-semibold">{keep(venue.name)}</span>
                   </span>
                 </Link>
               </div>
@@ -232,7 +236,7 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
                   <div className="min-w-0">
                     <p className="text-sm text-muted">Write to Us</p>
                     <MailLink to={site.email} className="block font-display text-[clamp(19px,1.4vw,23px)] font-semibold [font-variant-numeric:lining-nums] [overflow-wrap:anywhere] hover:text-brand-ink">
-                      {site.email}
+                      <EmailText email={site.email} />
                     </MailLink>
                   </div>
                   {/* The header carries Submit paper on desktop; phones get it here. */}

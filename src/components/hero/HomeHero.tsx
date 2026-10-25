@@ -4,7 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Monitor } from "@phosphor-icons/react/dist/ssr";
 import { HeroEngine } from "./engine";
 import { Loader, LOADER_SKEW } from "./Loader";
-import { CampusFilmBeside, filmReady } from "@/components/home/CampusFilm";
+import { slashX } from "./slash";
+import { CampusFilmBeside, filmProgress } from "@/components/home/CampusFilm";
 import { Countdown } from "@/components/home/Countdown";
 import { ThinkingSystem } from "@/components/scene/ThinkingSystem";
 import { Field } from "@/components/ui/Field";
@@ -14,6 +15,7 @@ import { onFrame } from "@/lib/frame";
 import { acquireScrollLock } from "@/lib/scroll";
 import { clamp } from "@/lib/damp";
 import { site, heroCampusPhoto } from "@/content/site";
+import { keep } from "@/lib/keep";
 
 const INTRO_KEY = "iic-intro-seen";
 
@@ -61,6 +63,8 @@ export function HomeHero() {
   const introText = useRef<HTMLParagraphElement>(null);
   const introBlock = useRef<HTMLDivElement>(null);
   const slot = useRef<HTMLDivElement>(null);
+  const ink = useRef<HTMLDivElement>(null);
+  const staticSlash = useRef<HTMLSpanElement>(null);
   const sceneHost = useRef<HTMLDivElement>(null);
   const engine = useRef<HeroEngine | null>(null);
   const scene = useRef<ThinkingSystem | null>(null);
@@ -70,6 +74,8 @@ export function HomeHero() {
   const [heroIn, setHeroIn] = useState(false);
   const [loader, setLoader] = useState<"none" | "load" | "out">("none");
   const [open, setOpen] = useState(false);
+  // The campus film opens only once the intro's slash has landed, so the slash never crosses moving footage.
+  const [filmIn, setFilmIn] = useState(false);
 
   const sceneReady = useMemo(() => {
     let resolve!: () => void;
@@ -77,8 +83,6 @@ export function HomeHero() {
     return { p, resolve };
   }, []);
 
-  // The intro holds until the scene is built and the campus film is actually playing.
-  const loaderReady = useMemo(() => Promise.all([sceneReady.p, filmReady]), [sceneReady]);
 
   const setHold = useCallback((on: boolean) => scene.current?.setHold(on), []);
   const poke = useCallback(() => scene.current?.poke(), []);
@@ -106,7 +110,7 @@ export function HomeHero() {
     let eng: HeroEngine | null = null;
     if (!reduce) {
       try {
-        eng = new HeroEngine({ root: root.current!, canvas: canvas.current!, introText: introText.current!, introBlock: introBlock.current!, slot: slotEl });
+        eng = new HeroEngine({ root: root.current!, canvas: canvas.current!, introText: introText.current!, introBlock: introBlock.current!, slot: slotEl, ink: ink.current });
       } catch (err) {
         console.warn("[hero] ribbon engine unavailable, using the static slash:", err);
         eng = null;
@@ -124,6 +128,7 @@ export function HomeHero() {
     if (!eng) {
       setMode("static");
       setHeroIn(true);
+      setFilmIn(true);
       setOpen(true);
     } else {
       if (ts) {
@@ -159,6 +164,7 @@ export function HomeHero() {
       } else {
         eng.intro = 1;
         setHeroIn(true);
+        setFilmIn(true);
       }
     }
 
@@ -188,6 +194,20 @@ export function HomeHero() {
     };
   }, [sceneReady]);
 
+  // The static slash takes the same spot as the WebGL one from md up (phones keep the class position).
+  useEffect(() => {
+    const el = staticSlash.current;
+    if (mode !== "static" || !el) return;
+    const place = () => {
+      const box = el.offsetParent?.getBoundingClientRect();
+      el.style.left = box && matchMedia("(min-width: 768px)").matches ? `${slashX(innerWidth, innerHeight, box.top + scrollY + innerHeight / 2) - box.left}px` : "";
+    };
+    place();
+    document.fonts?.ready.then(place);
+    addEventListener("resize", place);
+    return () => removeEventListener("resize", place);
+  }, [mode]);
+
   const onLoaderDone = useCallback((slash: HTMLElement) => {
     const eng = engine.current;
     loaderLock.current?.();
@@ -197,11 +217,15 @@ export function HomeHero() {
     } catch {}
     if (!eng) {
       setHeroIn(true);
+      setFilmIn(true);
       setLoader("none");
       return;
     }
     setLoader("out");
-    eng.handoff(slash, LOADER_SKEW, () => setHeroIn(true), () => setLoader("none"));
+    eng.handoff(slash, LOADER_SKEW, () => setHeroIn(true), () => {
+      setLoader("none");
+      setFilmIn(true);
+    });
   }, []);
 
   const pointer = (e: React.PointerEvent<HTMLElement>, el: HTMLElement | null) => {
@@ -219,7 +243,7 @@ export function HomeHero() {
           <Field />
         </div>
         {/* Campus film in the space right of the slash. */}
-        <CampusFilmBeside />
+        <CampusFilmBeside shown={filmIn} />
         {mode === "gl" && (
           <div aria-hidden className="pointer-events-none sticky top-0 z-[1] -mb-[100lvh] h-[100lvh]">
             <canvas ref={canvas} className="block size-full" />
@@ -229,9 +253,11 @@ export function HomeHero() {
         <div className="relative z-[2]">
           <div className={`wrap relative flex min-h-[100svh] flex-col pt-[calc(var(--header-h)+clamp(24px,6vh,80px))] pb-[clamp(28px,6vh,80px)] ${heroIn ? "is-in" : ""}`}>
             {mode === "static" && (
+              // Sized like hero/slash.ts (2 x SLASH.hy of the height); from md up the effect above sets its left.
               <span
+                ref={staticSlash}
                 aria-hidden
-                className="absolute top-[30svh] left-[82vw] h-[26svh] w-[15.6vw] -translate-x-1/2 -translate-y-1/2 -skew-x-[22deg] overflow-hidden rounded-[1.2svh] bg-brand md:top-[50svh] md:left-[57vw] md:h-[66svh] md:w-[14svh]"
+                className="absolute top-[30svh] left-[82vw] h-[26svh] w-[15.6vw] -translate-x-1/2 -translate-y-1/2 -skew-x-[22deg] overflow-hidden rounded-[1.2svh] bg-brand md:top-[50svh] md:left-[50vw] md:h-[66svh] md:w-[14svh]"
               >
                 {/* Same campus window as the WebGL slash: photo upright, bar slanted over it. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -239,50 +265,13 @@ export function HomeHero() {
                 <span className="absolute inset-0 bg-brand/45 mix-blend-multiply" />
               </span>
             )}
-            {/* Lockup: conference label, title, theme line. */}
-            <div className="relative my-auto">
-              {/* Conference identity: the full event name leads, the host university sits under it.
-                  It is the first dock for the name, which snaps into the nav once scrolled past. */}
-              <div className="fade-up mb-[clamp(18px,3vh,40px)]">
-                {/* The host's mark, part of the page: it scrolls away with the hero rather than riding in the nav. */}
-                <a href={site.universityUrl} target="_blank" rel="noopener noreferrer" aria-label="CHRIST (Deemed to be University)" data-host-mark className="mb-[clamp(14px,2.4vh,28px)] block w-fit">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/images/brand/christ-logo.webp" alt="CHRIST (Deemed to be University)" width={480} height={153} className="h-[clamp(40px,4.6vw,68px)] w-auto" />
-                </a>
-                <div data-snap="up" className="w-fit">
-                  <ConferenceLockup size="hero" host className="text-ink" />
-                </div>
+            <HeroCopy />
+            {/* The same text in white, shown only where the ribbon runs under it (the engine sets its clip). */}
+            {mode === "gl" && (
+              <div ref={ink} aria-hidden inert className="pointer-events-none absolute inset-0 flex flex-col px-[inherit] pt-[inherit] pb-[inherit] [clip-path:polygon(0_0,0_0,0_0)]">
+                <HeroCopy ghost />
               </div>
-              <h1 className="t-xl relative pb-[0.06em] font-semibold">
-                <span className="line-mask">
-                  <span>
-                    Mind <span className="em">and</span>
-                  </span>
-                </span>
-                <span className="line-mask">
-                  <span>Machine</span>
-                </span>
-              </h1>
-              <p className="fade-up mt-[clamp(14px,2.2vh,28px)] flex max-w-[34ch] items-start gap-4 text-[clamp(18px,1.55vw,26px)] leading-[1.35] text-ink/85 max-md:max-w-[62vw] max-md:text-[17px]">
-                <span aria-hidden className="mt-[0.12em] inline-block h-[1.15em] w-[0.32em] shrink-0 -skew-x-[22deg] rounded-[3px] bg-[linear-gradient(180deg,var(--color-brand),var(--color-royal))]" />
-                <span>Reimagining Human-AI Collaboration Across Sectors.</span>
-              </p>
-            </div>
-            <div className="fade-up mt-10 flex flex-wrap items-end justify-between gap-8">
-              <div className="flex flex-wrap items-start gap-x-8 gap-y-5">
-                <Countdown />
-                <div className="flex items-center gap-3">
-                  <span className="grid size-[clamp(44px,3.4vw,56px)] shrink-0 place-items-center rounded-[14px] bg-amber text-navy">
-                    <Monitor size={24} weight="duotone" />
-                  </span>
-                  <p className="leading-tight">
-                    <span className="block font-display text-[clamp(22px,1.8vw,30px)] leading-none font-medium">Hybrid Mode</span>
-                    <span className="text-sm text-muted">Online + offline, {site.dates}</span>
-                  </p>
-                </div>
-              </div>
-              <PillButton href="/thematic-tracks/" variant="brand">View Tracks</PillButton>
-            </div>
+            )}
           </div>
 
           <div ref={introBlock} className="wrap pt-[clamp(90px,16vh,200px)] pb-[clamp(40px,8vh,100px)]">
@@ -333,7 +322,82 @@ export function HomeHero() {
         </div>
       </section>
 
-      {loader !== "none" && <Loader ready={loaderReady} onComplete={onLoaderDone} phase={loader === "out" ? "out" : "load"} />}
+      {loader !== "none" && <Loader ready={sceneReady.p} progress={filmProgress} onComplete={onLoaderDone} phase={loader === "out" ? "out" : "load"} />}
+    </>
+  );
+}
+
+/**
+ * The hero's first screen of text. The ghost is its white twin for the ribbon overlay: no heading,
+ * links or snap markers, and everything that is not type (logo, countdown tiles, icon, button) held
+ * invisible, so only white letters sit over the blue.
+ */
+function HeroCopy({ ghost = false }: { ghost?: boolean }) {
+  const hide = ghost ? "invisible" : "";
+  const Title = ghost ? "div" : "h1";
+  // Lines the resting slash keeps a gap from (hero/slash.ts); the ghost sits exactly on top, so only the real copy is marked.
+  const clear = ghost ? {} : { "data-slash-clear": "" };
+  return (
+    <>
+      {/* Lockup: conference label, title, theme line. */}
+      <div className={`relative my-auto ${ghost ? "[&_*]:!text-white" : ""}`}>
+        {/* Conference identity: the full event name leads, the host university sits under it.
+            It is the first dock for the name, which snaps into the nav once scrolled past. */}
+        <div className="fade-up mb-[clamp(18px,3vh,40px)]">
+          {/* The host's mark, part of the page: it scrolls away with the hero rather than riding in the nav. */}
+          <a
+            href={ghost ? undefined : site.universityUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="CHRIST (Deemed to be University)"
+            data-host-mark={ghost ? undefined : ""}
+            className={`mb-[clamp(14px,2.4vh,28px)] block w-fit ${hide}`}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/brand/christ-logo.webp" alt="CHRIST (Deemed to be University)" width={480} height={153} className="h-[clamp(40px,4.6vw,68px)] w-auto" />
+          </a>
+          <div data-snap={ghost ? undefined : "up"} className="w-fit" {...clear}>
+            <ConferenceLockup size="hero" host className="text-ink" />
+          </div>
+        </div>
+        {/* The ghost is a div, so it repeats the global h1 rule's leading, tracking and balance. */}
+        <Title className={`t-xl relative pb-[0.06em] font-semibold ${ghost ? "[line-height:1] [text-wrap:balance] tracking-[-0.01em]" : ""}`}>
+          <span className="line-mask" {...clear}>
+            <span>
+              Mind <span className="em">and</span>
+            </span>
+          </span>
+          <span className="line-mask" {...clear}>
+            <span>Machine</span>
+          </span>
+        </Title>
+        <p className="fade-up mt-[clamp(14px,2.2vh,28px)] flex max-w-[34ch] items-start gap-4 text-[clamp(18px,1.55vw,26px)] leading-[1.35] text-ink/85 max-md:max-w-[62vw] max-md:text-[17px]">
+          <span aria-hidden className={`mt-[0.12em] inline-block h-[1.15em] w-[0.32em] shrink-0 -skew-x-[22deg] rounded-[3px] bg-[linear-gradient(180deg,var(--color-brand),var(--color-royal))] ${hide}`} />
+          <span {...clear}>Reimagining Human-AI Collaboration Across Sectors.</span>
+        </p>
+      </div>
+      <div className="fade-up mt-10 flex flex-wrap items-end justify-between gap-8">
+        <div className="flex flex-wrap items-start gap-x-8 gap-y-5">
+          {/* The ghost keeps the unit labels as white type and hides the tiles. */}
+          <div className={`flex ${ghost ? "[&_*]:!text-white [&_.mono]:invisible" : ""}`}>
+            <Countdown />
+          </div>
+          <div className="flex items-center gap-3">
+            <span className={`grid size-[clamp(44px,3.4vw,56px)] shrink-0 place-items-center rounded-[14px] bg-amber text-navy ${hide}`}>
+              <Monitor size={24} weight="duotone" />
+            </span>
+            <p className={`leading-tight ${ghost ? "[&_*]:!text-white" : ""}`}>
+              <span className="block font-display text-[clamp(22px,1.8vw,30px)] leading-none font-medium">Hybrid Mode</span>
+              <span className="text-sm text-muted">Online + offline, {keep(site.dates)}</span>
+            </p>
+          </div>
+        </div>
+        <div className={`flex ${hide}`}>
+          <PillButton href="/thematic-tracks/" variant="brand" tabIndex={ghost ? -1 : undefined}>
+            View Tracks
+          </PillButton>
+        </div>
+      </div>
     </>
   );
 }

@@ -7,6 +7,7 @@ import { FeeMatrix } from "@/components/pages/FeeMatrix";
 import { accommodation, feeNotes } from "@/content/fees";
 import { site } from "@/content/site";
 import { MailLink } from "@/components/ui/MailLink";
+import { EmailText } from "@/components/ui/EmailText";
 
 export const metadata: Metadata = { title: "Registration", description: "Registration fees for IIC 2027: national and international, early bird and regular." };
 
@@ -41,7 +42,7 @@ export default function RegistrationPage() {
         </Reveal>
       </section>
       <section className="wrap pb-[clamp(64px,8vw,130px)]">
-        <p className="text-muted">Questions about registration? Write to <MailLink to={site.email} subject="IIC 2027: Registration" className="text-ink underline decoration-brand decoration-2 underline-offset-4">{site.email}</MailLink>.</p>
+        <p className="text-muted">Questions about registration? Write to <MailLink to={site.email} subject="IIC 2027: Registration" className="text-ink underline decoration-brand decoration-2 underline-offset-4"><EmailText email={site.email} /></MailLink>.</p>
       </section>
     </>
   );

@@ -15,7 +15,12 @@ export const publication = {
     "Authors who wish to be considered for the APC-based Open Access publication track are requested to formally communicate their interest to the Publication Chair.",
   chair: {
     name: "Dr Ambili Jayachandran",
-    role: "Assistant Professor, Department of Business and Management, School of Business and Management, CHRIST University",
+    // One line each, so the affiliation breaks between its parts and never mid-name.
+    role: [
+      "Assistant Professor, Department of Business and Management",
+      "School of Business and Management",
+      "CHRIST (Deemed to be University), Bangalore Kengeri Campus",
+    ],
     email: "ambili.jayachandran@christuniversity.in" as string | null,
   },
 };

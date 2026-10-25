@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight, MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
 import type { Group, Member } from "@/content/committee";
+import { Phrases } from "@/components/ui/Phrases";
 
 const initials = (name: string) =>
   name
@@ -30,9 +31,9 @@ function MemberCard({ m }: { m: Member }) {
           <span className="font-display font-semibold text-[19px] leading-snug">{m.name}</span>
           {m.url && <ArrowUpRight size={18} className="mt-0.5 shrink-0 text-muted transition group-hover:text-brand-ink" />}
         </span>
-        {m.role && <span className="mt-1 block text-[15px] leading-snug text-ink/75">{m.role}</span>}
+        {m.role && <span className="mt-1 block text-[15px] leading-snug text-ink/75"><Phrases parts={[m.role]} /></span>}
         {(m.org || m.place) && (
-          <span className="mt-1 block text-sm leading-snug text-muted">{[m.org, m.place].filter(Boolean).join(", ")}</span>
+          <span className="mt-1 block text-sm leading-snug text-muted"><Phrases parts={[m.org, m.place]} /></span>
         )}
       </span>
     </Tag>

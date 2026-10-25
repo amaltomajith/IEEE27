@@ -4,6 +4,8 @@ import { site } from "@/content/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { MailLink } from "@/components/ui/MailLink";
 import { Ribbon } from "@/components/ui/Ribbon";
+import { keep } from "@/lib/keep";
+import { EmailText } from "@/components/ui/EmailText";
 
 export function Faq() {
   return (
@@ -17,7 +19,7 @@ export function Faq() {
           <p className="fade-up mt-6 max-w-[34ch] text-muted">
             Not covered here? Write to
             <MailLink to={site.email} className="mt-1 block w-fit text-ink underline decoration-brand decoration-2 underline-offset-4">
-              {site.email}
+              <EmailText email={site.email} />
             </MailLink>
           </p>
         </Reveal>
@@ -31,7 +33,7 @@ export function Faq() {
                 <Plus size={18} weight="bold" />
               </span>
             </summary>
-            <p className="max-w-[60ch] px-[clamp(18px,1.8vw,28px)] pb-[clamp(18px,1.8vw,28px)] text-ink/75">{f.a}</p>
+            <p className="max-w-[60ch] px-[clamp(18px,1.8vw,28px)] pb-[clamp(18px,1.8vw,28px)] text-ink/75">{keep(f.a)}</p>
           </details>
         ))}
       </div>

@@ -5,6 +5,7 @@ import { CalendarPlus, Check } from "@phosphor-icons/react/dist/ssr";
 import { milestones } from "@/content/dates";
 import { statusOf, daysUntil, type Status } from "@/lib/dates";
 import { googleCalendarUrl } from "@/lib/calendar";
+import { keep } from "@/lib/keep";
 
 const label: Record<Status, string> = { past: "Closed", next: "Next Up", upcoming: "Upcoming", live: "Happening Now" };
 const conference = milestones.find((m) => m.end)!;
@@ -67,7 +68,7 @@ export function DatesTimeline({ dark = false }: { dark?: boolean }) {
                 </div>
                 <div className="flex items-center gap-4">
                   <time dateTime={m.date} className={`font-display text-[clamp(19px,1.45vw,24px)] font-semibold [font-variant-numeric:lining-nums] ${strong ? ink : sub}`}>
-                    {m.display}
+                    {keep(m.display)}
                   </time>
                   {s !== "past" && (
                     <a
