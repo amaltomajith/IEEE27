@@ -52,7 +52,7 @@ export default function ProgrammeSchedulePage() {
             </div>
             <div className="p-2.5 max-lg:order-first max-lg:pb-0">
               <div className="relative h-full min-h-[clamp(220px,40vw,320px)] overflow-hidden rounded-[calc(var(--radius-l)-10px)]">
-                <Image src="/images/venue/kengeri-dawn.webp" alt="Aerial view of the CHRIST Bangalore Kengeri Campus at dawn" fill sizes="(min-width:1024px) 52vw, 92vw" className="object-cover object-[36%_55%]" />
+                <Image src="/images/venue/kengeri-main-block.webp" alt="Main block of the CHRIST Bangalore Kengeri Campus" fill sizes="(min-width:1024px) 52vw, 92vw" className="object-cover object-[50%_55%]" />
               </div>
             </div>
           </div>

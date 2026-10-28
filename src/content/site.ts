@@ -35,8 +35,8 @@ export const campusVideo = {
   poster: "/video/kengeri-poster.webp",
 } as const;
 
-/** Kengeri campus at dawn (drone, from bkc.christuniversity.in), cropped portrait for the resting hero slash. */
-export const heroCampusPhoto = "/images/hero/kengeri-dawn.webp";
+/** School of Architecture block, Kengeri campus (original photo in img/), cropped portrait for the resting hero slash. */
+export const heroCampusPhoto = "/images/hero/kengeri-architecture.webp";
 
 export type School = { name: string; short: string; url: string; image: string; venueImage: string };
 

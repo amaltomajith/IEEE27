@@ -222,7 +222,7 @@ export function MenuOverlay({ open, onClose }: { open: boolean; onClose: () => v
                 >
                   <span className="relative block min-h-[92px] flex-1 overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/images/venue/campus-poster.webp" alt="" width={960} height={260} className="absolute inset-0 size-full object-cover object-[50%_65%] transition-transform duration-[1.2s] [transition-timing-function:var(--ease-out)] group-hover:scale-105" />
+                    <img src="/images/venue/kengeri-main-block.webp" alt="" width={2400} height={1350} className="absolute inset-0 size-full object-cover object-[50%_65%] transition-transform duration-[1.2s] [transition-timing-function:var(--ease-out)] group-hover:scale-105" />
                   </span>
                   <span className="flex flex-col p-5 pt-3">
                     <span className="text-xs font-semibold tracking-[0.18em] text-amber-ink uppercase">Venue</span>

@@ -89,7 +89,7 @@ export function Footer() {
             {/* The photo takes whatever height the two rows leave, so the card has no dead space. */}
             <span className="relative block min-h-[150px] flex-1 overflow-hidden rounded-[clamp(10px,1.1vw,16px)] md:max-xl:min-h-[200px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/venue/campus-poster.webp" alt="CHRIST University Kengeri Campus building" width={960} height={260} loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover object-[50%_65%] transition-transform duration-[1.2s] [transition-timing-function:var(--ease-out)] group-hover:scale-105" />
+              <img src="/images/venue/kengeri-main-block.webp" alt="Main block of the CHRIST Bangalore Kengeri Campus" width={2400} height={1350} loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover object-[50%_65%] transition-transform duration-[1.2s] [transition-timing-function:var(--ease-out)] group-hover:scale-105" />
             </span>
             <span className="flex items-start justify-between gap-4 p-[clamp(12px,1.2vw,20px)] md:max-xl:flex-1 md:max-xl:self-center">
               <span className="min-w-0">
