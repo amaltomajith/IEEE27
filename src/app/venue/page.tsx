@@ -10,15 +10,23 @@ import { campuses, campusCredits } from "@/content/campuses";
 
 export const metadata: Metadata = { title: "Venue", description: `${venue.name}, ${venue.address.join(", ")}.` };
 
+// Gallery tiles from md up: the wide tile sets its row's height and the narrow one beside it stretches to match,
+// so their bottoms always line up; thirds come three to a row, upright.
+const SPAN = {
+  wide: { col: "md:col-span-7", shape: "md:aspect-[16/10]", sizes: "(min-width:768px) 58vw, 92vw" },
+  narrow: { col: "md:col-span-5", shape: "md:aspect-auto md:h-full", sizes: "(min-width:768px) 42vw, 92vw" },
+  third: { col: "md:col-span-4", shape: "md:aspect-[4/5]", sizes: "(min-width:768px) 33vw, 92vw" },
+} as const;
+
 export default function VenuePage() {
   return (
     <>
       <PageHero title={venue.name} emphasis="Kengeri Campus" crumbs={[{ label: "Venue" }]} />
       <section className="wrap grid gap-3 pb-[clamp(56px,7vw,110px)] md:grid-cols-12">
-        {venue.photos.map((p, i) => (
-          <Reveal key={p.src} className={["md:col-span-7", "md:col-span-5", "md:col-span-5", "md:col-span-7"][i]}>
-            <div className={`fade-up relative overflow-hidden rounded-[var(--radius-l)] bg-gray ${i === 0 || i === 3 ? "aspect-[4/3] md:aspect-[16/10]" : "aspect-[4/3] md:aspect-[11/10]"}`}>
-              <Image src={p.src} alt={`${p.label}, CHRIST Kengeri Campus`} fill sizes="(min-width:768px) 55vw, 92vw" className="object-cover" />
+        {venue.photos.map((p) => (
+          <Reveal key={p.src} className={SPAN[p.span].col}>
+            <div className={`fade-up relative overflow-hidden rounded-[var(--radius-l)] bg-gray aspect-[4/3] ${SPAN[p.span].shape}`}>
+              <Image src={p.src} alt={`${p.label}, CHRIST Kengeri Campus`} fill sizes={SPAN[p.span].sizes} className="object-cover" />
             </div>
           </Reveal>
         ))}
