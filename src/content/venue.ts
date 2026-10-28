@@ -9,10 +9,12 @@ export const venue = {
     { from: "Kempegowda Bus Stand (Majestic)", how: "About 27 km by Mysore Road, or bus 226N" },
     { from: "Kempegowda International Airport", how: "About 65 km, Vayu Vajra bus to Satellite Bus Stand, then taxi or bus" },
   ],
+  // From bkc.christuniversity.in: crops of its 3838px dawn drone shot, plus two campus-life banners.
+  // Labels are alt text only; the grid shows no captions.
   photos: [
-    { label: "School of Architecture", src: "/images/venue/architecture.webp" },
-    { label: "School of Engineering and Technology", src: "/images/venue/engineering.webp" },
-    { label: "School of Business & Management", src: "/images/venue/business.webp" },
-    { label: "School of Psychological Sciences, Education and Social Work", src: "/images/venue/psychology.webp" },
+    { label: "The academic blocks at sunrise", src: "/images/venue/kengeri-blocks.webp" },
+    { label: "Tree-lined paths across the campus", src: "/images/venue/kengeri-paths.webp" },
+    { label: "Students building an electric bike in the engineering lab", src: "/images/venue/kengeri-lab.webp" },
+    { label: "Morning mist over the Kengeri campus", src: "/images/venue/kengeri-mist.webp" },
   ],
 };

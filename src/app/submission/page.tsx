@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Paper Submission", description: "Gui
 export default function SubmissionPage() {
   return (
     <>
-      <PageHero title="Two Ways to Submit" emphasis="Submit" crumbs={[{ label: "Paper Submission" }]} intro="Send an extended abstract by 20 October 2026, or a full manuscript by 1 December 2026.">
+      <PageHero title="Two Ways to Submit" emphasis="Submit" crumbs={[{ label: "Paper Submission" }]} intro="Send an extended abstract by 25 November 2026, or a full manuscript by 5 January 2027.">
         <div className="flex flex-wrap gap-3">
           <PillButton href={site.portals.submission} variant="brand">Paper Submission Portal</PillButton>
           <PillButton href={site.portals.submission} variant="ghost">Reviewer Portal</PillButton>

@@ -6,7 +6,7 @@ export const faq = [
   },
   {
     q: "What can I submit?",
-    a: "Either an extended abstract of up to 1,500 words (due 20 October 2026) or a full manuscript (due 1 December 2026). Both are submitted through the paper submission portal.",
+    a: "Either an extended abstract of up to 1,500 words (due 25 November 2026) or a full manuscript (due 5 January 2027). Both are submitted through the paper submission portal.",
   },
   {
     q: "Where will accepted papers be published?",

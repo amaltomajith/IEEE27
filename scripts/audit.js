@@ -5,7 +5,7 @@ async (page) => {
   const BASE = "http://localhost:4311";
   const routes = ["/", "/about/", "/committee/", "/committee/advisory/", "/committee/technical/", "/committee/organizing/",
     "/committee/publicity/", "/thematic-tracks/", "/thematic-tracks/eee-me/", "/important-dates/", "/submission/",
-    "/registration/", "/publication/", "/venue/", "/contact/"];
+    "/registration/", "/programme-schedule/", "/publication/", "/venue/", "/contact/"];
   const report = [];
   for (const r of routes) {
     await page.goto(BASE + r, { waitUntil: "load" });

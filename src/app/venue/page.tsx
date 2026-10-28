@@ -17,12 +17,9 @@ export default function VenuePage() {
       <section className="wrap grid gap-3 pb-[clamp(56px,7vw,110px)] md:grid-cols-12">
         {venue.photos.map((p, i) => (
           <Reveal key={p.src} className={["md:col-span-7", "md:col-span-5", "md:col-span-5", "md:col-span-7"][i]}>
-            <figure className="fade-up">
-              <div className={`relative overflow-hidden rounded-[var(--radius-l)] bg-gray ${i === 0 || i === 3 ? "aspect-[4/3] md:aspect-[16/10]" : "aspect-[4/3] md:aspect-[11/10]"}`}>
-                <Image src={p.src} alt={`${p.label}, CHRIST Kengeri Campus`} fill sizes="(min-width:768px) 55vw, 92vw" className="object-cover" />
-              </div>
-              <figcaption className="mt-3 text-muted">{p.label}</figcaption>
-            </figure>
+            <div className={`fade-up relative overflow-hidden rounded-[var(--radius-l)] bg-gray ${i === 0 || i === 3 ? "aspect-[4/3] md:aspect-[16/10]" : "aspect-[4/3] md:aspect-[11/10]"}`}>
+              <Image src={p.src} alt={`${p.label}, CHRIST Kengeri Campus`} fill sizes="(min-width:768px) 55vw, 92vw" className="object-cover" />
+            </div>
           </Reveal>
         ))}
       </section>
@@ -63,7 +60,7 @@ export default function VenuePage() {
             </div>
             <div className="p-2.5 max-lg:order-first max-lg:pb-0">
               <div className="relative h-full min-h-[clamp(220px,40vw,320px)] overflow-hidden rounded-[calc(var(--radius-l)-10px)]">
-                <Image src="/images/venue/kengeri-aerial.webp" alt="Aerial view of the CHRIST Bangalore Kengeri Campus" fill sizes="(min-width:1024px) 52vw, 92vw" className="object-cover object-[50%_60%]" />
+                <Image src="/images/venue/kengeri-dawn.webp" alt="Aerial view of the CHRIST Bangalore Kengeri Campus at dawn" fill sizes="(min-width:1024px) 52vw, 92vw" className="object-cover object-[36%_55%]" />
               </div>
             </div>
           </div>

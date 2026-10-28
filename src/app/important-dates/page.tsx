@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Important Dates", description: "Subm
 export default function DatesPage() {
   return (
     <>
-      <PageHero title="Important Dates" emphasis="Dates" crumbs={[{ label: "Important Dates" }]} intro="Abstracts open the process in October 2026. The conference runs 2-3 March 2027.">
+      <PageHero title="Important Dates" emphasis="Dates" crumbs={[{ label: "Important Dates" }]} intro="Extended abstracts are due 25 November 2026. The conference runs 2-3 March 2027.">
         <div className="flex flex-wrap gap-3">
           <PillButton href={site.portals.submission} variant="brand">Submit Extended Abstract</PillButton>
           <PillButton href={site.portals.submission} variant="ghost">Submit Full Manuscript</PillButton>

@@ -11,9 +11,9 @@ export type Milestone = {
 // ("March 2-3, 2027") and the Registration page ("January 2027"), so they are
 // rendered as 2027 here.
 export const milestones: Milestone[] = [
-  { label: "Extended Abstract", date: "2026-10-20", display: "20 October 2026" },
+  { label: "Extended Abstract", date: "2026-11-25", display: "25 November 2026" },
   { label: "Abstract Notification", date: "2026-11-20", display: "20 November 2026" },
-  { label: "Full Manuscript", date: "2026-12-01", display: "01 December 2026" },
+  { label: "Full Manuscript", date: "2027-01-05", display: "05 January 2027" },
   { label: "Manuscript Notification", date: "2027-01-05", display: "05 January 2027" },
   { label: "Early Bird Registration", date: "2027-01-15", display: "15 January 2027" },
   { label: "Regular Registration", date: "2027-01-30", display: "30 January 2027" },

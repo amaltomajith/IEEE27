@@ -35,8 +35,8 @@ export const campusVideo = {
   poster: "/video/kengeri-poster.webp",
 } as const;
 
-/** Drone shot of the Kengeri campus, shown inside the resting hero slash. */
-export const heroCampusPhoto = "/images/hero/kengeri-aerial.webp";
+/** Kengeri campus at dawn (drone, from bkc.christuniversity.in), cropped portrait for the resting hero slash. */
+export const heroCampusPhoto = "/images/hero/kengeri-dawn.webp";
 
 export type School = { name: string; short: string; url: string; image: string; venueImage: string };
 
@@ -107,6 +107,7 @@ export const navGroups: NavGroup[] = [
     title: "Attend",
     items: [
       { label: "Registration", href: "/registration/" },
+      { label: "Programme Schedule", href: "/programme-schedule/" },
       { label: "Venue", href: "/venue/" },
       { label: "Contact", href: "/contact/" },
     ],

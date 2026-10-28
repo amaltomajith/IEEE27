@@ -56,7 +56,7 @@ export const advisory: Group[] = [
     scope: "National",
     members: [
       { name: "Dr Asokan Thondiyath", role: "HoD and Professor, Department of Engineering Design", org: "IIT Madras", place: "Chennai", url: "https://ed.iitm.ac.in/~asokan/" },
-      { name: "Dr T. Sivakumar", role: "Professor", org: "VIT Vellore", place: "Vellore", url: "https://scholar.google.com/citations?user=8gi-CSIAAAAJ&hl=en" },
+      { name: "Dr A. Sivakumar", role: "Professor", org: "VIT Vellore", place: "Vellore" },
       // Source: "Dr..Domnic S".
       { name: "Dr Domnic S", role: "Professor, Director", org: "National Institute of Technology, Trichy", place: "Tiruchirappalli", url: "https://www.nitt.edu/home/academics/departments/ca/facultymca/domnic/" },
       { name: "Dr R. Thangarajan", role: "Professor, Department of Information Technology", org: "Kongu Engineering College", place: "Tamil Nadu", url: "https://hece.kongu.edu/contact.php" },
@@ -123,7 +123,6 @@ export const technical: Group[] = [
       { name: "Dr T. Chandra Shekar", role: "Associate Professor", org: "MVSR Engineering College", place: "Hyderabad, Telangana", url: ORC + "0000-0003-1720-5160" },
       { name: "Dr Prajwala TR", role: "Associate Professor", org: "PES University", place: "Bengaluru, Karnataka", url: ORC + "0000-0003-0453-3616" },
       { name: "Dr Ushus Maria Joseph", role: "Associate Professor", org: "Mar Baselios Christian College of Engineering and Technology", place: "Kuttikkanam, Kerala", url: SCO + "57903180900" },
-      { name: "Dr K. Thiyagu", role: "Associate Professor", org: "Central University of Karnataka", place: "Gulbarga, Karnataka", url: ORC + "0000-0003-0533-597X" },
       { name: "Dr Sreenath M V", role: "Associate Professor", org: "Nitte University, Bengaluru Campus", place: "Karnataka", url: ORC + "0009-0008-0672-4778" },
       { name: "Dr M Sarfraz", role: "Associate Professor", org: "Aligarh Muslim University", place: "Aligarh, Uttar Pradesh", url: ORC + "0000-0002-5586-3546" },
       { name: "Dr Annie Chacko", role: "Associate Professor", org: "MBC College of Engineering and Technology", place: "Peermade, Idukki, Kerala", url: ORC + "0009-0003-8749-7397" },

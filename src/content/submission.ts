@@ -1,6 +1,6 @@
 export const abstractOption = {
   title: "Extended Abstract",
-  deadline: "20 October 2026",
+  deadline: "25 November 2026",
   wordLimit:
     "The extended abstract should be limited to 1,500 words, excluding the title, author details, keywords, and references.",
   formatting:
@@ -17,7 +17,7 @@ export const abstractOption = {
 
 export const manuscriptOption = {
   title: "Full Manuscript",
-  deadline: "1 December 2026",
+  deadline: "5 January 2027",
   intro:
     "Authors are requested to prepare their manuscripts formally according to the following guidelines. Manuscripts that do not comply with the prescribed format may be returned for revision before the review process.",
   formatting: [
