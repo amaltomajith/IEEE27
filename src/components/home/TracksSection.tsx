@@ -66,8 +66,21 @@ function Cards() {
         return (
         <li key={t.slug} className="w-[min(84vw,520px)] shrink-0 snap-start md:min-h-[min(74vh,700px)] md:w-[min(40vw,520px)]">
           <Link href={`/thematic-tracks/${t.slug}/`} className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-l)] bg-white text-ink ring-1 ring-ink/[0.06] transition-shadow duration-500 hover:shadow-[0_24px_60px_-30px_rgb(10_26_64/0.3)]">
-            <div className="relative aspect-[16/10] shrink-0 overflow-hidden md:aspect-[16/11]">
-              <Image src={t.poster} alt={`${t.short} track poster`} fill sizes="(min-width:768px) 40vw, 84vw" className="object-cover object-top transition duration-[1.2s] [transition-timing-function:var(--ease-out)] group-hover:scale-105" />
+            <div className="relative aspect-[16/10] shrink-0 overflow-hidden bg-navy md:aspect-[16/11]">
+              {/* The posters are square and the frame is wide. The whole poster sits in the middle; each side is a
+                  soft, mirrored copy of the poster's own edge, so the colours meet exactly and the join disappears. */}
+              <div className="absolute inset-0 transition duration-[1.2s] [transition-timing-function:var(--ease-out)] group-hover:scale-105">
+                <div className="absolute inset-y-0 left-1/2 aspect-square h-full -translate-x-1/2">
+                  {/* Mirrors tuck 6% under the poster, and stretch 10% taller, so their blurred edges stay hidden. */}
+                  <span aria-hidden className="absolute inset-y-0 right-[94%] w-full -scale-x-100 scale-y-110 blur-[8px]">
+                    <Image src={t.poster} alt="" fill sizes="(min-width:768px) 40vw, 84vw" className="object-cover" />
+                  </span>
+                  <span aria-hidden className="absolute inset-y-0 left-[94%] w-full -scale-x-100 scale-y-110 blur-[8px]">
+                    <Image src={t.poster} alt="" fill sizes="(min-width:768px) 40vw, 84vw" className="object-cover" />
+                  </span>
+                  <Image src={t.poster} alt={`${t.short} track poster`} fill sizes="(min-width:768px) 40vw, 84vw" className="object-cover [mask-image:linear-gradient(to_right,transparent,#000_9%,#000_91%,transparent)]" />
+                </div>
+              </div>
               <span className={`absolute top-4 right-4 grid size-12 place-items-center rounded-full shadow-lg ${tone.chip} transition-transform duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-45`}>
                 <ArrowUpRight size={20} weight="bold" />
               </span>
