@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { CalendarPlus, Check } from "@phosphor-icons/react/dist/ssr";
-import { milestones } from "@/content/dates";
+import { milestones, isDated } from "@/content/dates";
 import { statusOf, daysUntil, type Status } from "@/lib/dates";
 import { googleCalendarUrl } from "@/lib/calendar";
 import { keep } from "@/lib/keep";
 
 const label: Record<Status, string> = { past: "Closed", next: "Next Up", upcoming: "Upcoming", live: "Happening Now" };
-const conference = milestones.find((m) => m.end)!;
+const conference = milestones.filter(isDated).find((m) => m.end)!;
 
 export function DatesTimeline({ dark = false }: { dark?: boolean }) {
   const [now, setNow] = useState<number | null>(null);
@@ -62,7 +62,7 @@ export function DatesTimeline({ dark = false }: { dark?: boolean }) {
                   {now && (
                     <p className={`mt-1 text-sm ${strong ? "text-brand" : sub}`}>
                       {label[s]}
-                      {i === nextIdx && s === "next" && `, ${daysUntil(m.date, now)} days left`}
+                      {i === nextIdx && s === "next" && isDated(m) && `, ${daysUntil(m.date, now)} days left`}
                     </p>
                   )}
                 </div>
@@ -70,7 +70,7 @@ export function DatesTimeline({ dark = false }: { dark?: boolean }) {
                   <time dateTime={m.date} className={`font-display text-[clamp(19px,1.45vw,24px)] font-semibold [font-variant-numeric:lining-nums] ${strong ? ink : sub}`}>
                     {keep(m.display)}
                   </time>
-                  {s !== "past" && (
+                  {s !== "past" && isDated(m) && (
                     <a
                       href={googleCalendarUrl(m)}
                       target="_blank"
@@ -84,7 +84,7 @@ export function DatesTimeline({ dark = false }: { dark?: boolean }) {
                       <CalendarPlus size={17} />
                     </a>
                   )}
-                  {s === "past" && <span aria-hidden className="size-9 shrink-0 max-md:hidden" />}
+                  {(s === "past" || !isDated(m)) && <span aria-hidden className="size-9 shrink-0 max-md:hidden" />}
                 </div>
               </div>
             </li>

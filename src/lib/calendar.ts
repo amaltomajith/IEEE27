@@ -1,4 +1,4 @@
-import type { Milestone } from "@/content/dates";
+import type { DatedMilestone } from "@/content/dates";
 import { site } from "@/content/site";
 
 const d = (iso: string) => iso.replaceAll("-", "");
@@ -12,7 +12,7 @@ const nextDay = (iso: string) => {
  * Google Calendar "create event" link, prefilled as an all-day event; the visitor only has to press Save.
  * Reminders cannot be set through this URL, so Google applies the visitor's default all-day notifications.
  */
-export const googleCalendarUrl = (m: Milestone) => {
+export const googleCalendarUrl = (m: DatedMilestone) => {
   const conference = !!m.end;
   const params = new URLSearchParams({
     action: "TEMPLATE",
