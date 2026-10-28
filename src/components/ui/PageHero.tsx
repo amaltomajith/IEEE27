@@ -2,9 +2,13 @@ import Link from "next/link";
 import { Field } from "./Field";
 import { Reveal } from "./Reveal";
 import { ScrollSlash } from "./ScrollSlash";
-import { keep } from "@/lib/keep";
+import { keep, keepRuns } from "@/lib/keep";
 
 type Crumb = { label: string; href?: string };
+
+// A title runs larger than a protected phrase can always fit on a phone, so phrases here are inline-blocks, not no-break spaces.
+const Runs = ({ text }: { text: string }) =>
+  keepRuns(text).map((r, i) => (i % 2 ? <span key={i} className="inline-block">{r}</span> : r));
 
 export function PageHero({
   title,
@@ -20,6 +24,8 @@ export function PageHero({
   children?: React.ReactNode;
 }) {
   const parts = emphasis ? title.split(emphasis) : [title];
+  // "CHRIST (Deemed to be University) Bangalore " -> lead "CHRIST (Deemed to be University) ", last "Bangalore ".
+  const [, lead, last] = /^(.*?)(\S* ?)$/.exec(parts[0])!;
   return (
     <section className="relative isolate overflow-hidden pt-[calc(var(--header-h)+clamp(48px,9vh,120px))] pb-[clamp(48px,8vw,120px)]">
       <Field />
@@ -36,13 +42,23 @@ export function PageHero({
             ))}
           </ol>
         </nav>
-        <h1 className={title.length > 42 ? "t-h2 max-w-[26ch] !font-semibold" : "t-h1 max-w-[16ch] md:max-w-[18ch]"}>
+        <h1 className={title.length > 42 ? "t-h2 max-w-[31ch] !font-semibold" : "t-h1 max-w-[16ch] md:max-w-[18ch]"}>
           <span className="line-mask">
             <span>
-              {/* Protected names stay whole, and the emphasis never drops onto a line of its own. */}
-              {emphasis ? keep(parts[0]).replace(/ $/, "\u00a0") : keep(parts[0])}
-              {emphasis && <span className="em">{emphasis}</span>}
-              {parts[1] && keep(parts[1])}
+              {/* Protected names stay whole, and the emphasis never drops onto a line of its own: it rides in one
+                  inline-block with the word before it, which wraps inside only when even a full line can't hold both. */}
+              {emphasis ? (
+                <>
+                  <Runs text={lead} />
+                  <span className="inline-block">
+                    {last}
+                    <span className="em">{emphasis}</span>
+                  </span>
+                </>
+              ) : (
+                <Runs text={title} />
+              )}
+              {parts[1] && <Runs text={parts[1]} />}
             </span>
           </span>
         </h1>
