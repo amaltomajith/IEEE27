@@ -1,18 +1,29 @@
+// Source: iic2027.christuniversity.in/publication and refs/Publication page details.docx (they agree).
+// Both say "TCP peer review"; that is a typo for the Technical Programme Committee (TPC) and is corrected here.
 export const publication = {
   title: "Open Access Scopus-Indexed Journal Publication",
-  body: "Presented and high-quality selected papers will be considered for publication in a Scopus-indexed Open Access Journal. The publication process will commence with an editorial screening by the journal to assess the manuscript's suitability, scope, and quality. Papers that successfully clear this stage will proceed to a peer-review process coordinated by the Conference Technical Programme Committee (TPC) and will be evaluated in accordance with the journal's review standards and acceptance criteria.",
-  apc: "USD 100",
-  apcNotes: [
-    "The APC is payable only upon final acceptance of the paper by the journal.",
-    "The final decision regarding publication rests solely with the journal and is based on its editorial policies, peer-review outcomes, and quality requirements.",
-  ],
-  notes: [
-    "Submission of a manuscript for journal consideration does not guarantee publication. All papers will be subject to the journal's editorial screening, peer-review process, and final acceptance decision.",
-    "Papers that do not pass the journal's initial editorial screening may be considered for publication in the conference proceedings with a DOI, subject to satisfying the conference's review standards and publication requirements.",
-    "Acceptance for conference presentation does not automatically guarantee acceptance for journal publication. Journal publication remains subject to the independent evaluation and approval of the respective journal.",
-  ],
+  description:
+    "Natural Sciences and Applied Technology (NSAT), a Scopus-indexed journal, is the Publication Partner for IIC 2027. Special Issue details, charges and the Publication Chair.",
+  partner: {
+    journal: "Natural Sciences and Applied Technology",
+    abbr: "NSAT",
+    website: "https://www.insat-res.in/journal-nsat",
+    scopus: "https://www.scopus.com/sourceid/21101439289",
+    logo: "/images/brand/insat-logo.webp",
+    logoAlt: "Seal of the Institute of Natural Sciences and Applied Technology, Kolkata, India",
+  },
+  specialIssue: {
+    title: "Advances in Artificial Intelligence for Cross-Domain Applications",
+    body: "Selected research contributions from the conference presentation may be considered for publication in the dedicated Special Issue, subject to:",
+    conditions: ["Editorial screening", "TPC peer review", "Publication ethics requirements", "Final acceptance by the journal"],
+  },
+  charges: {
+    apc: { label: "Article Processing Charge (APC)", amount: "USD 100", approx: "~ INR 10,000", unit: "per accepted paper" },
+    latex: { label: "LaTeX Formatting Service", amount: "INR 2,000", extra: "+ applicable GST", unit: "if required" },
+  },
   interest:
     "Authors who wish to be considered for the APC-based Open Access publication track are requested to formally communicate their interest to the Publication Chair.",
+  // The live page and the Word doc name Dr Varaprasad Janamala; Dr Ambili Jayachandran is kept here on request.
   chair: {
     name: "Dr Ambili Jayachandran",
     // One line each, so the affiliation breaks between its parts and never mid-name.
@@ -21,6 +32,6 @@ export const publication = {
       "School of Business and Management",
       "CHRIST (Deemed to be University), Bangalore Kengeri Campus",
     ],
-    email: "ambili.jayachandran@christuniversity.in" as string | null,
+    email: "ambili.jayachandran@christuniversity.in",
   },
 };

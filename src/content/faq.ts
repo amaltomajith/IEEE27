@@ -10,11 +10,11 @@ export const faq = [
   },
   {
     q: "Where will accepted papers be published?",
-    a: "Presented and high-quality selected papers will be considered for a Scopus-indexed Open Access journal. Papers that do not pass the journal's editorial screening may be considered for the conference proceedings with a DOI.",
+    a: "Selected papers may be considered for the Special Issue \"Advances in Artificial Intelligence for Cross-Domain Applications\" of Natural Sciences and Applied Technology (NSAT), a Scopus-indexed journal and the Publication Partner for IIC 2027, subject to editorial screening, TPC peer review, publication ethics requirements, and final acceptance by the journal.",
   },
   {
     q: "Is there a publication charge?",
-    a: "The journal track carries an Article Processing Charge of USD 100 per paper, payable only upon final acceptance by the journal.",
+    a: "The Article Processing Charge is USD 100 (~ INR 10,000) per accepted paper. An optional LaTeX Formatting Service costs INR 2,000 + applicable GST.",
   },
   {
     q: "What are the plagiarism and AI-content limits?",
