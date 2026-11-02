@@ -7,7 +7,7 @@ import { keep } from "@/lib/keep";
 const LINKS = [
   { href: "/submission/", label: "Paper Submission", note: "Extended abstract or full manuscript" },
   { href: "/registration/", label: "Registration", note: "National and international fees" },
-  { href: "/publication/", label: "Publication", note: "Scopus-indexed Open Access journal" },
+  { href: "/publication/", label: "Publication", note: "Scopus-indexed journal, Natural Sciences and Applied Technology" },
   { href: "/venue/", label: "Venue", note: "CHRIST (Deemed to be University) Bangalore Kengeri Campus" },
   { href: "/committee/", label: "Committees", note: "Advisory, technical and organising boards" },
 ];

@@ -42,7 +42,7 @@ export default function PublicationPage() {
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-x-7 gap-y-4">
-                <PillButton href={partner.website} variant="brand" icon={<ArrowUpRight size={17} weight="bold" />}>Journal Website</PillButton>
+                <PillButton href={partner.website} variant="brand" icon={<ArrowUpRight size={17} weight="bold" />} ariaLabel={`Journal website: ${partner.websiteLabel} (opens in a new tab)`}>{partner.websiteLabel}</PillButton>
                 <a href={partner.scopus} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 text-[15px] font-medium text-ink/80 transition-colors hover:text-ink">
                   <span className="underline decoration-ink/25 underline-offset-4 group-hover:decoration-ink">View on Scopus</span>
                   <ArrowUpRight size={15} weight="bold" className="text-brand-ink transition-transform duration-500 [transition-timing-function:var(--ease-spring)] group-hover:rotate-45" />

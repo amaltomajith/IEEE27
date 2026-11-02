@@ -2,6 +2,7 @@ import { HomeHero } from "@/components/hero/HomeHero";
 import { ReachSection } from "@/components/home/ReachSection";
 import { TracksSection } from "@/components/home/TracksSection";
 import { OrganizersSection } from "@/components/home/OrganizersSection";
+import { PublicationOpportunity } from "@/components/home/PublicationOpportunity";
 import { DatesSection } from "@/components/home/DatesSection";
 import { TakePart } from "@/components/home/TakePart";
 import { AdvisoryStack } from "@/components/home/AdvisoryStack";
@@ -15,6 +16,7 @@ export default function Home() {
       <ReachSection />
       <TracksSection />
       <OrganizersSection />
+      <PublicationOpportunity />
       <DatesSection />
       <TakePart />
       <AdvisoryStack />

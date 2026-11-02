@@ -4,10 +4,13 @@ export const publication = {
   title: "Open Access Scopus-Indexed Journal Publication",
   description:
     "Natural Sciences and Applied Technology (NSAT), a Scopus-indexed journal, is the Publication Partner for IIC 2027. Special Issue details, charges and the Publication Chair.",
+  homeNote:
+    "Selected papers may be considered for publication, subject to editorial screening, TPC peer review, publication ethics requirements and final acceptance by the journal.",
   partner: {
     journal: "Natural Sciences and Applied Technology",
     abbr: "NSAT",
     website: "https://www.insat-res.in/journal-nsat",
+    websiteLabel: "www.insat-res.in/journal-nsat",
     scopus: "https://www.scopus.com/sourceid/21101439289",
     logo: "/images/brand/insat-logo.webp",
     logoAlt: "Seal of the Institute of Natural Sciences and Applied Technology, Kolkata, India",
@@ -23,15 +26,13 @@ export const publication = {
   },
   interest:
     "Authors who wish to be considered for the APC-based Open Access publication track are requested to formally communicate their interest to the Publication Chair.",
-  // The live page and the Word doc name Dr Varaprasad Janamala; Dr Ambili Jayachandran is kept here on request.
   chair: {
-    name: "Dr Ambili Jayachandran",
+    name: "Dr Varaprasad Janamala",
     // One line each, so the affiliation breaks between its parts and never mid-name.
     role: [
-      "Assistant Professor, Department of Business and Management",
-      "School of Business and Management",
-      "CHRIST (Deemed to be University), Bangalore Kengeri Campus",
+      "Associate Professor, Department of Electrical and Electronics Engineering",
+      "School of Engineering and Technology, Christ University",
     ],
-    email: "ambili.jayachandran@christuniversity.in",
+    email: "varaprasad.janamala@christuniversity.in",
   },
 };

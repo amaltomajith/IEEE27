@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Monitor } from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
+import { BookOpenText, Monitor } from "@phosphor-icons/react/dist/ssr";
 import { HeroEngine } from "./engine";
 import { Loader, LOADER_SKEW } from "./Loader";
 import { slashX } from "./slash";
@@ -337,6 +338,18 @@ function HeroCopy({ ghost = false }: { ghost?: boolean }) {
   const Title = ghost ? "div" : "h1";
   // Lines the resting slash keeps a gap from (hero/slash.ts); the ghost sits exactly on top, so only the real copy is marked.
   const clear = ghost ? {} : { "data-slash-clear": "" };
+  // The publication route is a main draw for authors, so it sits beside the mode on the first screen.
+  const publicationNote = (
+    <>
+      <span className={`grid size-[clamp(44px,3.4vw,56px)] shrink-0 place-items-center rounded-[14px] bg-amber text-navy ${hide}`}>
+        <BookOpenText size={24} weight="duotone" />
+      </span>
+      <span className={`block leading-tight ${ghost ? "[&_*]:!text-white" : ""}`}>
+        <span className="block font-display text-[clamp(22px,1.8vw,30px)] leading-none font-medium">Scopus-Indexed Journal</span>
+        <span className="text-sm text-muted">Publication opportunity</span>
+      </span>
+    </>
+  );
   return (
     <>
       {/* Lockup: conference label, title, theme line. */}
@@ -376,8 +389,8 @@ function HeroCopy({ ghost = false }: { ghost?: boolean }) {
           <span {...clear}>Reimagining Human-AI Collaboration Across Sectors.</span>
         </p>
       </div>
-      <div className="fade-up mt-10 flex flex-wrap items-end justify-between gap-8">
-        <div className="flex flex-wrap items-start gap-x-8 gap-y-5">
+      <div className="fade-up mt-6 flex flex-wrap items-end justify-between gap-x-5 gap-y-4 md:mt-10 md:gap-y-8 lg:flex-nowrap">
+        <div className="flex flex-wrap items-start gap-x-5 gap-y-3 md:gap-y-5 2xl:gap-x-8">
           {/* The ghost keeps the unit labels as white type and hides the tiles. */}
           <div className={`flex ${ghost ? "[&_*]:!text-white [&_.mono]:invisible" : ""}`}>
             <Countdown />
@@ -391,8 +404,10 @@ function HeroCopy({ ghost = false }: { ghost?: boolean }) {
               <span className="text-sm text-muted">Online + offline, {keep(site.dates)}</span>
             </p>
           </div>
+          {/* The ghost repeats the type only, so the link stays on the real copy. */}
+          {ghost ? <div className="flex items-center gap-3">{publicationNote}</div> : <Link href="/publication/" className="group flex items-center gap-3">{publicationNote}</Link>}
         </div>
-        <div className={`flex ${hide}`}>
+        <div className={`flex shrink-0 ${hide}`}>
           <PillButton href="/thematic-tracks/" variant="brand" tabIndex={ghost ? -1 : undefined}>
             View Tracks
           </PillButton>

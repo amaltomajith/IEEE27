@@ -4,7 +4,7 @@ import { organizers, site } from "@/content/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { Ribbon } from "@/components/ui/Ribbon";
 
-const FACTS = ["Hybrid Mode", "Scopus-Indexed Open Access Journal", "APC USD 100, on Acceptance Only", "Proceedings with DOI"];
+const FACTS = ["Hybrid Mode", "Proceedings with DOI"];
 
 export function OrganizersSection() {
   return (

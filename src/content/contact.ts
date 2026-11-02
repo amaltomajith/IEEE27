@@ -7,7 +7,7 @@ export type Contact = { topic: string; name?: string; email: string };
 // route to the conference inbox.
 export const contacts: Contact[] = [
   { topic: "Submission", name: "Dr Bhuvana Jayabalan", email: "bhuvana.jayabalan@christuniversity.in" },
-  { topic: "Publications", name: "Dr Ambili Jayachandran", email: "ambili.jayachandran@christuniversity.in" },
+  { topic: "Publications", name: "Dr Varaprasad Janamala", email: "varaprasad.janamala@christuniversity.in" },
   { topic: "Accommodation", name: "Dr Manikandan P", email: "manikandan.p@christuniversity.in" },
 ];
 
