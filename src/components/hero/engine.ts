@@ -285,9 +285,10 @@ export class HeroEngine {
 
     // Card morph: the tube melts into a rounded box the size of the slot.
     const box = this.slotBox;
-    const end = box.cy - H / 2, start = Math.min(box.cy - H * 0.72, end - H * 0.3);
+    // Done with the card's centre at 60% of the window, just above where it rests below the nav.
+    const end = box.cy - H * 0.6, start = box.cy - H * 0.8;
     const t2 = clamp((sy - start) / Math.max(1, end - start));
-    this.e2s = this.reduce ? t2 : damp(this.e2s, t2, 0.2);
+    this.e2s = this.reduce ? t2 : damp(this.e2s, t2, 0.42);
     if (Math.abs(this.e2s - t2) < 0.002) this.e2s = t2;
     const e2 = easeInOutCubic(this.e2s), bc = toS(box.cx, box.cy);
     gl.uniform4f(U("uBox"), bc[0], bc[1], this.e2s > 0.001 ? lerp(S.hx * 0.9, box.hx, e2) / H : 0, this.e2s > 0.001 ? lerp(S.hx * 0.9, box.hy, e2) / H : 0);

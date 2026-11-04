@@ -5,7 +5,6 @@ import { cascade, type PulseTarget } from "./cascade";
 
 THREE.ColorManagement.enabled = false;
 const C = (hex: string) => new THREE.Color(hex);
-const ease = (x: number) => x * x * (3 - 2 * x);
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
 
 type Hand = {
@@ -38,6 +37,8 @@ export class Hands {
   private shown = 0;
   private armed = true;
   private nextIdle = 2;
+  /** Pulse time of a contact whose second hand still has to fire; -1 when none. */
+  private pendingSpark = -1;
   private pointer = { x: 0, y: 0, cx: 0, cy: 0 };
   private m = new THREE.Matrix4();
   private tmp = new THREE.Matrix4();
@@ -156,9 +157,20 @@ export class Hands {
     this.shared.uSize.value = 3.1 * Math.max(0.75, h / 820);
   }
 
+  /** Size, compile and draw once, before the canvas is shown: the first real frame then has no shader stall. */
+  warm(w: number, h: number) {
+    this.setSize(w, h);
+    this.renderer.compile(this.scene, this.camera);
+    this.render(performance.now());
+  }
+
   /** Scroll progress through the section, 0..1. */
   setProgress(p: number) {
     this.prog = clamp01(p);
+  }
+  /** Both hands parked off-frame: a further frame would draw nothing new. */
+  get atRest() {
+    return this.prog === 0 && this.shown < 0.002;
   }
   setPointer(x: number, y: number) {
     this.pointer.x = x;
@@ -182,15 +194,22 @@ export class Hands {
     hand.nodes.getAttribute("aHit").needsUpdate = true;
   }
 
-  /** The contact moment: a bolt between the fingertips, then both hands light up from the tip. */
+  private fire(hand: Hand, t: number) {
+    hand.ring[hand.L.tip] = t;
+    hand.nodes.getAttribute("aRing").needsUpdate = true;
+    this.think(hand, hand.L.tip, 40, 0.05);
+  }
+
+  /**
+   * The contact moment: a bolt between the fingertips, then both hands light up from the tip.
+   * Each hand's full cascade is costly, so the second runs on the next frame: the eye cannot
+   * split them, but one frame holding both would drop right at the moment people are watching.
+   */
   spark() {
     const t = this.pt();
     this.boltU.uAt.value = t;
-    for (const hand of [this.robot, this.human]) {
-      hand.ring[hand.L.tip] = t;
-      hand.nodes.getAttribute("aRing").needsUpdate = true;
-      this.think(hand, hand.L.tip, 40, 0.05);
-    }
+    this.fire(this.robot, t);
+    this.pendingSpark = t;
   }
 
   /**
@@ -218,6 +237,10 @@ export class Hands {
 
   render(now: number) {
     const t = this.pt();
+    if (this.pendingSpark >= 0) {
+      this.fire(this.human, this.pendingSpark);
+      this.pendingSpark = -1;
+    }
     this.shared.uTime.value = this.frozen ? 2 : t;
     this.shared.uPT.value = t;
     const pc = this.pointer;
@@ -227,7 +250,8 @@ export class Hands {
     // Ease the shown progress toward the scroll so a fast flick still glides.
     this.shown += (this.prog - this.shown) * (this.frozen ? 1 : 0.12);
     const p = this.shown;
-    const approach = ease(clamp01(p / 0.82));
+    // Decelerating: quick out from behind the card so the stage fills as it lifts, slow into the touch.
+    const left = 1 - clamp01(p / 0.82), approach = 1 - left * left;
 
     const aspect = this.w / this.h, portrait = aspect < 0.9;
     const H = 7 * Math.tan((15 * Math.PI) / 180), W = H * aspect;
@@ -236,10 +260,13 @@ export class Hands {
     const meet: [number, number] = portrait ? [tn.pMeetX * W, tn.pMeetY * H] : [0.16 * W, 0.2 * H];
     const aR = portrait ? tn.pTiltR : tn.tiltR, aH = Math.PI - (portrait ? tn.pTiltH : tn.tiltH);
     const dR = [Math.cos(aR), Math.sin(aR)], dH = [Math.cos(aH), Math.sin(aH)];
-    const far = (portrait ? 1.3 : 1.6) * W, gap = 0.055 * s + far * (1 - approach);
+    // Both hands start fully off-frame and glide in from the edges. The robot's arm trails much further behind
+    // its fingertip, so it travels further: it stays out of the card's side margins and comes in below the card.
+    const touch = 0.055 * s, rest = 1 - approach;
+    const gapR = touch + (portrait ? 6.4 : 4.4) * W * rest, gapH = touch + (portrait ? 4.2 : 2.1) * W * rest;
     const bob = this.frozen ? 0 : Math.sin(t * 0.9) * 0.012;
-    const tipR: [number, number] = [meet[0] - dR[0] * gap * 0.5, meet[1] - dR[1] * gap * 0.5 + bob];
-    const tipH: [number, number] = [meet[0] - dH[0] * gap * 0.5, meet[1] - dH[1] * gap * 0.5 - bob];
+    const tipR: [number, number] = [meet[0] - dR[0] * gapR * 0.5, meet[1] - dR[1] * gapR * 0.5 + bob];
+    const tipH: [number, number] = [meet[0] - dH[0] * gapH * 0.5, meet[1] - dH[1] * gapH * 0.5 - bob];
     const a = this.pose(this.robot, true, dR as [number, number], tipR, s, tn.rollR);
     const b = this.pose(this.human, false, dH as [number, number], tipH, s, tn.rollH);
     (this.boltU.uA.value as THREE.Vector3).copy(a);

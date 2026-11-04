@@ -10,10 +10,19 @@ const smooth = (a: number, b: number, x: number) => {
   return t * t * (3 - 2 * t);
 };
 
+// One scale for the whole pinned scroll (0..1). The stage is 100svh and overlaps the hero by 100svh of the
+// section's 310svh, so the hero ends at 100/210 at every viewport and these stay in step with the card.
+const HANDS_FROM = 0.1; // the hands start gliding in as the card begins to lift
+const LINE_A_IN: [number, number] = [0.24, 0.36]; // in the space the card leaves
+const LINE_A_OUT: [number, number] = [0.62, 0.74];
+const LINE_B_IN: [number, number] = [0.68, 0.82]; // crosses line A and lands on the touch, so the stage never sits without words
+const REST_POLL = 350; // ms between checks for a pause in the scroll
+
 /**
  * "Reach": the poster's two hands, machine and human, built from the brain's
- * neurons. Scrolling the pinned stage brings their fingertips together; the
- * conference's question turns over as they meet.
+ * neurons. The stage pins behind the hero's brain card, so the card lifts away
+ * over it rather than one section following another. Scrolling on brings the
+ * fingertips together; the conference's question turns over as they meet.
  *
  * Modes: "scroll" (pinned, scrubbed), "still" (reduced motion: one composed frame,
  * no pin) and "text" (no WebGL).
@@ -32,43 +41,65 @@ export function ReachSection() {
     if (!el || !stage) return;
     const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (still) setMode("still");
-    let visible = false;
+    let visible = false, failed = false;
+    // Building the hands is the page's heaviest single task, so it waits for a pause in the scroll, past the
+    // intro. Whoever reaches the stage first (or reduced motion, which has no pin) builds it on the way in.
+    const build = () => {
+      if (hands.current || failed) return;
+      try {
+        const h = new Hands({ dense: matchMedia("(pointer: fine)").matches && innerWidth > 900, frozen: still });
+        const r = stage.getBoundingClientRect();
+        h.warm(r.width, r.height);
+        stage.appendChild(h.canvas);
+        hands.current = h;
+      } catch {
+        failed = true;
+        setMode("text");
+      }
+    };
     const io = new IntersectionObserver(
       ([e]) => {
         visible = e.isIntersecting;
-        if (!visible || hands.current) return;
-        try {
-          hands.current = new Hands({ dense: matchMedia("(pointer: fine)").matches && innerWidth > 900, frozen: still });
-          stage.appendChild(hands.current.canvas);
-        } catch {
-          setMode("text");
-        }
+        if (visible && still) build();
       },
       { rootMargin: "100% 0px" },
     );
     io.observe(el);
+    let lastY = -1;
+    const rest = setInterval(() => {
+      const paused = scrollY === lastY && !document.documentElement.classList.contains("is-locked");
+      lastY = scrollY;
+      if (hands.current || failed) clearInterval(rest);
+      else if (paused && !still) build();
+    }, REST_POLL);
     const off = onFrame((now) => {
+      if (failed) return;
+      const p = scrollYProgress.get();
+      if (!still) {
+        if (p > 0) build();
+        const aIn = smooth(LINE_A_IN[0], LINE_A_IN[1], p), aOut = smooth(LINE_A_OUT[0], LINE_A_OUT[1], p), b = smooth(LINE_B_IN[0], LINE_B_IN[1], p);
+        if (lineA.current) {
+          lineA.current.style.opacity = String(aIn * (1 - aOut));
+          lineA.current.style.transform = `translate3d(0, ${(1 - aIn) * 28 - aOut * 28}px, 0)`;
+        }
+        if (lineB.current) {
+          lineB.current.style.opacity = String(b);
+          lineB.current.style.transform = `translate3d(0, ${(1 - b) * 28}px, 0)`;
+        }
+      }
       const h = hands.current;
       if (!h || !visible) return;
       const r = stage.getBoundingClientRect();
+      const resized = Math.round(r.width) !== h.w || Math.round(r.height) !== h.h;
       h.setSize(r.width, r.height);
-      const p = still ? 0.9 : scrollYProgress.get();
-      h.setProgress(p);
-      h.render(now);
-      if (still) return;
-      const a = 1 - smooth(0.5, 0.7, p), b = smooth(0.76, 0.9, p);
-      if (lineA.current) {
-        lineA.current.style.opacity = String(a);
-        lineA.current.style.transform = `translate3d(0, ${(1 - a) * -28}px, 0)`;
-      }
-      if (lineB.current) {
-        lineB.current.style.opacity = String(b);
-        lineB.current.style.transform = `translate3d(0, ${(1 - b) * 28}px, 0)`;
-      }
+      h.setProgress(still ? 0.9 : Math.max(0, (p - HANDS_FROM) / (1 - HANDS_FROM)));
+      // Behind the card there is nothing to see: skip the frame so two scenes never draw at once.
+      if (still || resized || !h.atRest) h.render(now);
     });
     return () => {
       off();
       io.disconnect();
+      clearInterval(rest);
       hands.current?.dispose();
       hands.current = null;
     };
@@ -78,7 +109,7 @@ export function ReachSection() {
   const final = !pinned;
 
   return (
-    <section ref={sec} className={`relative ${pinned ? "h-[260svh]" : ""}`}>
+    <section ref={sec} className={`relative ${pinned ? "-mt-[100svh] h-[310svh]" : ""}`}>
       <div className={`${pinned ? "sticky top-0" : "relative"} h-[100svh] overflow-hidden`}>
         <div
           ref={host}
@@ -93,7 +124,7 @@ export function ReachSection() {
         <div className="pointer-events-none absolute inset-0">
           <div className="wrap flex h-full flex-col justify-end pb-[clamp(36px,9vh,110px)]">
             <div className="grid max-w-[min(100%,900px)]">
-              <p ref={lineA} className={`t-h1 col-start-1 row-start-1 self-end max-w-[13ch] ${final ? "invisible" : ""}`}>
+              <p ref={lineA} className={`t-h1 col-start-1 row-start-1 self-end max-w-[13ch] ${final ? "invisible" : ""}`} style={final ? undefined : { opacity: 0 }}>
                 We have asked what AI <span className="em">can do</span>.
               </p>
               <div ref={lineB} className="col-start-1 row-start-1 self-end" style={final ? undefined : { opacity: 0 }}>

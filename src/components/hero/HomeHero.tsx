@@ -14,7 +14,7 @@ import { ConferenceLockup } from "@/components/ui/Lockup";
 import { PillButton } from "@/components/ui/PillButton";
 import { onFrame } from "@/lib/frame";
 import { acquireScrollLock } from "@/lib/scroll";
-import { clamp } from "@/lib/damp";
+import { clamp, smoothstep } from "@/lib/damp";
 import { site, heroCampusPhoto } from "@/content/site";
 import { keep } from "@/lib/keep";
 
@@ -67,6 +67,7 @@ export function HomeHero() {
   const ink = useRef<HTMLDivElement>(null);
   const staticSlash = useRef<HTMLSpanElement>(null);
   const sceneHost = useRef<HTMLDivElement>(null);
+  const cardWords = useRef<HTMLDivElement>(null);
   const engine = useRef<HeroEngine | null>(null);
   const scene = useRef<ThinkingSystem | null>(null);
   const loaderLock = useRef<(() => void) | null>(null);
@@ -174,6 +175,13 @@ export function HomeHero() {
     const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting));
     io.observe(slotEl);
     const off = onFrame((now) => {
+      // The card's words follow its position, not a timer, so at any scroll speed they are fully in
+      // by the time it rests below the nav (centre at 55% of the window), and they reverse with it.
+      const words = cardWords.current;
+      if (engine.current && words) {
+        const b = slotEl.getBoundingClientRect(), h = innerHeight;
+        words.style.opacity = String(smoothstep(0, 1, (h * 0.64 - (b.top + b.height / 2)) / (h * 0.09)));
+      }
       const s = scene.current;
       if (!s) return;
       const isOpen = !engine.current || slotEl.classList.contains("is-open");
@@ -285,7 +293,7 @@ export function HomeHero() {
             <div ref={slot} id="slot" className="relative mx-auto aspect-video max-h-[78vh] w-full max-w-[1400px] rounded-[2.2vh] max-sm:aspect-square">
               <div
                 ref={sceneHost}
-                className={`absolute inset-0 touch-pan-y overflow-hidden rounded-[inherit] bg-paper transition-opacity duration-500 [&>canvas]:block [&>canvas]:size-full ${showCard ? "opacity-100" : "pointer-events-none opacity-0"}`}
+                className={`absolute inset-0 touch-pan-y overflow-hidden rounded-[inherit] bg-paper transition-opacity duration-200 [&>canvas]:block [&>canvas]:size-full ${showCard ? "opacity-100" : "pointer-events-none opacity-0"}`}
                 {...hold}
                 onPointerMove={(e) => {
                   pointer(e, sceneHost.current);
@@ -302,8 +310,9 @@ export function HomeHero() {
                 }}
               />
               <div
+                ref={cardWords}
                 aria-hidden={!showCard}
-                className={`pointer-events-none absolute inset-0 flex flex-col justify-between rounded-[inherit] p-[clamp(20px,3vw,48px)] text-ink ring-1 ring-ink/[0.07] ring-inset transition-opacity duration-700 ${showCard ? "opacity-100" : "opacity-0"}`}
+                className={`pointer-events-none absolute inset-0 flex flex-col justify-between rounded-[inherit] p-[clamp(20px,3vw,48px)] text-ink ring-1 ring-ink/[0.07] ring-inset ${mode === "static" ? "" : "opacity-0"}`}
               >
                 <p className="text-sm text-muted max-sm:hidden">Click a neuron to send a thought. Hold to watch the machine think.</p>
                 <div className="mt-auto flex items-end justify-between gap-6 max-sm:justify-end">
