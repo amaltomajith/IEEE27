@@ -149,7 +149,7 @@ const PH = "/images/people/";
 export const trackCommittee: Record<Track["slug"], Member[]> = {
   "cse-ai-ml": [
     { name: "Dr Sincy John", role: "Assistant Professor", org: "Computer Science and Engineering", photo: PH + "sincy-john.webp", url: "https://bkc.christuniversity.in/computer-science-and-engineering/faculty-details/OTYwNQ==/Nzk=" },
-    { name: "Dr Sania Thomas" },
+    { name: "Dr Sania Thomas", role: "Assistant Professor", org: "Artificial Intelligence and Data Science Engineering", photo: PH + "sania-thomas.webp", url: CU + "ai-and-data-science-engineering/faculty-details/MTA3MTI=/OTY=" },
   ],
   "eee-me": [
     { name: "Dr Varaprasad Janamala", role: "Associate Professor", org: "Electrical and Electronics Engineering", photo: PH + "varaprasad-janamala.webp", url: CU + "electrical-and-electronics-engineering/faculty-details/MTQ2Nw==/ODA=" },
