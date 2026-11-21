@@ -4,7 +4,7 @@ import { PillButton } from "@/components/ui/PillButton";
 import { DatesTimeline } from "@/components/pages/DatesTimeline";
 import { site } from "@/content/site";
 
-export const metadata: Metadata = { title: "Important Dates", description: "Submission, notification, registration and conference dates for IIC 2027." };
+export const metadata: Metadata = { title: "Important Dates", description: "Submission, registration and conference dates for IIC 2027." };
 
 export default function DatesPage() {
   return (
