@@ -47,12 +47,46 @@ function Segmented<T extends string>({ value, options, onChange, label, id, disa
   );
 }
 
+type Tabbed = Exclude<Region, "christ">;
+const tabs = regions.filter((r): r is (typeof regions)[number] & { v: Tabbed } => r.v !== "christ");
+
+/** One category's fee; the figure slides in whenever `k` changes. */
+function FeeCard({ category, fee, region, k, featured, reduce }: { category: string; fee: number | null; region: Region; k: string; featured: boolean; reduce: boolean }) {
+  return (
+    <li
+      className={`flex items-center justify-between gap-4 rounded-[var(--radius-m)] p-5 sm:min-h-[220px] sm:flex-col sm:items-stretch sm:p-[clamp(20px,2vw,32px)] ${featured ? "bg-brand-soft ring-1 ring-brand/30" : "bg-white ring-1 ring-ink/5"}`}
+    >
+      <p className="font-medium text-ink/75 max-sm:text-[15px] max-sm:leading-snug">{category}</p>
+      <div className="relative h-[40px] flex-none overflow-hidden text-right sm:h-[clamp(52px,4.6vw,76px)] sm:text-left">
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.p
+            key={k}
+            initial={reduce ? false : { y: "100%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={reduce ? undefined : { y: "-100%", opacity: 0 }}
+            transition={{ type: "spring", bounce: 0, duration: 0.5 }}
+            className={`font-display text-[36px] leading-none font-semibold whitespace-nowrap [font-variant-numeric:lining-nums_tabular-nums] sm:text-[clamp(48px,4.4vw,72px)] ${featured ? "text-brand-deep" : ""} ${fee === null ? "text-ink/35" : ""}`}
+          >
+            {fee === null ? (
+              <>
+                <span aria-hidden>—</span>
+                <span className="sr-only">Not applicable</span>
+              </>
+            ) : (
+              formatFee(fee, region)
+            )}
+          </motion.p>
+        </AnimatePresence>
+      </div>
+    </li>
+  );
+}
+
 export function FeeMatrix() {
-  const [region, setRegion] = useState<Region>("national");
+  const [region, setRegion] = useState<Tabbed>("national");
   const [tier, setTier] = useState<Tier>("early");
   const [currentTier, setCurrentTier] = useState<Tier | "closed" | null>(null);
-  const reduce = useReducedMotion();
-  const flat = region === "christ";
+  const reduce = !!useReducedMotion();
 
   useEffect(() => {
     const now = Date.now();
@@ -65,54 +99,30 @@ export function FeeMatrix() {
   return (
     <div>
       <div className="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:flex-wrap sm:items-center">
-        <Segmented id="region" label="Delegate Category" value={region} onChange={setRegion} options={regions} />
-        <Segmented id="tier" label="Registration Window" value={tier} onChange={setTier} disabled={flat} options={[{ v: "early", label: "Early Bird" }, { v: "regular", label: "Regular" }]} />
+        <Segmented id="region" label="Delegate Category" value={region} onChange={setRegion} options={tabs} />
+        <Segmented id="tier" label="Registration Window" value={tier} onChange={setTier} options={[{ v: "early", label: "Early Bird" }, { v: "regular", label: "Regular" }]} />
       </div>
       <p className="mb-6 text-muted" aria-live="polite">
-        {flat ? (
-          <>CHRIST-affiliated delegates pay one flat rate, in INR.</>
-        ) : (
-          <>
-            {feeDeadlines[tier].label}: <span className="text-ink">{keep(feeDeadlines[tier].display)}</span>
-            {currentTier === tier && <span className="ml-3 inline-block rounded-full bg-brand px-3 py-1 text-xs font-semibold text-paper">Open Now</span>}
-            {currentTier === "regular" && tier === "early" && <span className="ml-3 inline-block rounded-full bg-gray-2 px-3 py-1 text-xs font-semibold text-ink">Closed</span>}
-          </>
-        )}
+        {feeDeadlines[tier].label}: <span className="text-ink">{keep(feeDeadlines[tier].display)}</span>
+        {currentTier === tier && <span className="ml-3 inline-block rounded-full bg-brand px-3 py-1 text-xs font-semibold text-paper">Open Now</span>}
+        {currentTier === "regular" && tier === "early" && <span className="ml-3 inline-block rounded-full bg-gray-2 px-3 py-1 text-xs font-semibold text-ink">Closed</span>}
       </p>
       <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        {fees.map((f, i) => {
-          const fee = feeFor(f, region, tier);
-          return (
-            <li
-              key={f.category}
-              className={`flex items-center justify-between gap-4 rounded-[var(--radius-m)] p-5 sm:min-h-[220px] sm:flex-col sm:items-stretch sm:p-[clamp(20px,2vw,32px)] ${i === 1 ? "bg-brand-soft ring-1 ring-brand/30" : "bg-white ring-1 ring-ink/5"}`}
-            >
-              <p className="font-medium text-ink/75 max-sm:text-[15px] max-sm:leading-snug">{f.category}</p>
-              <div className="relative h-[40px] flex-none overflow-hidden text-right sm:h-[clamp(52px,4.6vw,76px)] sm:text-left">
-                <AnimatePresence mode="popLayout" initial={false}>
-                  <motion.p
-                    key={flat ? region : region + tier}
-                    initial={reduce ? false : { y: "100%", opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={reduce ? undefined : { y: "-100%", opacity: 0 }}
-                    transition={{ type: "spring", bounce: 0, duration: 0.5 }}
-                    className={`font-display text-[36px] leading-none font-semibold whitespace-nowrap [font-variant-numeric:lining-nums_tabular-nums] sm:text-[clamp(48px,4.4vw,72px)] ${i === 1 ? "text-brand-deep" : ""} ${fee === null ? "text-ink/35" : ""}`}
-                  >
-                    {fee === null ? (
-                      <>
-                        <span aria-hidden>—</span>
-                        <span className="sr-only">Not applicable</span>
-                      </>
-                    ) : (
-                      formatFee(fee, region)
-                    )}
-                  </motion.p>
-                </AnimatePresence>
-              </div>
-            </li>
-          );
-        })}
+        {fees.map((f, i) => (
+          <FeeCard key={f.category} category={f.category} fee={feeFor(f, region, tier)} region={region} k={region + tier} featured={i === 1} reduce={reduce} />
+        ))}
       </ul>
+
+      {/* CHRIST-affiliated delegates pay one flat rate, so they sit outside the tabs and tiers. */}
+      <div className="mt-[clamp(48px,6vw,88px)]">
+        <h2 className="t-h3">CHRIST-Affiliated</h2>
+        <p className="mt-3 mb-6 text-muted">One flat rate in INR, with no early bird or regular tier.</p>
+        <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {fees.map((f, i) => (
+            <FeeCard key={f.category} category={f.category} fee={f.christ} region="christ" k="christ" featured={i === 1} reduce={reduce} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

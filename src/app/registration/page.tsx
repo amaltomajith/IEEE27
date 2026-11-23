@@ -8,13 +8,20 @@ import { accommodation, feeNotes } from "@/content/fees";
 import { site } from "@/content/site";
 import { MailLink } from "@/components/ui/MailLink";
 import { EmailText } from "@/components/ui/EmailText";
+import { keep } from "@/lib/keep";
 
 export const metadata: Metadata = { title: "Registration", description: "Registration fees for IIC 2027: CHRIST-affiliated, non-CHRIST and foreign delegates, early bird and regular." };
 
 export default function RegistrationPage() {
   return (
     <>
-      <PageHero title="Registration Fees" emphasis="Fees" crumbs={[{ label: "Registration" }]} intro="Early bird rates close on 15 January 2027. Regular registration closes on 30 January 2027." />
+      <PageHero title="Registration Fees" emphasis="Fees" crumbs={[{ label: "Registration" }]} intro={
+          <>
+            <span className="block">{keep("Early bird rates close on 15 January 2027.")}</span>
+            <span className="block">{keep("Regular registration closes on 30 January 2027.")}</span>
+          </>
+        }
+      />
       <section className="wrap pb-[clamp(56px,7vw,110px)]">
         <FeeMatrix />
       </section>
