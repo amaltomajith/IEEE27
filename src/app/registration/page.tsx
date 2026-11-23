@@ -9,7 +9,7 @@ import { site } from "@/content/site";
 import { MailLink } from "@/components/ui/MailLink";
 import { EmailText } from "@/components/ui/EmailText";
 
-export const metadata: Metadata = { title: "Registration", description: "Registration fees for IIC 2027: national and international, early bird and regular." };
+export const metadata: Metadata = { title: "Registration", description: "Registration fees for IIC 2027: CHRIST-affiliated, non-CHRIST and foreign delegates, early bird and regular." };
 
 export default function RegistrationPage() {
   return (
