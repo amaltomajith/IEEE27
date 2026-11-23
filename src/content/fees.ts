@@ -18,7 +18,7 @@ export const regions: { v: Region; label: string; short: string }[] = [
 
 export const feeDeadlines: Record<Tier, { label: string; date: string; display: string }> = {
   early: { label: "Early Bird", date: "2027-01-15", display: "Before 15 January 2027" },
-  regular: { label: "Regular", date: "2027-01-30", display: "By 30 January 2027" },
+  regular: { label: "Regular", date: "2027-01-30", display: "Before 30 January 2027" },
 };
 
 export const fees: FeeRow[] = [
